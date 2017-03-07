@@ -51,11 +51,10 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     var input=$(document.createElement("div")).attr("id", "classmatesConfig");
     //for (i in self.monthOptions){
     console.log(self.config);
-    for (var alu in self.config){
-        
+    for (var alu in self.config){        
         var aluItem=$(document.createElement("div")).attr("id", alu).addClass("col-md-3 aluItem");
-        var aluImg=$(document.createElement("img")).attr("src", "components/classmates/img/"+self.config[alu].img).addClass("col-md-6 aluImg");
-        var aluName=$(document.createElement("div")).html(self.config[alu].name).addClass("col-md-6 aluName");
+        var aluImg=$(document.createElement("img")).attr("src", "components/classmates/img/"+self.config[alu].img).addClass("aluImg");
+        var aluName=$(document.createElement("div")).html(self.config[alu].name).addClass("aluName textfluid").attr("fontzoom",1.5);
         //var configRow=$(document.createElement("div"));
         $(aluItem).append(aluImg, aluName);
         $(input).append(aluItem);
@@ -68,10 +67,36 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     
     
     ret.bindEvents=function(){
-        $(".monthConfigRow").on("click", function(){
+        $(".aluImg").on("click", function(){
+            var fileselector=$(document.createElement("input")).attr("id", "fileSelector").attr("type", "file").css("display", "none");
+            $(classmatesConfig).append(fileselector);
+            $(fileselector).on("change", function(){
+                
+                
+                // Check mimetype for image
+                var newImage=this.value;
+                // https://www.npmjs.com/package/file-type
+                const readChunk = require('read-chunk');
+                const fileType = require('file-type');
+                const buffer = readChunk.sync(newImage, 0, 4100);
+ 
+                //console.log(fileType(buffer));
+                
+                if (fileType(buffer).mime.split("/")[0]=="image"){
+                    var fs=require('fs');
+                    
+                    // WIP
+                    oldImage="/tmp/test";
+                    fs.createReadStream(newImage).pipe(fs.createWriteStream(oldImage));
+                    // Cal copiar  la nova imatge a la ubicació de la vella, però haurà d'estar a la carpeta de personalització,
+                    // no dins el img del component (aci deixe les genèriques)
+                }
+                
+                
+                });
             
-            if($(this).hasClass("monthStatusActive")) $(this).removeClass("monthStatusActive");
-            else $(this).addClass("monthStatusActive");
+            $(fileselector).click();
+            
             });  
     };
     

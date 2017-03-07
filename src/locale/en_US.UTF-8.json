@@ -38,6 +38,8 @@
   "winter":"Winter",
   
   "season.it.is":"We are in",
-  "season.component.title":"What is current season?"
+  "season.component.title":"What is current season?",
+  
+  "classmates.component.options": "Configure pupils"
 
 }

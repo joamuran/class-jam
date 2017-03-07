@@ -38,5 +38,7 @@
   "winter":"Hivern",
   
   "season.it.is":"Estem en",
-  "season.component.title":"en quina estació estem?"
+  "season.component.title":"en quina estació estem?",
+  
+  "classmates.component.options": "Configura els alumnes"
 }

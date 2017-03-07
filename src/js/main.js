@@ -124,6 +124,7 @@ UI.prototype.bindCompomentsEvents=function bindCompomentsEvents(){
          
          // When dialog is shown, let's bind events for dialog
          dialog.bindEvents();
+         resizeFonts(); // Resizing fonts when showing dialog
          
          
          

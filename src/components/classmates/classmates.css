@@ -8,12 +8,17 @@
 }
 
 .aluImg{
-    border-right: 1px solid #333333;
-    height: 100%;
-    width: auto;
+    height: auto;
+    width: 100%;
+    float: left;
+    clear: both;
     }
 
 .aluName{
     text-align: left;
+    float: left;
+    clear: both;
+    text-align: center;
+    width: 100%;
 
 }
