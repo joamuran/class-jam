@@ -1,0 +1,43 @@
+{
+  "app.name": "Classroom assembly",
+  
+  "weather.component.title": "What's the weather like?",
+  
+  "sunny": "Sunny",
+  "partial_sunny":"Partial sunny",
+  "partial_cloudy":"Partial cloudy",
+  "cloudy":"Cloudy",
+  "rainy":"It's raining",
+  "snow":"It's snowing",
+  "weather.component.today.is":"Today it is",
+  
+  "monday":"Monday",
+  "tuesday":"Tuesday",
+  "wednesday": "Wednesday",
+  "thursday":"Thursday",
+  "friday":"Friday",
+  "saturday":"Saturday",
+  "sunday":"Sunday",
+  
+  "month.component.title":"In wich month we are?",
+  "january":"January",
+  "february":"February",
+  "march":"March",
+  "april":"April",
+  "may":"May",
+  "june":"June",
+  "july":"July",
+  "august":"August",
+  "september":"September",
+  "october":"October",
+  "november":"November",
+  "december":"December",
+  "spring":"Spring",
+  "summer":"Summer",
+  "autumn":"Autumn",
+  "winter":"Winter",
+  
+  "season.it.is":"We are in",
+  "season.component.title":"What is current season?"
+
+}

@@ -1,0 +1,19 @@
+
+
+.aluItem{
+    /*box-shadow: inset 0 0 10px #000000;*/
+    border: 1px solid #333333;
+    
+    
+}
+
+.aluImg{
+    border-right: 1px solid #333333;
+    height: 100%;
+    width: auto;
+    }
+
+.aluName{
+    text-align: left;
+
+}

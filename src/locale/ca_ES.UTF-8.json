@@ -1,0 +1,42 @@
+{
+  "app.name": "Assemblea de classe",
+  
+  "weather.component.title": "Quin temps fa?",
+  
+  "sunny": "Sol",
+  "partial_sunny":"Sol amb núvols",
+  "partial_cloudy":"Núvols",
+  "cloudy":"Molts núvols",
+  "rainy":"Hui plou",
+  "snow":"Hui neva",
+  "weather.component.today.is":"Hui fa...",
+  
+  "monday":"Dilluns",
+  "tuesday":"Dimarts",
+  "wednesday": "Dimecres",
+  "thursday":"Dijous",
+  "friday":"Divendres",
+  "saturday":"Dissabte",
+  "sunday":"Diumenge",
+  
+  "month.component.title":"En quin mes estem?",
+  "january":"Gener",
+  "february":"Febrer",
+  "march":"Març",
+  "april":"Abril",
+  "may":"Maig",
+  "june":"Juny",
+  "july":"Juliol",
+  "august":"Agost",
+  "september":"Setembre",
+  "october":"Octubre",
+  "november":"Novembre",
+  "december":"Desembre",
+  "spring":"Primavera",
+  "summer":"Estiu",
+  "autumn":"Tardor",
+  "winter":"Hivern",
+  
+  "season.it.is":"Estem en",
+  "season.component.title":"en quina estació estem?"
+}

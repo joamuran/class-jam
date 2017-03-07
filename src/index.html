@@ -1,0 +1,91 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		
+		
+		<!-- Loading libs -->
+		<script type="text/javascript" src="lib/jquery-3.1.1.min.js"></script>
+		<script src="lib/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="lib/gridster/dist/jquery.gridster.js"></script>
+		<script type="text/javascript" src="lib/vex/js/vex.combined.min.js"></script>
+		<script type="text/javascript" src="lib/i18n.js"></script>
+		
+		<script type="text/javascript" src="lib/jquery.fittext.js"></script>
+		
+		
+		
+		
+		
+		<!-- Loading Components-->
+		<script type="text/javascript" src="components/component.js"></script>
+		<script type="text/javascript" src="components/data/data.js"></script>
+		<script type="text/javascript" src="components/weather/weather.js"></script>
+		<script type="text/javascript" src="components/season/season.js"></script>
+		<script type="text/javascript" src="components/month/month.js"></script>
+		<script type="text/javascript" src="components/weekday/weekday.js"></script>
+		<script type="text/javascript" src="components/classmates/classmates.js"></script>
+		
+		<!-- Loading main -->
+		<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+		
+		
+		<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="lib/bootstrap/custom/theme.css">
+		<link rel="stylesheet" type="text/css" href="lib/gridster/dist/jquery.gridster.css">
+		
+		<link rel="stylesheet" href="lib/vex/css/vex.css" />
+		<!--link rel="stylesheet" href="lib/vex/css/vex-theme-flat-attack.css" />
+		<-link rel="stylesheet" href="lib/vex/css/vex-theme-default.css" />
+		<link rel="stylesheet" href="lib/vex/css/vex-theme-os.css" />
+		<link rel="stylesheet" href="lib/vex/css/vex-theme-plain.css" />
+		<link rel="stylesheet" href="lib/vex/css/vex-theme-top.css" />
+		<link rel="stylesheet" href="lib/vex/css/vex-theme-wireframe.css" /-->
+		<link rel="stylesheet" href="css/vex-theme-default-custom.css" />
+		
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="components/weather/weather.css">
+		<link rel="stylesheet" type="text/css" href="components/data/data.css">
+		<link rel="stylesheet" type="text/css" href="components/season/season.css">
+		<link rel="stylesheet" type="text/css" href="components/month/month.css">
+		<link rel="stylesheet" type="text/css" href="components/weekday/weekday.css">
+		<link rel="stylesheet" type="text/css" href="components/classmates/classmates.css">
+
+
+	
+	</head>
+	
+<body>
+		<div id="header" calss="col-md-12">
+			<div id="menuButton" class="controlButton"></div>
+			<h1 i18n>app.name</h1>
+			
+			<div id="controlPanel">	
+				<div id="controlPanelPlayer">
+					<div class="controlButton buttonhidden" id="btShowEditMode" title="Edit Mode"></div>
+					<div class="controlButton buttonhidden" id="btSave" title="Save"></div>
+					<div class="controlButton buttonhidden" id="btOptions" title="Options"></div>
+				</div>
+				
+				<div id="controlPanelEdit" style="display:none">
+					<div class="controlButton buttonhidden" id="btShowPlayerMode" title="Player Mode"></div>
+					<div class="controlButton buttonhidden" id="btSaveConfig" title="Save Config"></div>
+					<div class="controlButton buttonhidden" id="btOptions" title="Options"></div>
+				</div>
+				</div>
+		</div>
+		
+		
+		<div id="dashBoard" class="col-md-12">
+			<div class="gridster">
+			<ul id="asList">
+		</ul>
+		</div> <!-- gridster -->
+	</div> <!-- DashBoard -->
+
+	
+
+		
+			
+</body>
+
+</html>

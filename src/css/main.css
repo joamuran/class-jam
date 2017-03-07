@@ -1,0 +1,154 @@
+@font-face {
+    font-family: indieFlower;
+    src: url(fonts/IndieFlower.ttf);
+}
+@font-face {
+    font-family: pacifico;
+    src: url(fonts/Pacifico-Regular.ttf);
+}
+
+
+body{
+    background-image: url(images/backgrounds/bg1.jpg);
+    background-size: cover;
+    font-family: "indieFlower";
+    font-weight: 600;
+    /*font-size: 1.3vw;*/
+}
+
+h1{
+    font-family: "pacifico";
+    font-size: 3vw;
+    width: 100%;
+    text-align: center;
+}
+
+.textfluid{
+    text-align: center;
+    width: 100%;
+}
+
+.gridster li{
+    list-style: none;
+    margin: 1px;
+    border: 1px solid rgba(0,0,0,0);
+}
+
+li.editable{
+    border: 1px dashed #333333;  
+}
+
+li.editable:hover{
+    cursor: move;
+}
+
+#header{
+    height: 60px;
+}
+#controlPanel{
+    /*display: none;*/
+    /*background: rgba(0,0,0,0.2);*/
+    position: fixed;
+    right: 15px;
+    top: 75px;
+    width: 126px;
+    height: 500px;
+    z-index: 10;
+    margin-right: -15px;
+    /*background: #ff0000;*/
+}
+
+#dashBoard{
+    /*background: #ff00ff;*/
+}
+
+.component{
+    text-transform: uppercase;
+    /*border: 1px solid #333333;    */
+}
+
+/* Icons */
+
+.controlButton{
+    width: 64px;
+    height: 64px;
+    margin: 10px;
+    float: right;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: all 0.4s;
+    position: fixed;
+}
+.controlButton:hover{
+    width: 74px;
+    height: 74px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+
+
+#menuButton{
+    background-image: url(images/icons/menu.png);
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    z-index: 100;
+}
+
+#btShowEditMode{ background-image: url(images/icons/editmode.png); z-index: 90;}
+#btShowEditMode.visible{
+    top: 80px;
+    right: 0px; }
+
+#btShowPlayerMode{ background-image: url(images/icons/asmode.png); z-index: 90;}
+#btShowPlayerMode.visible{
+    top: 80px;
+    right: 0px;
+}
+
+#BtSave, #BtSaveConfig{ background-image: url(images/icons/save.png); z-index: 80;}
+#BtSave, #BtSaveConfig.visible{
+    top: 160px;
+    right: 0px;
+}
+
+#BtOptions{ background-image: url(images/icons/options.png); z-index: 70;}
+#BtOptions.visible{
+    top: 240px;
+    right: 0px;
+}
+
+.buttonhidden{
+    top: 0px !important;
+    right: 0px !important;
+}
+
+/* Overwrite vex.css */
+
+.vex, .vex-theme-flat-attack, .vex-content {
+    font-family: "indieFlower" !important;
+    font-weight: 600 !important;
+    font-size: 1.3vw !important;
+    
+}
+.vex-dialog-message{
+    font-size: 1.6vw !important;
+    text-align: center !important;
+}
+
+.vex-content{
+    float: left !important;
+    width: 66.66666667% !important;
+    position: relative !important;
+    min-height: 1px !important;
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+    margin-left: 16.66666667% !important;
+}
+
+.vex-dialog-input, .vex-dialog-buttons{
+    float: left !important;
+    clear: both;
+    width: 100%;
+}

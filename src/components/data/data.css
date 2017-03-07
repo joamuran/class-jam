@@ -1,0 +1,115 @@
+
+.calendarContainer{}
+
+.dateContainer{
+    font-family: Roboto;
+    float: left;
+    clear: left;
+    margin:0px;
+    padding: 0px 10px 0px 10px;
+}
+
+/*.dateWeekDay, .dateMonth, .dateYear{
+    height: 20%;
+    margin:0px;
+    padding: 0px;
+}*/
+
+.dateWeekDay{
+    width: 100%;
+    border-radius: 3px 3px 0px 0px;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-top: 1px solid #000000;
+    color: #000000;
+    background: #ffffff;
+}
+
+.dateDayMonth{
+    background: #ffffff;
+    height: 40%;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+    text-align: center;
+    justify-content: center;
+}
+
+
+.dateMonth{
+    background: #ffffff;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+    /*background: #ee3333;*/
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+    /*color: #ffffff;*/
+}
+
+.dateYear{
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;    
+    background: #ffffff;
+    border-radius: 0px 0px 3px 3px;
+    /*color: #ffffff;*/
+}
+
+
+.dateSeason{
+    float: left;
+    clear: right;
+    
+}
+
+
+.iconSeason{
+    width: 100%;
+    height: 85%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: all 0.4s;
+    background-position: center;
+    overflow: hidden;
+}
+
+.iconSeasonText{
+    /*font-size: 10vw;*/
+    height: 15%;
+    width: 100%;
+}
+
+.spring{
+    background-image: url("img/spring.png");
+}
+
+.summer{
+    background-image: url("img/summer.png");
+}
+
+.autumn{
+    background-image: url("img/autumn.png");
+}
+
+.winter{
+    background-image: url("img/winter.png");
+}
+
+
+.dayWeekBt, .dayBt, .monthBt,.seasonBt{
+    margin: 1px;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px;
+    background: #cceeee;
+    text-align: center;
+    padding: 5px;   
+}
+
+.caldendarFormLabel{
+    font-weight: bold;
+    float: left;
+    text-align: center;
+    width: 100%;
+    clear: both;
+}
