@@ -21,10 +21,13 @@ function resizeFonts(){
 function UI(){
     
     this.menuHidden=true;
+    this.filedata={};
     this.components=[];
-    // TO-DO !!
-    //this.configFile=process.env.HOME+"/Dropbox/.asConfig/config.json";
-    this.configFile="config.json";
+    
+    
+    // config paths
+    this.configDir=process.env.HOME+"/.classroom-assembly";
+    this.configFile=this.configDir+"/config.json";
     
     this.gridsterResizeInterval=null; // To resize internal items when resizing gridster container
     
@@ -233,39 +236,39 @@ UI.prototype.bindEvents=function bindEvents(){
 
 
 UI.prototype.loadComponents=function loadComponents(){
-    // this.configFile=process.env.HOME+"/Dropbox/.asConfig/config.json";
-    
-    var fs=require("fs");
     var self=this;
+    console.log(self.filedata);
+    //var fs=require("fs");
+    //var self=this;
     
-    var filedata={};
-    try{
-       fs.accessSync(self.configFile, fs.R_OK | fs.W_OK);
-       var file=fs.readFileSync(self.configFile);
-       filedata = JSON.parse(file);
-    }catch(e){
-        alert("config not exists");
-    }
+    //var filedata={};
+    //try{
+     //  fs.accessSync(self.configFile, fs.R_OK | fs.W_OK);
+     //  var file=fs.readFileSync(self.configFile);
+     //  filedata = JSON.parse(file);
+    //}catch(e){
+    //    alert("config not exists");
+    //}
     
     //console.log(self.componentHelper);
-    for (item in filedata){
-        console.log("Parsing "+filedata[item].component);
+    for (item in self.filedata){
+        console.log("Parsing "+self.filedata[item].component);
         
-        var x=filedata[item].size_x || 1;
-        var y=filedata[item].size_y || 1;
-        var col=filedata[item].col || 1;
-        var row=filedata[item].row || 1;
+        var x=self.filedata[item].size_x || 1;
+        var y=self.filedata[item].size_y || 1;
+        var col=self.filedata[item].col || 1;
+        var row=self.filedata[item].row || 1;
         
-        var current=filedata[item].component;
-        var currentdata=JSON.parse(filedata[item].componentdata);
+        var current=self.filedata[item].component;
+        var currentdata=JSON.parse(self.filedata[item].componentdata);
         
         // loading widget component if exists
         var currentconfig={};
-        if(filedata[item].componentconfig) {currentconfig=JSON.parse(filedata[item].componentconfig)};
+        if(self.filedata[item].componentconfig) {currentconfig=JSON.parse(self.filedata[item].componentconfig)};
         
         self.componentHelper[current](self); // Call function to create object in function of its type
         
-        self.components[current].init(currentdata, currentconfig);
+        self.components[current].init(currentdata, currentconfig, self.configDir);
         var item=self.components[current].drawComponent();
         //console.log(item);
         self.gridster.add_widget(item, x, y, col, row);
@@ -275,6 +278,37 @@ UI.prototype.loadComponents=function loadComponents(){
     // Fit text to its container
     resizeFonts();
 
+    
+}
+
+
+UI.prototype.checkConfigDir=function checkConfigDir(){
+    var fs=require("fs");
+    var self=this;
+    
+    //var filedata={};
+    
+    try{
+       fs.accessSync(self.configFile, fs.R_OK | fs.W_OK);
+       var file=fs.readFileSync(self.configFile);
+       self.filedata = JSON.parse(file);
+       self.loadComponents();
+    }catch(e){
+        // Config dir does not exists, let's create it
+        console.log(e);
+        
+        if (!fs.existsSync(self.configDir)){
+            fs.mkdirSync(self.configDir);
+            fs.createReadStream("config.json").pipe(fs.createWriteStream(self.configFile)).on("close", function(){
+                // When finish, let's reload components
+                fs.accessSync(self.configFile, fs.R_OK | fs.W_OK);
+                var file=fs.readFileSync(self.configFile);
+                self.filedata = JSON.parse(file);
+                self.loadComponents();
+                });
+        }
+        
+    } // catch
     
 }
 
@@ -290,15 +324,18 @@ $(document).ready(function() {
     // Event handlers
     var app=new UI();
     
+    
     // loading components
-    app.loadComponents();
+    app.checkConfigDir();
     
-    // setting events
-    app.bindEvents();
     
-    // Aplying font resize
+    
+    
     setTimeout(function(){
-            resizeFonts();
+        // setting events
+        app.bindEvents();
+        // Aplying font resize
+        resizeFonts();
     }, 100);
     
     // Set player mode

@@ -4,7 +4,6 @@ function classmatesComponentClass(){
 classmatesComponentClass.prototype=new Component();
 classmatesComponentClass.prototype.constructor = classmatesComponentClass;
 
-
 classmatesComponentClass.prototype.drawComponent=function drawComponent(){
     var self=this;
     
@@ -53,7 +52,15 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     console.log(self.config);
     for (var alu in self.config){        
         var aluItem=$(document.createElement("div")).attr("id", alu).addClass("col-md-3 aluItem");
-        var aluImg=$(document.createElement("img")).attr("src", "components/classmates/img/"+self.config[alu].img).addClass("aluImg");
+        // image file
+        var aluImgFile="";
+        if(self.config[alu].img!="")
+            aluImgFile=self.configDir+"/classmates/"+self.config[alu].img;
+        else 
+            aluImgFile="components/classmates/img/ninyo.jpeg";
+        
+        
+        var aluImg=$(document.createElement("img")).attr("src", aluImgFile).addClass("aluImg");
         var aluName=$(document.createElement("div")).html(self.config[alu].name).addClass("aluName textfluid").attr("fontzoom",1.5);
         //var configRow=$(document.createElement("div"));
         $(aluItem).append(aluImg, aluName);
