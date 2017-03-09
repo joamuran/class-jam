@@ -55,12 +55,13 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
         // image file
         var aluImgFile="";
         if(self.config[alu].img!="")
-            aluImgFile=self.configDir+"/classmates/"+self.config[alu].img;
+        {
+            aluImgFile="file://"+self.configDir+"/classmates/"+self.config[alu].img;}
         else 
             aluImgFile="components/classmates/img/ninyo.jpeg";
         
         
-        var aluImg=$(document.createElement("img")).attr("src", aluImgFile).addClass("aluImg");
+        var aluImg=$(document.createElement("img")).attr("src", aluImgFile).addClass("aluImg").attr("id", "img"+alu);
         var aluName=$(document.createElement("div")).html(self.config[alu].name).addClass("aluName textfluid").attr("fontzoom",1.5);
         //var configRow=$(document.createElement("div"));
         $(aluItem).append(aluImg, aluName);
@@ -75,31 +76,56 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     
     ret.bindEvents=function(){
         $(".aluImg").on("click", function(){
+            var alu=$(this).attr("id").replace("img", "");
             var fileselector=$(document.createElement("input")).attr("id", "fileSelector").attr("type", "file").css("display", "none");
             $(classmatesConfig).append(fileselector);
             $(fileselector).on("change", function(){
                 
-                
-                // Check mimetype for image
-                var newImage=this.value;
-                // https://www.npmjs.com/package/file-type
-                const readChunk = require('read-chunk');
-                const fileType = require('file-type');
-                const buffer = readChunk.sync(newImage, 0, 4100);
- 
-                //console.log(fileType(buffer));
-                
-                if (fileType(buffer).mime.split("/")[0]=="image"){
-                    var fs=require('fs');
+                try{
+                    // Check mimetype for image
+                    var newImage=this.value;
+                    // https://www.npmjs.com/package/file-type
+                    const readChunk = require('read-chunk');
+                    const fileType = require('file-type');
+                    const buffer = readChunk.sync(newImage, 0, 4100);
+    
+                    //console.log(fileType(buffer));
                     
-                    // WIP
-                    oldImage="/tmp/test";
-                    fs.createReadStream(newImage).pipe(fs.createWriteStream(oldImage));
-                    // Cal copiar  la nova imatge a la ubicació de la vella, però haurà d'estar a la carpeta de personalització,
-                    // no dins el img del component (aci deixe les genèriques)
+                    if (fileType(buffer).mime.split("/")[0]=="image"){
+                        var fs=require('fs');
+                        
+                        // WIP
+                        
+                        //oldImage="/tmp/test";
+                        
+                        //oldImage=self.configDir+"/classmates/"+self.config[alu].img;
+                        
+                        // Geting image name
+                        var filename=newImage.split("/").pop();
+                        var oldImage=self.configDir+"/classmates/"+filename;
+                        
+                        console.log(oldImage+ " - "+newImage);
+                        
+                        var stream=fs.createReadStream(newImage).pipe(fs.createWriteStream(oldImage));
+                        
+                        stream.on('close', function(){
+                            // Wait for stream has been copied
+                            $("#img"+alu).attr("src", "file://"+oldImage);
+
+                            self.config[alu].img=filename;
+                            //console.log(self.config);
+                        });
+                        
+                        
+                        
+                        
+                        
+                        
+                    }
+                
+                } catch (err){
+                    console.log(err);
                 }
-                
-                
                 });
             
             $(fileselector).click();
@@ -108,14 +134,17 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     };
     
     ret.processDialog=function(){
-        for (var month in self.config){
+        /*for (var month in self.config){
             var item="."+month+".monthStatusActive";
             var found=$("#monthConfig").find("[month_data="+month+"].monthStatusActive");
             if (found.length>0) self.config[month]=true; else self.config[month]=false;
         }
         
         // Apply changes to data in widget
-        $("#monthComponent").attr("config", JSON.stringify(self.config));
+        $("#monthComponent").attr("config", JSON.stringify(self.config));*/
+        $("#classmatesComponent").attr("config", JSON.stringify(self.config));
+        $("#btSave").click();
+        
         
         
     };

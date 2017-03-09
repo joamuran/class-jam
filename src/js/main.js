@@ -281,6 +281,12 @@ UI.prototype.loadComponents=function loadComponents(){
     
 }
 
+UI.prototype.createDirStructure=function createDirStructure(){
+    var self=this;
+    var fs=require("fs");
+    fs.mkdirSync(self.configDir);
+    fs.mkdirSync(self.configDir+"/classmates");
+}
 
 UI.prototype.checkConfigDir=function checkConfigDir(){
     var fs=require("fs");
@@ -298,7 +304,7 @@ UI.prototype.checkConfigDir=function checkConfigDir(){
         console.log(e);
         
         if (!fs.existsSync(self.configDir)){
-            fs.mkdirSync(self.configDir);
+            self.createDirStructure();
             fs.createReadStream("config.json").pipe(fs.createWriteStream(self.configFile)).on("close", function(){
                 // When finish, let's reload components
                 fs.accessSync(self.configFile, fs.R_OK | fs.W_OK);

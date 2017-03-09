@@ -38,7 +38,7 @@
 	{
 		"component": "classmatesComponent",
 		"componentdata": "{\"alu01\":true,\"alu02\":true}",
-		"componentconfig": "{\"alu01\":{\"img\":\"ninyo.jpeg\",\"name\":\"alup1\"},\"alu02\":{\"img\":\"ninya.jpeg\",\"name\":\"alup2\"}}",
+		"componentconfig": "{\"alu01\":{\"img\":\"\",\"name\":\"alup1\"},\"alu02\":{\"img\":\"\",\"name\":\"alup2\"}}",
 		"col": 1,
 		"row": 1,
 		"size_x": 4,
