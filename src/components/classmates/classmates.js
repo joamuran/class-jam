@@ -41,6 +41,54 @@ classmatesComponentClass.prototype.getASDialog=function getASDialog(){
 };
 
 
+classmatesComponentClass.prototype.SelectImageForAlu=function SelectImageForAlu(){
+    var self=this;
+    
+    $(".aluImg").off("click");
+    $(".aluImg").on("click", function(){
+        var alu=$(this).attr("id").replace("img", "");
+        var fileselector=$(document.createElement("input")).attr("id", "fileSelector").attr("type", "file").css("display", "none");
+        $(classmatesConfig).append(fileselector);
+        $(fileselector).on("change", function(){
+            
+            try{
+                // Check mimetype for image
+                var newImage=this.value;
+                // https://www.npmjs.com/package/file-type
+                const readChunk = require('read-chunk');
+                const fileType = require('file-type');
+                const buffer = readChunk.sync(newImage, 0, 4100);
+    
+                //console.log(fileType(buffer));
+                    
+                if (fileType(buffer).mime.split("/")[0]=="image"){
+                    var fs=require('fs');
+                       
+                    var filename=newImage.split("/").pop();
+                     var oldImage=self.configDir+"/classmates/"+filename;
+                        
+                    console.log(oldImage+ " - "+newImage);
+                        
+                    var stream=fs.createReadStream(newImage).pipe(fs.createWriteStream(oldImage));
+                        
+                    stream.on('close', function(){
+                        // Wait for stream has been copied
+                        $("#img"+alu).attr("src", "file://"+oldImage);
+
+                        self.config[alu].img=filename;
+                        //console.log(self.config);
+                    }); 
+                }
+            } catch (err){
+                    console.log(err);
+            }
+            });
+            $(fileselector).click();
+        });
+};
+        
+
+
 classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     var self=this;
  
@@ -51,7 +99,8 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     //for (i in self.monthOptions){
     console.log(self.config);
     for (var alu in self.config){        
-        var aluItem=$(document.createElement("div")).attr("id", alu).addClass("col-md-3 aluItem");
+        //var aluItem=$(document.createElement("div")).attr("id", alu).addClass("col-md-3 aluItem");
+        var aluItem=$(document.createElement("div")).attr("id", alu).addClass("aluItem");
         // image file
         var aluImgFile="";
         if(self.config[alu].img!="")
@@ -62,87 +111,78 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
         
         
         var aluImg=$(document.createElement("img")).attr("src", aluImgFile).addClass("aluImg").attr("id", "img"+alu);
-        var aluName=$(document.createElement("div")).html(self.config[alu].name).addClass("aluName textfluid").attr("fontzoom",1.5);
+        //var aluName=$(document.createElement("div")).html(self.config[alu].name).addClass("aluName textfluid").attr("fontzoom",1.5);
+        var aluName=$(document.createElement("input")).attr("type", "text").attr("value", self.config[alu].name).addClass("aluName textfluid").attr("fontzoom",1.5);
         //var configRow=$(document.createElement("div"));
         $(aluItem).append(aluImg, aluName);
         $(input).append(aluItem);
         
-        
-        
     }
+    
+    // Adding "new" button
+    var newItem=$(document.createElement("div")).attr("id", "newAlu").addClass("col-md-3 aluItem newAluButton");
+    $(input).append(newItem);
+        
+    
     
     ret.input=$(input).prop("outerHTML");
     
     
     ret.bindEvents=function(){
-        $(".aluImg").on("click", function(){
-            var alu=$(this).attr("id").replace("img", "");
-            var fileselector=$(document.createElement("input")).attr("id", "fileSelector").attr("type", "file").css("display", "none");
-            $(classmatesConfig).append(fileselector);
-            $(fileselector).on("change", function(){
-                
-                try{
-                    // Check mimetype for image
-                    var newImage=this.value;
-                    // https://www.npmjs.com/package/file-type
-                    const readChunk = require('read-chunk');
-                    const fileType = require('file-type');
-                    const buffer = readChunk.sync(newImage, 0, 4100);
+        self.SelectImageForAlu();
+        
+        $("#newAlu").on("click", function(){
+            // Look for last id added:
+            var lastindex=0;
+            var newItemId="alu"+lastindex;
+            while($("#"+newItemId).length!==0){
+                lastindex++;
+                newItemId="alu"+lastindex;
+            }
+            
+            
+            //var aluItem=$(document.createElement("div")).attr("id", newItemId).addClass("col-md-3 aluItem");
+            var aluItem=$(document.createElement("div")).attr("id", newItemId).addClass("aluItem");
+            // image file
+            var aluImgFile="components/classmates/img/ninyo.jpeg";
+            var aluImg=$(document.createElement("img")).attr("src", aluImgFile).addClass("aluImg").attr("id", "imgalu"+newItemId);
+            var aluName=$(document.createElement("input")).attr("type", "text").attr("value", "Nou").addClass("aluName textfluid").attr("fontzoom",1.5);
+            console.log(aluItem);
+            $(aluItem).append(aluImg, aluName);
+            $(aluItem).insertBefore("#newAlu");
+            
+            // Rebind some events like click on image
+            self.SelectImageForAlu(); 
+            
+            resizeFonts();
+            
+            }); // End click on newAlu
+        
+    $("input").blur();
     
-                    //console.log(fileType(buffer));
-                    
-                    if (fileType(buffer).mime.split("/")[0]=="image"){
-                        var fs=require('fs');
-                        
-                        // WIP
-                        
-                        //oldImage="/tmp/test";
-                        
-                        //oldImage=self.configDir+"/classmates/"+self.config[alu].img;
-                        
-                        // Geting image name
-                        var filename=newImage.split("/").pop();
-                        var oldImage=self.configDir+"/classmates/"+filename;
-                        
-                        console.log(oldImage+ " - "+newImage);
-                        
-                        var stream=fs.createReadStream(newImage).pipe(fs.createWriteStream(oldImage));
-                        
-                        stream.on('close', function(){
-                            // Wait for stream has been copied
-                            $("#img"+alu).attr("src", "file://"+oldImage);
-
-                            self.config[alu].img=filename;
-                            //console.log(self.config);
-                        });
-                        
-                        
-                        
-                        
-                        
-                        
-                    }
-                
-                } catch (err){
-                    console.log(err);
-                }
-                });
-            
-            $(fileselector).click();
-            
-            });  
-    };
+    }; // End binding events callback function
     
     ret.processDialog=function(){
-        /*for (var month in self.config){
-            var item="."+month+".monthStatusActive";
-            var found=$("#monthConfig").find("[month_data="+month+"].monthStatusActive");
-            if (found.length>0) self.config[month]=true; else self.config[month]=false;
-        }
         
-        // Apply changes to data in widget
-        $("#monthComponent").attr("config", JSON.stringify(self.config));*/
-        $("#classmatesComponent").attr("config", JSON.stringify(self.config));
+        var componentconfig={};
+        //{\"alu01\":{\"img\":\"\",\"name\":\"alup1\"},\"alu02\":{\"img\":\"\",\"name\":\"alup2\"}}
+        $("div.aluItem").each(function( ) {
+            var id=$(this).attr("id");
+            var img=$(this).find("img").attr("src");
+            var name=$(this).find("input").val();
+            
+            if (id!=="newAlu") { // Ignore Button
+                var filename="";
+                if (img.substr(0,7)==="file://") filename=img.split("/").pop();
+                componentconfig[id]={"img": filename, "name": name};
+            }
+            
+        });
+        console.log(componentconfig);
+        self.config=componentconfig;
+        $("#classmatesComponent").attr("config", JSON.stringify(componentconfig));
+        
+        //$("#classmatesComponent").attr("config", JSON.stringify(self.config));
         $("#btSave").click();
         
         

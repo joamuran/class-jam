@@ -1,18 +1,28 @@
 
 
 .aluItem{
-    /*box-shadow: inset 0 0 10px #000000;*/
-    border: 1px solid #333333;
+    /*box-shadow: inset 0 0 10px #000000;
+    border: 1px solid #cccccc;*/
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
     
+    width: 160px;
+    height: 160px;
+    float: left;
     
 }
 
+
 .aluImg{
-    height: auto;
+    object-fit: contain;
+    height:50%;
     width: 100%;
-    float: left;
-    clear: both;
-    }
+}
+
+.aluImg:hover{
+    cursor: default;
+}
 
 .aluName{
     text-align: left;
@@ -20,5 +30,26 @@
     clear: both;
     text-align: center;
     width: 100%;
+    background: #f0f0f0 !important;
 
+}
+
+.newAluButton{
+    /*background: #cccccc !important;*/
+    background: url(/css/images/icons/menu.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 64px;
+    margin-top:20px;
+    transition: all 0.2s;
+        
+}
+
+.newAluButton:hover{
+    cursor: pointer;
+    height: 74px;
+    margin-top:15px;
+    
+    
 }
