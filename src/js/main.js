@@ -21,13 +21,16 @@ function resizeFonts(){
 function UI(){
     
     this.menuHidden=true;
+    this.metadata={};
     this.filedata={};
     this.components=[];
     
     
     // config paths
     this.configDir=process.env.HOME+"/.classroom-assembly";
-    this.configFile=this.configDir+"/config.json";
+    //this.configFile=this.configDir+"/config.json";
+    this.configFile="";
+    
     
     this.gridsterResizeInterval=null; // To resize internal items when resizing gridster container
     
@@ -216,23 +219,26 @@ UI.prototype.bindEvents=function bindEvents(){
     
     $("#btSave").on("click", function(event){
         event.stopPropagation();
-        var fs=require("fs");
-        var saveItems=self.gridster.serialize();
-        //console.log(JSON.stringify(saveItems));
-        fs.writeFileSync(self.configFile, JSON.stringify(saveItems, null, '\t'));    
-        
+        self.saveComponents();
         });
     
     $("#btSaveConfig").on("click", function(event){
         event.stopPropagation();
-        var fs=require("fs");
-        var saveItems=self.gridster.serialize();
-        //console.log(JSON.stringify(saveItems));
-        fs.writeFileSync(self.configFile, JSON.stringify(saveItems, null, '\t'));    
-        
+        self.saveComponents();
         });
     
 };
+
+UI.prototype.saveComponents=function saveComponents(){
+    // Stores components configuration, status and metainfo in disk
+    var self=this;
+    var fs=require("fs");
+    var saveItems=self.gridster.serialize();
+    //console.log(JSON.stringify(saveItems));
+    var saveData={"metadata": self.metadata, "components":saveItems};
+    
+    fs.writeFileSync(self.configFile, JSON.stringify(saveData, null, '\t'));    
+}
 
 
 UI.prototype.loadComponents=function loadComponents(){
@@ -285,7 +291,7 @@ UI.prototype.createDirStructure=function createDirStructure(){
     var self=this;
     var fs=require("fs");
     fs.mkdirSync(self.configDir);
-    fs.mkdirSync(self.configDir+"/classmates");
+    // fs.mkdirSync(self.configDir+"/classmates"); // -> TO-DO; Move to new asemblea creatio process
 }
 
 UI.prototype.checkConfigDir=function checkConfigDir(){
@@ -297,19 +303,26 @@ UI.prototype.checkConfigDir=function checkConfigDir(){
     try{
        fs.accessSync(self.configFile, fs.R_OK | fs.W_OK);
        var file=fs.readFileSync(self.configFile);
-       self.filedata = JSON.parse(file);
+       var fileContent=(JSON.parse(file));
+       self.metadata=fileContent.metadata;
+       self.filedata = fileContent.components;
+       
        self.loadComponents();
     }catch(e){
         // Config dir does not exists, let's create it
         console.log(e);
         
         if (!fs.existsSync(self.configDir)){
+            // Caldrà modificar açò per adaptar-ho a la nova estructura...
             self.createDirStructure();
             fs.createReadStream("config.json").pipe(fs.createWriteStream(self.configFile)).on("close", function(){
                 // When finish, let's reload components
                 fs.accessSync(self.configFile, fs.R_OK | fs.W_OK);
                 var file=fs.readFileSync(self.configFile);
-                self.filedata = JSON.parse(file);
+                var fileContent=(JSON.parse(file));
+                self.metadata=fileContent.metadata;
+                self.filedata = fileContent.components;
+                
                 self.loadComponents();
                 });
         }
@@ -330,11 +343,22 @@ $(document).ready(function() {
     // Event handlers
     var app=new UI();
     
+    /*vex.dialog.open({
+            message:"open",
+            input:"hello",
+            showCloseButton: true,
+            escapeButtonCloses: true,
+            overlayClosesOnClick: true,
+            callback: function(data){ alert("123"); }
+        });
+    */
     
+    
+    // Açò caldrà canviar-ho cada vegada que carreguem una assemblea
+    app.configFile=app.configDir+"/assemblea1/config.json";
+     
     // loading components
     app.checkConfigDir();
-    
-    
     
     
     setTimeout(function(){
@@ -343,6 +367,8 @@ $(document).ready(function() {
         // Aplying font resize
         resizeFonts();
     }, 100);
+    
+    
     
     // Set player mode
     $("#btShowPlayerMode").click();
