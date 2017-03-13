@@ -27,7 +27,8 @@ function UI(){
     
     
     // config paths
-    this.configDir=process.env.HOME+"/.classroom-assembly";
+    this.configBaseDir=process.env.HOME+"/.classroom-assembly";
+    this.configDir="";
     //this.configFile=this.configDir+"/config.json";
     this.configFile="";
     
@@ -332,6 +333,83 @@ UI.prototype.checkConfigDir=function checkConfigDir(){
 }
 
 
+UI.prototype.showLoadDialog=function showLoadDialog(){
+    var loadDiv=$(document.createElement("div")).addClass("loadMainContainer");
+    var loadContainer=$(document.createElement("div")).addClass("loadContainer");
+    
+    var fileSelector=$(document.createElement("div")).addClass("fileSelector");
+    var hrtop=$(document.createElement("div")).addClass("hr").css("margin-bottom", "10px");
+    var hrbottom=$(document.createElement("div")).addClass("hr").css("margin-top", "10px");
+    
+    
+    var frame=$(document.createElement("div")).addClass("frame").attr("id", "frameFileSelector");
+    var slidee=$(document.createElement("ul")).addClass("slidee");
+    var li1=$(document.createElement("li")).html("1");
+    var li2=$(document.createElement("li")).html("2");
+    var li3=$(document.createElement("li")).html("3");
+    var li4=$(document.createElement("li")).html("4");
+    var li5=$(document.createElement("li")).html("5");
+    var li6=$(document.createElement("li")).html("6");
+    var li7=$(document.createElement("li")).html("7");
+    var li8=$(document.createElement("li")).html("8");
+    var li9=$(document.createElement("li")).html("9");
+    $(slidee).append(li1, li2, li3, li3, li4, li5, li6, li7, li8, li9);
+    $(frame).append(slidee);
+    
+    //$(fileSelector).append(hrtop);
+    $(fileSelector).append(frame);
+    //$(fileSelector).append(hrbottom);
+    
+    // Scrollbar
+    var scrollbar=$(document.createElement("div")).addClass("scrollbar");
+    var handle=$(document.createElement("div")).addClass("handle");
+    $(scrollbar).append(handle);
+    
+    $(fileSelector).append(scrollbar);
+    
+    
+    
+    $(loadContainer).append(fileSelector);
+    $(loadDiv).append(loadContainer);
+    
+    $("body").append(loadDiv);
+    
+    
+    var $wrap = $('#frameFileSelector').parent();
+    
+    // Activate sly
+    $('#frameFileSelector').sly({
+      horizontal: 1,
+      itemNav: 'basic',
+      smart: 1,
+      activateOn: 'click',
+      mouseDragging: 1,
+      touchDragging: 1,
+      releaseSwing: 1,
+      startAt: 3,
+      scrollBar: $wrap.find('.scrollbar'),
+      scrollBy: 1,
+      pagesBar: $wrap.find('.pages'),
+      activatePageOn: 'click',
+      speed: 300,
+      elasticBounds: 1,
+      /*easing: 'easeOutExpo',*/
+      dragHandle: 1,
+      dynamicHandle: 1,
+      clickBar: 1,
+
+      // Buttons
+      forward: $wrap.find('.forward'),
+      backward: $wrap.find('.backward'),
+      prev: $wrap.find('.prev'),
+      next: $wrap.find('.next'),
+      prevPage: $wrap.find('.prevPage'),
+      nextPage: $wrap.find('.nextPage')
+    });
+
+    
+};
+
 $(document).ready(function() {
     
     // Setting up vex
@@ -342,6 +420,8 @@ $(document).ready(function() {
     
     // Event handlers
     var app=new UI();
+    
+    app.showLoadDialog();
     
     /*vex.dialog.open({
             message:"open",
@@ -354,8 +434,11 @@ $(document).ready(function() {
     */
     
     
+    /*
+    
     // Açò caldrà canviar-ho cada vegada que carreguem una assemblea
-    app.configFile=app.configDir+"/assemblea1/config.json";
+    app.configDir=app.configBaseDir+"/assemblea1";
+    app.configFile=app.configDir+"/config.json";
      
     // loading components
     app.checkConfigDir();
@@ -373,6 +456,8 @@ $(document).ready(function() {
     // Set player mode
     $("#btShowPlayerMode").click();
     //$("#btShowEditMode").click();
+    
+    */
     
 });
 

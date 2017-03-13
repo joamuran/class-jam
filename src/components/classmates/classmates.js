@@ -65,7 +65,7 @@ classmatesComponentClass.prototype.SelectImageForAlu=function SelectImageForAlu(
                     var fs=require('fs');
                        
                     var filename=newImage.split("/").pop();
-                     var oldImage=self.configDir+"/classmates/"+filename;
+                     var oldImage=self.configDir+"/components/classmates/"+filename;
                         
                     console.log(oldImage+ " - "+newImage);
                         
@@ -105,7 +105,7 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
         var aluImgFile="";
         if(self.config[alu].img!="")
         {
-            aluImgFile="file://"+self.configDir+"/classmates/"+self.config[alu].img;}
+            aluImgFile="file://"+self.configDir+"/components/classmates/"+self.config[alu].img;}
         else 
             aluImgFile="components/classmates/img/ninyo.jpeg";
         
