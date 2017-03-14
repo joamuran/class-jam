@@ -244,20 +244,8 @@ UI.prototype.saveComponents=function saveComponents(){
 
 UI.prototype.loadComponents=function loadComponents(){
     var self=this;
-    console.log(self.filedata);
-    //var fs=require("fs");
-    //var self=this;
+    //console.log(self.filedata);
     
-    //var filedata={};
-    //try{
-     //  fs.accessSync(self.configFile, fs.R_OK | fs.W_OK);
-     //  var file=fs.readFileSync(self.configFile);
-     //  filedata = JSON.parse(file);
-    //}catch(e){
-    //    alert("config not exists");
-    //}
-    
-    //console.log(self.componentHelper);
     for (item in self.filedata){
         console.log("Parsing "+self.filedata[item].component);
         
@@ -334,6 +322,9 @@ UI.prototype.checkConfigDir=function checkConfigDir(){
 
 
 UI.prototype.showLoadDialog=function showLoadDialog(){
+    var self=this;
+    
+    
     var loadDiv=$(document.createElement("div")).addClass("loadMainContainer");
     var loadContainer=$(document.createElement("div")).addClass("loadContainer");
     
@@ -344,33 +335,49 @@ UI.prototype.showLoadDialog=function showLoadDialog(){
     
     var frame=$(document.createElement("div")).addClass("frame").attr("id", "frameFileSelector");
     var slidee=$(document.createElement("ul")).addClass("slidee");
-    var li1=$(document.createElement("li")).html("1");
-    var li2=$(document.createElement("li")).html("2");
-    var li3=$(document.createElement("li")).html("3");
-    var li4=$(document.createElement("li")).html("4");
-    var li5=$(document.createElement("li")).html("5");
-    var li6=$(document.createElement("li")).html("6");
-    var li7=$(document.createElement("li")).html("7");
-    var li8=$(document.createElement("li")).html("8");
-    var li9=$(document.createElement("li")).html("9");
-    $(slidee).append(li1, li2, li3, li3, li4, li5, li6, li7, li8, li9);
+    
+    
+    var fs=require("fs");
+    var assembleaList=fs.readdirSync(self.configBaseDir);
+    for (assemblea in assembleaList){
+        var config=JSON.parse(fs.readFileSync(self.configBaseDir+"/"+assembleaList[assemblea]+"/config.json"));
+        console.log(config.metadata.id);
+        var li=$(document.createElement("li"));
+        var content=$(document.createElement("div")).html(config.metadata.name).attr("id", config.metadata.id).addClass("asItem");
+        
+        $(li).append(content);
+        $(slidee).append(li);
+        
+    }
+    
     $(frame).append(slidee);
     
-    //$(fileSelector).append(hrtop);
+    $(fileSelector).append(hrtop);
     $(fileSelector).append(frame);
-    //$(fileSelector).append(hrbottom);
+    $(fileSelector).append(hrbottom);
     
     // Scrollbar
-    var scrollbar=$(document.createElement("div")).addClass("scrollbar");
+    /*var scrollbar=$(document.createElement("div")).addClass("scrollbar");
     var handle=$(document.createElement("div")).addClass("handle");
     $(scrollbar).append(handle);
     
-    $(fileSelector).append(scrollbar);
+    $(fileSelector).append(scrollbar);*/
     
+    // Pages
+    var pages=$(document.createElement("ul")).addClass("pages");
+    var li1=$(document.createElement("li")).html("1");
+    var li2=$(document.createElement("li")).html("2");
+    var li3=$(document.createElement("li")).html("2");
+    $(pages).append(li1, li2, li3);
+    $(fileSelector).append(pages);
     
     
     $(loadContainer).append(fileSelector);
     $(loadDiv).append(loadContainer);
+    
+    
+    
+    
     
     $("body").append(loadDiv);
     
@@ -380,34 +387,59 @@ UI.prototype.showLoadDialog=function showLoadDialog(){
     // Activate sly
     $('#frameFileSelector').sly({
       horizontal: 1,
-      itemNav: 'basic',
+      itemNav: 'centered',
+      activateMiddle: 1,
       smart: 1,
       activateOn: 'click',
       mouseDragging: 1,
       touchDragging: 1,
       releaseSwing: 1,
-      startAt: 3,
-      scrollBar: $wrap.find('.scrollbar'),
-      scrollBy: 1,
       pagesBar: $wrap.find('.pages'),
       activatePageOn: 'click',
       speed: 300,
-      elasticBounds: 1,
-      /*easing: 'easeOutExpo',*/
-      dragHandle: 1,
-      dynamicHandle: 1,
-      clickBar: 1,
+      
+        });
 
-      // Buttons
-      forward: $wrap.find('.forward'),
-      backward: $wrap.find('.backward'),
-      prev: $wrap.find('.prev'),
-      next: $wrap.find('.next'),
-      prevPage: $wrap.find('.prevPage'),
-      nextPage: $wrap.find('.nextPage')
-    });
-
+    // Event listener
+    $(".asItem").on("click", function(){
+        if ($(this).hasClass("selected")){
+            self.LaunchAssembly($(this).attr("id"));
+        } else {
+            $(".asItem").removeClass("selected");
+            $(this).addClass("selected");
+        }
+     });
     
+};
+
+
+UI.prototype.LaunchAssembly=function LaunchAssembly(id){
+        
+    var fs=require("fs");
+    var self=this;
+    var filedata={};
+    
+    self.configDir=self.configBaseDir+"/"+id;
+    self.configFile=self.configDir+"/config.json";
+    
+     
+    // loading components
+    self.checkConfigDir();
+    
+    
+    setTimeout(function(){
+        // setting events
+        self.bindEvents();
+        // Aplying font resize
+        resizeFonts();
+        $(".loadMainContainer").remove(); // Destroys load dialog
+        $("#btShowPlayerMode").click(); // Set player mode
+    }, 100);
+    
+    
+    
+    
+        
 };
 
 $(document).ready(function() {
@@ -421,43 +453,7 @@ $(document).ready(function() {
     // Event handlers
     var app=new UI();
     
-    app.showLoadDialog();
-    
-    /*vex.dialog.open({
-            message:"open",
-            input:"hello",
-            showCloseButton: true,
-            escapeButtonCloses: true,
-            overlayClosesOnClick: true,
-            callback: function(data){ alert("123"); }
-        });
-    */
-    
-    
-    /*
-    
-    // Açò caldrà canviar-ho cada vegada que carreguem una assemblea
-    app.configDir=app.configBaseDir+"/assemblea1";
-    app.configFile=app.configDir+"/config.json";
-     
-    // loading components
-    app.checkConfigDir();
-    
-    
-    setTimeout(function(){
-        // setting events
-        app.bindEvents();
-        // Aplying font resize
-        resizeFonts();
-    }, 100);
-    
-    
-    
-    // Set player mode
-    $("#btShowPlayerMode").click();
-    //$("#btShowEditMode").click();
-    
-    */
+    app.showLoadDialog(); // Shows load dialog and launches assembly
     
 });
 
