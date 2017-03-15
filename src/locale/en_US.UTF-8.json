@@ -40,6 +40,9 @@
   "season.it.is":"We are in",
   "season.component.title":"What is current season?",
   
-  "classmates.component.options": "Configure pupils"
+  "classmates.component.options": "Configure pupils",
+  "create.new.assembly":"Create a new assembly",
+  "input.new.assembly.name": "Select a name",
+  "input.new.assembly.icon":"Select an icon"
 
 }

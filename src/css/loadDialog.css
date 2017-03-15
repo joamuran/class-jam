@@ -21,6 +21,7 @@
     float: left;
     width: 100%;
     margin-top: 250px;
+    transition: all ease 0.3s;
 }
 
 .hr{
@@ -32,7 +33,6 @@
    
 }
 
-
 .frame { width: 100%; height: 160px; padding: 0px; }
 .frame .slidee { margin: 0; padding: 0; height: 100%; list-style: none;  }
 .frame .slidee li {
@@ -41,8 +41,7 @@
     padding: 0;
     width: 130px;
     height: 100%;
-    }
-
+}
 
 .scrollbar { width: 100%; height: 5px; padding-top: 5px; /*background: #ff0000;*/margin-top: 50px;}
 .scrollbar:hover{
@@ -101,8 +100,29 @@
     background: #ffffef;
 }
 
-
 .asItem:hover{
     margin-top: 0px;
     box-shadow: 0 8px 6px -6px black;
+}
+
+.newAsDiv{
+    display:none;
+    transition: all ease 0.3s;
+    clear: both;
+    float: left;
+    width: 500px;
+    
+}
+.AsInputName{
+    width: 100%;
+}
+
+.image_picker_image{
+    width: 100px !important;
+    height: 100px !important;
+}
+
+.NewAsFormControl{
+    font-size: 1.5em;
+    margin-top: 30px;
 }

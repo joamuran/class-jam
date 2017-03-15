@@ -40,5 +40,8 @@
   "season.it.is":"Estem en",
   "season.component.title":"en quina estació estem?",
   
-  "classmates.component.options": "Configura els alumnes"
+  "classmates.component.options": "Configura els alumnes",
+  "create.new.assembly":"Crea una nova assemblea",
+  "input.new.assembly.name": "Trieu un nom",
+  "input.new.assembly.icon":"Trieu una icona"
 }

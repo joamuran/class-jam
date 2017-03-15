@@ -324,19 +324,16 @@ UI.prototype.checkConfigDir=function checkConfigDir(){
 UI.prototype.showLoadDialog=function showLoadDialog(){
     var self=this;
     
-    
-    var loadDiv=$(document.createElement("div")).addClass("loadMainContainer");
+    var loadDiv=$(document.createElement("div")).addClass("loadMainContainer").attr("id", "loadMainContainer");
     var loadContainer=$(document.createElement("div")).addClass("loadContainer");
     
     var fileSelector=$(document.createElement("div")).addClass("fileSelector");
     var hrtop=$(document.createElement("div")).addClass("hr").css("margin-bottom", "10px");
     var hrbottom=$(document.createElement("div")).addClass("hr").css("margin-top", "10px");
-    
-    
+        
     var frame=$(document.createElement("div")).addClass("frame").attr("id", "frameFileSelector");
     var slidee=$(document.createElement("ul")).addClass("slidee");
-    
-    
+        
     var fs=require("fs");
     var assembleaList=fs.readdirSync(self.configBaseDir);
     for (assemblea in assembleaList){
@@ -350,7 +347,19 @@ UI.prototype.showLoadDialog=function showLoadDialog(){
         
     }
     
+    var new_li=$(document.createElement("li"));
+    var content=$(document.createElement("div")).html("Nou").attr("id", "btNewAssembly").addClass("asItem");
+    
+    $(new_li).append(content);
+    $(slidee).append(new_li);
+    
     $(frame).append(slidee);
+    
+    // Adjust FileSelector properties
+    // window.innerWidth
+    // Fer el fileselector amb width=130*nº elements i amb un margin-left en funció del tamany de la finestra...
+    var width=(assembleaList.length+1)*130;
+    $(fileSelector).css("width", width+"px").css("margin-left", ((window.innerWidth/2)-(width/2)-30)+"px");
     
     $(fileSelector).append(hrtop);
     $(fileSelector).append(frame);
@@ -367,7 +376,7 @@ UI.prototype.showLoadDialog=function showLoadDialog(){
     var pages=$(document.createElement("ul")).addClass("pages");
     var li1=$(document.createElement("li")).html("1");
     var li2=$(document.createElement("li")).html("2");
-    var li3=$(document.createElement("li")).html("2");
+    var li3=$(document.createElement("li")).html("3");
     $(pages).append(li1, li2, li3);
     $(fileSelector).append(pages);
     
@@ -403,7 +412,11 @@ UI.prototype.showLoadDialog=function showLoadDialog(){
     // Event listener
     $(".asItem").on("click", function(){
         if ($(this).hasClass("selected")){
-            self.LaunchAssembly($(this).attr("id"));
+            if ($(this).attr("id")=="btNewAssembly"){
+                // Show dialog
+                self.createNewAssembly();
+            }
+            else self.LaunchAssembly($(this).attr("id"));
         } else {
             $(".asItem").removeClass("selected");
             $(this).addClass("selected");
@@ -412,21 +425,53 @@ UI.prototype.showLoadDialog=function showLoadDialog(){
     
 };
 
+UI.prototype.createNewAssembly=function createNewAssembly(){
+    
+    var inputNameLabel=$(document.createElement("div")).html(i18n.gettext("input.new.assembly.name")).addClass("NewAsFormControl");
+    var inputName=$(document.createElement("input")).attr("type", "text").attr("name", "newAsName").html(i18n.gettext("newAsName")).addClass("form-control");
+    var newAsDiv=$(document.createElement("div")).addClass("newAsDiv").css("margin-left", (window.innerWidth/2-250)+"px");
+    
+    var inputSelectLabel=$(document.createElement("div")).html(i18n.gettext("input.new.assembly.icon")).addClass("NewAsFormControl");
+    var selectImage=$(document.createElement("select")).addClass("image-picker");
+    var op1=$(document.createElement("option")).attr("data-img-src", "css/images/icons/asmode.png").val("1");
+    var op2=$(document.createElement("option")).attr("data-img-src", "css/images/icons/check.png").val("2");
+    var op3=$(document.createElement("option")).attr("data-img-src", "css/images/icons/options.png").val("3");
+    $(selectImage).append(op1, op2, op3);
+
+    
+    $(newAsDiv).append(inputNameLabel, inputName);
+    $(newAsDiv).append(inputSelectLabel, selectImage);
+    $(selectImage).imagepicker();
+    $("#loadMainContainer").append(newAsDiv);
+    $(newAsDiv).css("display", "block");
+    
+    
+    $(".fileSelector").css("margin-top", "30px");
+    
+    
+    /*
+    WIP:
+    
+    Falta el botó d'acceptar i que cree l'assemblea de 0
+    també el botó de cancelar per a que torne a baixar per si vol triar altra assemblea
+    i fer un for d'un directori d'imatges per carregar les icones per a les assemblees
+    
+    
+    */
+    
+}
 
 UI.prototype.LaunchAssembly=function LaunchAssembly(id){
-        
     var fs=require("fs");
     var self=this;
     var filedata={};
     
     self.configDir=self.configBaseDir+"/"+id;
     self.configFile=self.configDir+"/config.json";
-    
-     
+         
     // loading components
     self.checkConfigDir();
-    
-    
+        
     setTimeout(function(){
         // setting events
         self.bindEvents();
@@ -435,11 +480,6 @@ UI.prototype.LaunchAssembly=function LaunchAssembly(id){
         $(".loadMainContainer").remove(); // Destroys load dialog
         $("#btShowPlayerMode").click(); // Set player mode
     }, 100);
-    
-    
-    
-    
-        
 };
 
 $(document).ready(function() {
