@@ -43,6 +43,8 @@
   "classmates.component.options": "Configure pupils",
   "create.new.assembly":"Create a new assembly",
   "input.new.assembly.name": "Select a name",
-  "input.new.assembly.icon":"Select an icon"
+  "input.new.assembly.icon":"Select an icon",
+  "CreateAssembly.bt.ok":"Crete Assembly",
+  "CreateAssembly.bt.cancel":"Cancel"
 
 }

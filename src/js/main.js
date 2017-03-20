@@ -413,11 +413,22 @@ UI.prototype.showLoadDialog=function showLoadDialog(){
     $(".asItem").on("click", function(){
         if ($(this).hasClass("selected")){
             if ($(this).attr("id")=="btNewAssembly"){
-                // Show dialog
-                self.createNewAssembly();
+                // Show dialog (if is not shown!)
+                if($(".newAsDiv").length==0) self.createNewAssembly();
             }
             else self.LaunchAssembly($(this).attr("id"));
         } else {
+            // Removes new assembly dialog if is shown
+            if($(".newAsDiv").length>0) {
+                
+                $(".newAsDiv").fadeOut(0.3, function(){
+                                        $(".newAsDiv").remove();
+                                        $(".fileSelector").css("margin-top", "250px");
+                    });
+                
+            }
+            
+            // Unselect
             $(".asItem").removeClass("selected");
             $(this).addClass("selected");
         }
@@ -428,7 +439,7 @@ UI.prototype.showLoadDialog=function showLoadDialog(){
 UI.prototype.createNewAssembly=function createNewAssembly(){
     
     var inputNameLabel=$(document.createElement("div")).html(i18n.gettext("input.new.assembly.name")).addClass("NewAsFormControl");
-    var inputName=$(document.createElement("input")).attr("type", "text").attr("name", "newAsName").html(i18n.gettext("newAsName")).addClass("form-control");
+    var inputName=$(document.createElement("input")).attr("type", "text").attr("name", "newAsName").html(i18n.gettext("newAsName")).addClass("form-control").attr("required", "required");
     var newAsDiv=$(document.createElement("div")).addClass("newAsDiv").css("margin-left", (window.innerWidth/2-250)+"px");
     
     var inputSelectLabel=$(document.createElement("div")).html(i18n.gettext("input.new.assembly.icon")).addClass("NewAsFormControl");
@@ -441,6 +452,15 @@ UI.prototype.createNewAssembly=function createNewAssembly(){
     
     $(newAsDiv).append(inputNameLabel, inputName);
     $(newAsDiv).append(inputSelectLabel, selectImage);
+    
+    // Ok Button
+    var bt_ok=$(document.createElement("button")).html(i18n.gettext("CreateAssembly.bt.ok")).addClass("btn btn-success").css("float", "right").css("margin-left", "5px").attr("id", "createNewAsButtonOk");
+    var bt_cancel=$(document.createElement("button")).html(i18n.gettext("CreateAssembly.bt.cancel")).addClass("btn").css("float", "right").attr("id", "createNewAsButtonCancel");
+    //(<button type="submit" class="vex-dialog-button-primary vex-dialog-button vex-first">OK</button>
+    
+    $(newAsDiv).append(bt_ok, bt_cancel);
+    
+    // Create image picker
     $(selectImage).imagepicker();
     $("#loadMainContainer").append(newAsDiv);
     $(newAsDiv).css("display", "block");
@@ -448,16 +468,19 @@ UI.prototype.createNewAssembly=function createNewAssembly(){
     
     $(".fileSelector").css("margin-top", "30px");
     
+    // Event Listeners
+    $("#createNewAsButtonOk").on("click", function(){
+        var name=$("[name=newAsName]").val();
+        if (name==="") {
+            $("[name=newAsName]").focus().css("color");
+            };
+        
+        });
     
-    /*
-    WIP:
+    $("#createNewAsButtonCancel").on("click", function(){
+        alert("cancel");
+        });
     
-    Falta el botó d'acceptar i que cree l'assemblea de 0
-    també el botó de cancelar per a que torne a baixar per si vol triar altra assemblea
-    i fer un for d'un directori d'imatges per carregar les icones per a les assemblees
-    
-    
-    */
     
 }
 

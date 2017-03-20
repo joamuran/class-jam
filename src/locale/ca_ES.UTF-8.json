@@ -43,5 +43,7 @@
   "classmates.component.options": "Configura els alumnes",
   "create.new.assembly":"Crea una nova assemblea",
   "input.new.assembly.name": "Trieu un nom",
-  "input.new.assembly.icon":"Trieu una icona"
+  "input.new.assembly.icon":"Trieu una icona",
+  "CreateAssembly.bt.ok":"Crea l'Assemblea",
+  "CreateAssembly.bt.cancel":"Cancel·la"
 }
