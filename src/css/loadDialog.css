@@ -94,10 +94,17 @@
     height: 90%;
     padding: 10px;
     transition: all ease 0.2s;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
 }
 
 .asItem.selected{
     background: #ffffef;
+    
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
 }
 
 .asItem:hover{

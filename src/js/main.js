@@ -340,7 +340,9 @@ UI.prototype.showLoadDialog=function showLoadDialog(){
         var config=JSON.parse(fs.readFileSync(self.configBaseDir+"/"+assembleaList[assemblea]+"/config.json"));
         console.log(config.metadata.id);
         var li=$(document.createElement("li"));
-        var content=$(document.createElement("div")).html(config.metadata.name).attr("id", config.metadata.id).addClass("asItem");
+        var iconImage="url(css/images/icons/asmode.png)";
+        if (typeof(config.metadata.icon)!=="undefined") iconImage="url("+config.metadata.icon+")";
+        var content=$(document.createElement("div")).html(config.metadata.name).attr("id", config.metadata.id).addClass("asItem").css("background-image", iconImage);
         
         $(li).append(content);
         $(slidee).append(li);
@@ -437,6 +439,7 @@ UI.prototype.showLoadDialog=function showLoadDialog(){
 };
 
 UI.prototype.createNewAssembly=function createNewAssembly(){
+    var self=this;
     
     var inputNameLabel=$(document.createElement("div")).html(i18n.gettext("input.new.assembly.name")).addClass("NewAsFormControl");
     var inputName=$(document.createElement("input")).attr("type", "text").attr("name", "newAsName").html(i18n.gettext("newAsName")).addClass("form-control").attr("required", "required");
@@ -473,13 +476,33 @@ UI.prototype.createNewAssembly=function createNewAssembly(){
         var name=$("[name=newAsName]").val();
         if (name==="") {
             $("[name=newAsName]").focus().css("color");
-            };
+            }
+            else {
+                var icon=$(".thumbnail.selected").find("img").attr("src");
+                
+                var fs=require("fs");
+                var id=name.replace(/([^a-z0-9]+)/gi, '');
+                self.configDir=self.configBaseDir+"/"+id;
+                fs.mkdirSync(self.configDir);
+                fs.mkdirSync(self.configDir+"/components");
+                self.configFile=self.configDir+"/config.json";
+                newAsJSON='{"metadata":{ "id":"'+id+'", "name": "'+name+'", "icon":"'+icon+'"}, "components": [] }';
+                fs.writeFileSync(self.configFile, newAsJSON);
+                
+                // And now, let's load assembly
+                self.LaunchAssembly(id);
+                
+            }
+            
         
         });
     
     $("#createNewAsButtonCancel").on("click", function(){
-        alert("cancel");
+        $(".newAsDiv").fadeOut(0.3, function(){
+            $(".newAsDiv").remove();
+            $(".fileSelector").css("margin-top", "250px");
         });
+    });
     
     
 }
