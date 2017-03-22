@@ -1,5 +1,9 @@
 {
   "app.name": "Assemblea de classe",
+  "confirm.save.msg":"No heu guardat l'assemblea. Voleu guardar els canvis abans de tancar-la?",
+  "confirm.save.msg.yes":"Guarda-la",
+  "confirm.save.msg.cancel":"Cancel·la",
+  "confirm.save.msg.no":"Tanca sense guardar-la",
   
   "weather.component.title": "Quin temps fa?",
   
@@ -39,6 +43,7 @@
   
   "season.it.is":"Estem en",
   "season.component.title":"en quina estació estem?",
+  "season.component.options":"Configureu les estacions disponibles",
   
   "classmates.component.options": "Configura els alumnes",
   "create.new.assembly":"Crea una nova assemblea",

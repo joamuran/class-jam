@@ -8,9 +8,18 @@ classmatesComponentClass.prototype.drawComponent=function drawComponent(){
     var self=this;
     
     var li=$(document.createElement("li")).attr("id","classmatesComponent").attr("data", JSON.stringify(self.info)).attr("config", JSON.stringify(self.config)).addClass("component");
-    
     // Minimal values for widget size
     $(li).attr("data-min-sizex","2").attr("data-min-sizey","1").attr("data-max-sizex","4").attr("data-max-sizey","3");
+    
+    console.log(self.info);
+    
+    if (JSON.stringify(self.info)==="{}"){
+        $(li).html("Classmates is undefined").css("background", "rgba(255,150,150,0.5)");
+    } /*else {*/
+    
+    
+    
+    
          
     return li;
 };

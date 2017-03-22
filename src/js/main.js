@@ -157,7 +157,7 @@ UI.prototype.bindEvents=function bindEvents(){
     $(window).on("click", function(){
         if (!self.menuHidden) {
             //$("#controlPanel").slideUp("fast");
-            $("#controlPanel").hide();
+            //$("#controlPanel").hide();
             self.hideControlPanel();
             self.menuHidden=true;}
         });
@@ -227,6 +227,49 @@ UI.prototype.bindEvents=function bindEvents(){
         event.stopPropagation();
         self.saveComponents();
         });
+
+    $("#btQuit, #btQuitConfig").on("click", function(){
+        // Compare saved version with current
+        var saveItems=self.gridster.serialize();
+        var saveData={"metadata": self.metadata, "components":saveItems};
+        var saveDataStringified=JSON.stringify(saveData, null, '\t');
+        
+        fs.accessSync(self.configFile, fs.R_OK | fs.W_OK);
+        var file=fs.readFileSync(self.configFile);
+        var fileContent=(JSON.parse(file));
+        var fileSaved=JSON.stringify(fileContent, null, '\t');
+        
+        if (saveDataStringified===fileSaved)  require('nw.gui').Window.get().reload(3);
+        else{ // If is not the same string, let's ask for save it
+            vex.dialog.confirm({
+                message: i18n.gettext("confirm.save.msg"),
+                buttons: [
+                $.extend({}, vex.dialog.buttons.NO, {
+                    className: 'vex-dialog-button-primary',
+                    text: i18n.gettext("confirm.save.msg.yes"),
+                    click: function() {
+                        self.saveComponents();
+                        require('nw.gui').Window.get().reload(3);
+                    }}),
+                $.extend({}, vex.dialog.buttons.NO, {
+                    className: 'vex-dialog-button',
+                    text: i18n.gettext("confirm.save.msg.cancel"),
+                    click: function() {
+                        vex.close(this);
+                    }}),
+                    $.extend({}, vex.dialog.buttons.NO, {
+                        text: i18n.gettext("confirm.save.msg.no"),
+                        click: function() {
+                            require('nw.gui').Window.get().reload(3);
+                            
+                        }})
+                    ],
+                callback: function () {}
+                });
+        }
+        
+        });
+    
     
 };
 

@@ -35,7 +35,8 @@ h1{
 }
 
 li.editable{
-    border: 1px dashed #333333;  
+    border: 1px dashed #333333;
+    background: rgba(255,255,125,0.4);
 }
 
 li.editable:hover{
@@ -108,14 +109,31 @@ li.editable:hover{
 }
 
 #BtSave, #BtSaveConfig{ background-image: url(images/icons/save.png); z-index: 80;}
-#BtSave, #BtSaveConfig.visible{
+#BtSave{
     top: 160px;
     right: 0px;
 }
 
-#BtOptions{ background-image: url(images/icons/options.png); z-index: 70;}
-#BtOptions.visible{
+#BtSaveConfig.visible{
     top: 240px;
+    right: 0px;
+}
+
+#btOptions{ background-image: url(images/icons/options.png); z-index: 70;}
+#btOptions.visible{
+    top: 160px;
+    right: 0px;
+}
+
+
+#btQuit, #btQuitConfig{ background-image: url(images/icons/quit.png); z-index: 70;}
+#btQuit.visible{
+    top: 240px;
+    right: 0px;
+}
+
+#btQuitConfig.visible{
+    top: 320px;
     right: 0px;
 }
 

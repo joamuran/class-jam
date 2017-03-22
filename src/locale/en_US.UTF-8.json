@@ -1,5 +1,9 @@
 {
   "app.name": "Classroom assembly",
+  "confirm.save.msg":"Assembly has not been saved. Do you want to save changes before close it?",
+  "confirm.save.msg.yes":"Save it",
+  "confirm.save.msg.cancel":"Cancel",
+  "confirm.save.msg.no":"Close without saving",
   
   "weather.component.title": "What's the weather like?",
   
@@ -39,6 +43,7 @@
   
   "season.it.is":"We are in",
   "season.component.title":"What is current season?",
+  "season.component.options":"Configure available seasons",
   
   "classmates.component.options": "Configure pupils",
   "create.new.assembly":"Create a new assembly",
