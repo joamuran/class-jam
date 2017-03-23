@@ -6,6 +6,14 @@ function seasonComponentClass(){
 seasonComponentClass.prototype=new Component();
 seasonComponentClass.prototype.constructor = seasonComponentClass;
 
+seasonComponentClass.prototype.getBaseConfig=function getBaseConfig(){
+    return {
+        info:{"season":"autumn"},
+        config:{"spring":true,"summer":true,"autumn":true,"winter":true},
+        configdir:"season"
+        };
+};
+
 seasonComponentClass.prototype.drawComponent=function drawComponent(){
     var self=this;
     var li=$(document.createElement("li")).attr("id","seasonComponent").attr("data", JSON.stringify(self.info)).attr("config", JSON.stringify(self.config)).addClass("component");

@@ -6,6 +6,15 @@ function weekdayComponentClass(){
 weekdayComponentClass.prototype=new Component();
 weekdayComponentClass.prototype.constructor = weekdayComponentClass;
 
+weekdayComponentClass.prototype.getBaseConfig=function getBaseConfig(){
+    return {
+        info:{},
+        config:{"monday":true,"tuesday":true,"wednesday":true,"thursday":true,
+                 "friday":true,"saturday":true,"sunday":true},
+        configdir:"weekday"
+        };
+};
+
 weekdayComponentClass.prototype.drawComponent=function drawComponent(){
     var self=this;
     var li=$(document.createElement("li")).attr("id","weekdayComponent").attr("data", JSON.stringify(self.info)).attr("config", JSON.stringify(self.config)).addClass("component");

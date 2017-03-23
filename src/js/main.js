@@ -76,17 +76,16 @@ function UI(){
                     },
                         stop: function (e, ui, $widget) {
                             clearInterval(this.gridsterResizeInterval);
-
-                    }
-                    
-                    
+                    }  
                 },
             serialize_params: function ($w, wgd) {
+             //alert($w.attr('id')+" "+$w.attr('visible'));
               return {
                   /* add element ID, data and config to widget info for serialize */
                   component: $w.attr('id'),
                   componentdata: $w.attr('data'),
                   componentconfig: $w.attr('config'),
+                  componentvisibility: $w.attr('visible') || "true",
                   /* defaults */
                   col: wgd.col,
                   row: wgd.row,
@@ -97,7 +96,6 @@ function UI(){
             }
         }).data('gridster');
 }
-
 
 UI.prototype.bindCompomentsEvents=function bindCompomentsEvents(){
     /* Binding click or double click on components  */
@@ -228,6 +226,10 @@ UI.prototype.bindEvents=function bindEvents(){
         self.saveComponents();
         });
 
+    $("#btOptions").on("click", function(){
+        self.ShowComponentsWindow();
+        });
+        
     $("#btQuit, #btQuitConfig").on("click", function(){
         // Compare saved version with current
         var saveItems=self.gridster.serialize();
@@ -273,6 +275,24 @@ UI.prototype.bindEvents=function bindEvents(){
     
 };
 
+
+UI.prototype.ShowComponentsWindow=function ShowComponentsWindow(){
+    var self=this;
+    
+    var message="Select Assembly Components";
+    var input="";
+    
+    /*vex.dialog.open({
+        message:message,
+        input:input,
+        showCloseButton: true,
+        escapeButtonCloses: true,
+        overlayClosesOnClick: true,
+        callback: function(data){ if (data) alert(data); }
+    });*/
+    
+}
+
 UI.prototype.saveComponents=function saveComponents(){
     // Stores components configuration, status and metainfo in disk
     var self=this;
@@ -283,6 +303,109 @@ UI.prototype.saveComponents=function saveComponents(){
     
     fs.writeFileSync(self.configFile, JSON.stringify(saveData, null, '\t'));    
 }
+
+
+
+UI.prototype.isComponentInConfig=function isComponentInConfig(component){
+    // Returns true if component is present in config file or false if not
+    try{
+        var self=this;
+        for (item in self.filedata)
+            if(self.filedata[item].component==component)
+                return true;
+        return false;
+    } catch(err){
+        console.log("Error in isComponentInConfig: "+err);
+        return false;
+    }
+};
+
+UI.prototype.loadComponentsWIP=function loadComponentsWIP(){
+    var self=this;
+    
+    try{
+        //console.log(self.filedata);
+        //console.log(self.filedata);
+        
+        /*for (item in self.filedata){
+            console.log("Parsing "+self.filedata[item].component);
+            
+            }*/
+            
+            
+        
+        //console.log("******");
+        /*
+        for (component in self.componentHelper){
+            if (self.isComponentInConfig(component))
+                console.log("Parsing "+self.filedata[item].component);
+        }*/
+        
+        for (component in self.componentHelper){
+            console.log("**"+component);
+            console.log("*2*"+self.isComponentInConfig(component));
+            if (self.isComponentInConfig(component)){
+                //console.log(self.filedata[item].component);
+                //console.log("Parsing "+self.filedata[item].component);
+                console.log(self.filedata[component]);
+                console.log("Parsing "+self.filedata[component].component);
+                
+                var x=self.filedata[item].size_x || 1;
+                var y=self.filedata[item].size_y || 1;
+                var col=self.filedata[item].col || 1;
+                var row=self.filedata[item].row || 1;
+                
+                var current=self.filedata[item].component;
+                var currentdata=JSON.parse(self.filedata[item].componentdata);
+                
+                // Setting up component visibility
+                var currentvisibility="";
+                console.log(self.filedata[item].componentvisibility);
+                if (self.filedata[item].componentvisibility) {currentvisibility=JSON.parse(self.filedata[item].componentvisibility);}
+                
+                // loading widget component if exists
+                var currentconfig={};
+                if(self.filedata[item].componentconfig) {currentconfig=JSON.parse(self.filedata[item].componentconfig)};
+                
+                self.componentHelper[current](self); // Call function to create object in function of its type
+                
+                self.components[current].init(currentdata, currentconfig, self.configDir, currentvisibility);
+                
+                //console.log(self.components[current]);
+                //console.log(typeof(self.components[current]));
+                
+                try{
+                console.log(typeof(self.components[current]));
+                var item=self.components[current].drawComponent();
+                }
+                catch(e){console.log(e);};
+                /*
+                // Setting visibility to item
+                $(item).attr("visible", currentvisibility);
+                /*
+                // Adding item to gridster
+                self.gridster.add_widget(item, x, y, col, row);
+                
+                // Hiding item if is not visible
+                if (!currentvisibility){$(item).css("display", "none");}
+                */
+            }
+        }
+        
+        
+        
+        
+        
+        // Fit text to its container
+        resizeFonts();
+        
+    } catch (err){
+        console.log(err);
+    }
+
+    
+}
+
 
 
 UI.prototype.loadComponents=function loadComponents(){
@@ -300,16 +423,28 @@ UI.prototype.loadComponents=function loadComponents(){
         var current=self.filedata[item].component;
         var currentdata=JSON.parse(self.filedata[item].componentdata);
         
+        // Setting up component visibility
+        var currentvisibility="";
+        console.log(self.filedata[item].componentvisibility);
+        if (self.filedata[item].componentvisibility) {currentvisibility=JSON.parse(self.filedata[item].componentvisibility);}
+        
         // loading widget component if exists
         var currentconfig={};
         if(self.filedata[item].componentconfig) {currentconfig=JSON.parse(self.filedata[item].componentconfig)};
         
         self.componentHelper[current](self); // Call function to create object in function of its type
         
-        self.components[current].init(currentdata, currentconfig, self.configDir);
+        self.components[current].init(currentdata, currentconfig, self.configDir, currentvisibility);
         var item=self.components[current].drawComponent();
-        //console.log(item);
+        
+        // Setting visibility to item
+        $(item).attr("visible", currentvisibility);
+        
+        // Adding item to gridster
         self.gridster.add_widget(item, x, y, col, row);
+        
+        // Hiding item if is not visible
+        if (!currentvisibility){$(item).css("display", "none");}
         
     }
     

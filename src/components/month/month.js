@@ -6,6 +6,33 @@ function monthComponentClass(){
 monthComponentClass.prototype=new Component();
 monthComponentClass.prototype.constructor = monthComponentClass;
 
+monthComponentClass.prototype.getBaseConfig=function getBaseConfig(){
+   var baseConfig={ "january":true,"february":true,"march":true,
+                    "april":true,"may":true, "june":true,
+                    "july":true,"august":true,"september":true,
+                    "october":true,"november":true,"december":true};
+                    
+    // Get Current Month
+    var currentMonth=new Date().getMonth();
+    var monthCount=0;
+    var currentMonthName="";
+    
+    
+    for (i in baseConfig){
+        if (monthCount===currentMonth) {
+            currentMonthName=i;
+            break;
+        }
+        monthCount++;
+    }
+    
+    return {
+        info:{"month":currentMonthName},
+        config:baseConfig,
+        configdir:"month",
+        };
+};
+
 monthComponentClass.prototype.drawComponent=function drawComponent(){
     var self=this;
     var li=$(document.createElement("li")).attr("id","monthComponent").attr("data", JSON.stringify(self.info)).attr("config", JSON.stringify(self.config)).addClass("component");

@@ -7,6 +7,14 @@ function weatherComponentClass(){
 weatherComponentClass.prototype=new Component();
 weatherComponentClass.prototype.constructor = weatherComponentClass;
 
+weatherComponentClass.prototype.getBaseConfig=function getBaseConfig(){
+    return {
+        info:{"weather":"sunny"},
+        config:{"sunny":true,"partial_sunny":true,"partial_cloudy":true,
+                "cloudy":true,"rainy":true,"snow":false},
+        configdir:"weather"
+        };
+};
 
 weatherComponentClass.prototype.drawComponent=function drawComponent(){
     var self=this;

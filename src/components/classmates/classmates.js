@@ -4,6 +4,16 @@ function classmatesComponentClass(){
 classmatesComponentClass.prototype=new Component();
 classmatesComponentClass.prototype.constructor = classmatesComponentClass;
 
+
+classmatesComponentClass.prototype.getBaseConfig=function getBaseConfig(){
+    return {
+        info:{},
+        config:{},
+        configdir:"classmates"
+        };
+};
+
+
 classmatesComponentClass.prototype.drawComponent=function drawComponent(){
     var self=this;
     
