@@ -1,18 +1,19 @@
 
 function weekdayComponentClass(){
     this.weekdayOptions=["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+    this.name="WeekDay Selector";
+    this.icon="css/images/icons/asmode.png";
 }
 
 weekdayComponentClass.prototype=new Component();
 weekdayComponentClass.prototype.constructor = weekdayComponentClass;
 
-weekdayComponentClass.prototype.getBaseConfig=function getBaseConfig(){
-    return {
-        info:{},
-        config:{"monday":true,"tuesday":true,"wednesday":true,"thursday":true,
-                 "friday":true,"saturday":true,"sunday":true},
-        configdir:"weekday"
-        };
+weekdayComponentClass.prototype.setBaseConfig=function setBaseConfig(){
+    var self=this;
+    
+    self.info={"weekday":"monday"};
+    self.config={"monday":true,"tuesday":true,"wednesday":true,"thursday":true,
+                 "friday":true,"saturday":true,"sunday":true};
 };
 
 weekdayComponentClass.prototype.drawComponent=function drawComponent(){

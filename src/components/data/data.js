@@ -4,13 +4,11 @@ function dataComponentClass(){
 dataComponentClass.prototype=new Component();
 dataComponentClass.prototype.constructor = dataComponentClass;
 
-Component.prototype.getBaseConfig=function getBaseConfig(){
+Component.prototype.setBaseConfig=function setBaseConfig(){
     // Class not used, no need to do it. If in future we will use an advanced data component, make here initial config.
-    return {
-        info:{},
-        config:{},
-        configdir:"",
-        };
+    var self=this;
+    self.info={};
+    self.config={};
 };
 
 dataComponentClass.prototype.drawComponent=function drawComponent(){

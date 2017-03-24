@@ -37,9 +37,9 @@ function UI(){
     
     // Component Helper: Array with component identifier and its init function
     this.componentHelper={
-        "dataComponent": function(ref){
+        /*"dataComponent": function(ref){
             ref.components.dataComponent=new dataComponentClass();
-        },
+        },*/
         "weatherComponent":function(ref){
             ref.components.weatherComponent=new weatherComponentClass();
         },
@@ -113,7 +113,10 @@ UI.prototype.bindCompomentsEvents=function bindCompomentsEvents(){
         // this.id contains component name
         var dialog;
         
-        // Get dialog content in function of running mode
+        /*console.log("*** *** ***"+this.id);
+        console.log(self.components[this.id]);
+        console.log(self.components[this.id].getComponentControlIcon());*/
+        
         if (self.mode==="player") dialog=self.components[this.id].getASDialog();
         else dialog=self.components[this.id].getConfigDialog();
          
@@ -275,21 +278,37 @@ UI.prototype.bindEvents=function bindEvents(){
     
 };
 
-
 UI.prototype.ShowComponentsWindow=function ShowComponentsWindow(){
     var self=this;
+    
+    //console.log(self.filedata);
     
     var message="Select Assembly Components";
     var input="";
     
-    /*vex.dialog.open({
+    console.log(self.components);
+    
+    for (index in self.filedata) {
+        
+        var componentItem=self.components[self.filedata[index].component].getComponentControlIcon(self.filedata[index].component);
+        console.log(componentItem);
+        input=input+componentItem;
+        
+    }
+    
+    vex.dialog.open({
         message:message,
         input:input,
         showCloseButton: true,
         escapeButtonCloses: true,
         overlayClosesOnClick: true,
         callback: function(data){ if (data) alert(data); }
-    });*/
+    });
+    // Cal mirar com fer que al fer clic als elements funcione açò... a vore com ho faig a la resta de diàlesgs de components i els callbacks...
+    
+    /*$(retdiv).on("click", function(){
+        alert($(this).attr("id"));
+        });*/
     
 }
 
@@ -305,152 +324,93 @@ UI.prototype.saveComponents=function saveComponents(){
 }
 
 
-
-UI.prototype.isComponentInConfig=function isComponentInConfig(component){
+UI.prototype.getComponentConfig=function getComponentConfig(component){
     // Returns true if component is present in config file or false if not
     try{
         var self=this;
         for (item in self.filedata)
             if(self.filedata[item].component==component)
-                return true;
+                return self.filedata[item];
         return false;
     } catch(err){
-        console.log("Error in isComponentInConfig: "+err);
+        console.log("Error in getComponentConfig: "+err);
         return false;
     }
 };
 
-UI.prototype.loadComponentsWIP=function loadComponentsWIP(){
+UI.prototype.loadComponents=function loadComponents(){
     var self=this;
     
-    try{
-        //console.log(self.filedata);
-        //console.log(self.filedata);
-        
-        /*for (item in self.filedata){
-            console.log("Parsing "+self.filedata[item].component);
-            
-            }*/
-            
-            
-        
-        //console.log("******");
-        /*
-        for (component in self.componentHelper){
-            if (self.isComponentInConfig(component))
-                console.log("Parsing "+self.filedata[item].component);
-        }*/
-        
-        for (component in self.componentHelper){
-            console.log("**"+component);
-            console.log("*2*"+self.isComponentInConfig(component));
-            if (self.isComponentInConfig(component)){
-                //console.log(self.filedata[item].component);
-                //console.log("Parsing "+self.filedata[item].component);
-                console.log(self.filedata[component]);
-                console.log("Parsing "+self.filedata[component].component);
+    // Parse all components possible, and check if is configured.
+    for (component in self.componentHelper){
+        var item=self.getComponentConfig(component);
+            if (item){
+                // If component is configured, load content and draws it
+                console.log(item.component);
                 
-                var x=self.filedata[item].size_x || 1;
-                var y=self.filedata[item].size_y || 1;
-                var col=self.filedata[item].col || 1;
-                var row=self.filedata[item].row || 1;
+                //self.filedata[item] ==> ITEM
+                        
+                var x=item.size_x || 1;
+                var y=item.size_y || 1;
+                var col=item.col || 1;
+                var row=item.row || 1;
                 
-                var current=self.filedata[item].component;
-                var currentdata=JSON.parse(self.filedata[item].componentdata);
+                var current=item.component;
+                var currentdata=JSON.parse(item.componentdata);
                 
                 // Setting up component visibility
                 var currentvisibility="";
-                console.log(self.filedata[item].componentvisibility);
-                if (self.filedata[item].componentvisibility) {currentvisibility=JSON.parse(self.filedata[item].componentvisibility);}
+                console.log(item.componentvisibility);
+                if (item.componentvisibility) {currentvisibility=JSON.parse(item.componentvisibility);}
                 
                 // loading widget component if exists
                 var currentconfig={};
-                if(self.filedata[item].componentconfig) {currentconfig=JSON.parse(self.filedata[item].componentconfig)};
+                if(item.componentconfig) {currentconfig=JSON.parse(item.componentconfig);}
                 
                 self.componentHelper[current](self); // Call function to create object in function of its type
                 
                 self.components[current].init(currentdata, currentconfig, self.configDir, currentvisibility);
+                var gridItem=self.components[current].drawComponent();
                 
-                //console.log(self.components[current]);
-                //console.log(typeof(self.components[current]));
-                
-                try{
-                console.log(typeof(self.components[current]));
-                var item=self.components[current].drawComponent();
-                }
-                catch(e){console.log(e);};
-                /*
                 // Setting visibility to item
-                $(item).attr("visible", currentvisibility);
-                /*
+                $(gridItem).attr("visible", currentvisibility);
+                
                 // Adding item to gridster
-                self.gridster.add_widget(item, x, y, col, row);
+                self.gridster.add_widget(gridItem, x, y, col, row);
                 
                 // Hiding item if is not visible
-                if (!currentvisibility){$(item).css("display", "none");}
-                */
+                if (!currentvisibility){$(gridItem).css("display", "none");}
+                                
+            }  // End if
+            else{
+                // Component is not inf config... so assembly may be writen in an older version
+                // that has no this component. So, le'ts add it hidden.
+                
+                self.componentHelper[component](self); // Call function to create object in function of its type
+                self.components[component].init({}, {}, self.configDir, false);
+                // Setting empty config
+                self.components[component].setBaseConfig();
+                
+                var gridItem=self.components[component].drawComponent();
+                
+                // Setting visibility to item
+                $(gridItem).attr("visible", false);
+                
+                // Adding item to gridster
+                self.gridster.add_widget(gridItem);
+                
+                // Hiding item if is not visible
+                
+                //$(gridItem).css("display", "none");
+                $(gridItem).css("background", "#00ff0f");
+                               
+                
             }
-        }
-        
-        
-        
-        
-        
-        // Fit text to its container
-        resizeFonts();
-        
-    } catch (err){
-        console.log(err);
-    }
-
-    
-}
-
-
-
-UI.prototype.loadComponents=function loadComponents(){
-    var self=this;
-    //console.log(self.filedata);
-    
-    for (item in self.filedata){
-        console.log("Parsing "+self.filedata[item].component);
-        
-        var x=self.filedata[item].size_x || 1;
-        var y=self.filedata[item].size_y || 1;
-        var col=self.filedata[item].col || 1;
-        var row=self.filedata[item].row || 1;
-        
-        var current=self.filedata[item].component;
-        var currentdata=JSON.parse(self.filedata[item].componentdata);
-        
-        // Setting up component visibility
-        var currentvisibility="";
-        console.log(self.filedata[item].componentvisibility);
-        if (self.filedata[item].componentvisibility) {currentvisibility=JSON.parse(self.filedata[item].componentvisibility);}
-        
-        // loading widget component if exists
-        var currentconfig={};
-        if(self.filedata[item].componentconfig) {currentconfig=JSON.parse(self.filedata[item].componentconfig)};
-        
-        self.componentHelper[current](self); // Call function to create object in function of its type
-        
-        self.components[current].init(currentdata, currentconfig, self.configDir, currentvisibility);
-        var item=self.components[current].drawComponent();
-        
-        // Setting visibility to item
-        $(item).attr("visible", currentvisibility);
-        
-        // Adding item to gridster
-        self.gridster.add_widget(item, x, y, col, row);
-        
-        // Hiding item if is not visible
-        if (!currentvisibility){$(item).css("display", "none");}
-        
-    }
+    } // End for
     
     // Fit text to its container
     resizeFonts();
-
+    
     
 }
 

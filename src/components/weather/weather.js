@@ -1,19 +1,20 @@
 
 function weatherComponentClass(){
     this.weatherOptions=["sunny", "partial_sunny", "partial_cloudy", "cloudy", "rainy","snow"];
+    this.name="Weather Selector";
+    this.icon="css/images/icons/asmode.png";
     
 }
 
 weatherComponentClass.prototype=new Component();
 weatherComponentClass.prototype.constructor = weatherComponentClass;
 
-weatherComponentClass.prototype.getBaseConfig=function getBaseConfig(){
-    return {
-        info:{"weather":"sunny"},
-        config:{"sunny":true,"partial_sunny":true,"partial_cloudy":true,
-                "cloudy":true,"rainy":true,"snow":false},
-        configdir:"weather"
-        };
+weatherComponentClass.prototype.setBaseConfig=function setBaseConfig(){
+    var self=this;
+    
+    self.info={"weather":"sunny"};
+    self.config={"sunny":true,"partial_sunny":true,"partial_cloudy":true,
+                "cloudy":true,"rainy":true,"snow":false};
 };
 
 weatherComponentClass.prototype.drawComponent=function drawComponent(){

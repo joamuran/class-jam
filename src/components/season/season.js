@@ -1,17 +1,17 @@
 
 function seasonComponentClass(){
     this.seasonOptions=["autumn", "summer", "winter", "spring"];
+    this.name="Season Selector";
+    this.icon="css/images/icons/asmode.png";
 }
 
 seasonComponentClass.prototype=new Component();
 seasonComponentClass.prototype.constructor = seasonComponentClass;
 
-seasonComponentClass.prototype.getBaseConfig=function getBaseConfig(){
-    return {
-        info:{"season":"autumn"},
-        config:{"spring":true,"summer":true,"autumn":true,"winter":true},
-        configdir:"season"
-        };
+seasonComponentClass.prototype.setBaseConfig=function setBaseConfig(){
+    var self=this;
+    self.info={"season":"autumn"};
+    self.config={"spring":true,"summer":true,"autumn":true,"winter":true};
 };
 
 seasonComponentClass.prototype.drawComponent=function drawComponent(){

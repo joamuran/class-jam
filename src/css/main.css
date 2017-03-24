@@ -170,3 +170,29 @@ li.editable:hover{
     clear: both;
     width: 100%;
 }
+
+
+/* Component Selector */
+
+.componentVisibilitySelector{
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+    float: left;
+    margin: 10px;
+    position: relative;
+    
+    /*display: table-cell;
+    vertical-align: bottom;*/
+    
+    
+}
+
+
+.componentVisibilitySelectorText{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+}

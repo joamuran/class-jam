@@ -1,16 +1,18 @@
 function classmatesComponentClass(){
+    this.name="Classmates Selector";
+    this.icon="css/images/icons/asmode.png";
 }
 
 classmatesComponentClass.prototype=new Component();
 classmatesComponentClass.prototype.constructor = classmatesComponentClass;
 
 
-classmatesComponentClass.prototype.getBaseConfig=function getBaseConfig(){
-    return {
-        info:{},
-        config:{},
-        configdir:"classmates"
-        };
+
+
+classmatesComponentClass.prototype.setBaseConfig=function setBaseConfig(){
+    var self=this;
+    self.info={};
+    self.config={};
 };
 
 

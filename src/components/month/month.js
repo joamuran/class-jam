@@ -1,12 +1,18 @@
 
 function monthComponentClass(){
     this.monthOptions=["january", "february", "march", "april", "may", "june", "july", "august", "september", "october","november","december"];
+    
+    this.name="Month Selector";
+    this.icon="css/images/icons/check.png";
 }
 
 monthComponentClass.prototype=new Component();
 monthComponentClass.prototype.constructor = monthComponentClass;
 
-monthComponentClass.prototype.getBaseConfig=function getBaseConfig(){
+
+monthComponentClass.prototype.setBaseConfig=function setBaseConfig(){
+    var self=this;
+    
    var baseConfig={ "january":true,"february":true,"march":true,
                     "april":true,"may":true, "june":true,
                     "july":true,"august":true,"september":true,
@@ -25,12 +31,11 @@ monthComponentClass.prototype.getBaseConfig=function getBaseConfig(){
         }
         monthCount++;
     }
+   
+    // Setting data
     
-    return {
-        info:{"month":currentMonthName},
-        config:baseConfig,
-        configdir:"month",
-        };
+    self.info={"month":currentMonthName};
+    self.config=baseConfig;
 };
 
 monthComponentClass.prototype.drawComponent=function drawComponent(){
