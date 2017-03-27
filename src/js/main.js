@@ -282,18 +282,20 @@ UI.prototype.ShowComponentsWindow=function ShowComponentsWindow(){
     var self=this;
     
     //console.log(self.filedata);
-    
+
     var message="Select Assembly Components";
     var input="";
     
     console.log(self.components);
+    console.log(self.filedata);
     
     for (index in self.filedata) {
-        
+        //alert(index);
         var componentItem=self.components[self.filedata[index].component].getComponentControlIcon(self.filedata[index].component);
         console.log(componentItem);
-        input=input+componentItem;
+        console.log(typeof(componentItem));
         
+        input=input+componentItem.prop("outerHTML");
     }
     
     vex.dialog.open({
@@ -302,8 +304,31 @@ UI.prototype.ShowComponentsWindow=function ShowComponentsWindow(){
         showCloseButton: true,
         escapeButtonCloses: true,
         overlayClosesOnClick: true,
-        callback: function(data){ if (data) alert(data); }
+        callback: function(data){
+            for (i in self.components){
+                //alert(i+" is "+self.components[i].visible);
+                $("#"+i).attr("visible", self.components[i].visible);
+                if(self.components[i].visible) $("#"+i).css("display", "list-item");
+                else $("#"+i).css("display", "none");
+            }
+            }
     });
+    
+    $(".componentVisibilitySelector").on("click", function(){
+            //alert($(this).attr("id"));
+            var id=$(this).attr("id");
+            
+            if(self.components[id].visible){
+                self.components[id].visible=false;
+                $(this).css("opacity", "0.3");
+            } else {
+                self.components[id].visible=true;
+                $(this).css("opacity", "1");
+                }
+            
+            
+        });
+    
     // Cal mirar com fer que al fer clic als elements funcione açò... a vore com ho faig a la resta de diàlesgs de components i els callbacks...
     
     /*$(retdiv).on("click", function(){
@@ -329,9 +354,32 @@ UI.prototype.getComponentConfig=function getComponentConfig(component){
     try{
         var self=this;
         for (item in self.filedata)
-            if(self.filedata[item].component==component)
+            if(self.filedata[item].component==component){
                 return self.filedata[item];
-        return false;
+            }
+        //return false;
+        
+        // If there is no component in filedata, let's create it empty
+        
+        self.componentHelper[component](self); // Call function to create object in function of its type
+        self.components[component].init({}, {}, self.configDir, false);
+        // Setting empty config
+        self.components[component].setBaseConfig();
+        
+        var gridItem=self.components[component].drawComponent();
+        // Adding item to self.filedata
+        var newItem={component: $(gridItem).attr("id"),
+                    componentdata: $(gridItem).attr('data'),
+                    componentconfig: $(gridItem).attr('config'),
+                    componentvisibility: "true",
+                    col: 1,
+                    row: 1,
+                    size_x: 1,
+                    size_y: 1};
+        
+        self.filedata.push(newItem);
+        return newItem;
+        
     } catch(err){
         console.log("Error in getComponentConfig: "+err);
         return false;
@@ -344,68 +392,45 @@ UI.prototype.loadComponents=function loadComponents(){
     // Parse all components possible, and check if is configured.
     for (component in self.componentHelper){
         var item=self.getComponentConfig(component);
-            if (item){
-                // If component is configured, load content and draws it
-                console.log(item.component);
+        
+        // If component is configured, load content and draws it
+        console.log(item.component);
+        
+        //self.filedata[item] ==> ITEM
                 
-                //self.filedata[item] ==> ITEM
+        var x=item.size_x || 1;
+        var y=item.size_y || 1;
+        var col=item.col || 1;
+        var row=item.row || 1;
+        
+        var current=item.component;
+        var currentdata=JSON.parse(item.componentdata);
+        
+        // Setting up component visibility
+        var currentvisibility="";
+        console.log(item.componentvisibility);
+        if (item.componentvisibility) {currentvisibility=JSON.parse(item.componentvisibility);}
+        
+        // loading widget component if exists
+        var currentconfig={};
+        if(item.componentconfig) {currentconfig=JSON.parse(item.componentconfig);}
+        
+        self.componentHelper[current](self); // Call function to create object in function of its type
+        
+        self.components[current].init(currentdata, currentconfig, self.configDir, currentvisibility);
+        var gridItem=self.components[current].drawComponent();
+        
+        // Setting visibility to item
+        $(gridItem).attr("visible", currentvisibility);
+        
+        // Adding item to gridster
+        self.gridster.add_widget(gridItem, x, y, col, row);
+        
+        // Hiding item if is not visible
+        if (!currentvisibility){$(gridItem).css("display", "none");}
                         
-                var x=item.size_x || 1;
-                var y=item.size_y || 1;
-                var col=item.col || 1;
-                var row=item.row || 1;
-                
-                var current=item.component;
-                var currentdata=JSON.parse(item.componentdata);
-                
-                // Setting up component visibility
-                var currentvisibility="";
-                console.log(item.componentvisibility);
-                if (item.componentvisibility) {currentvisibility=JSON.parse(item.componentvisibility);}
-                
-                // loading widget component if exists
-                var currentconfig={};
-                if(item.componentconfig) {currentconfig=JSON.parse(item.componentconfig);}
-                
-                self.componentHelper[current](self); // Call function to create object in function of its type
-                
-                self.components[current].init(currentdata, currentconfig, self.configDir, currentvisibility);
-                var gridItem=self.components[current].drawComponent();
-                
-                // Setting visibility to item
-                $(gridItem).attr("visible", currentvisibility);
-                
-                // Adding item to gridster
-                self.gridster.add_widget(gridItem, x, y, col, row);
-                
-                // Hiding item if is not visible
-                if (!currentvisibility){$(gridItem).css("display", "none");}
-                                
-            }  // End if
-            else{
-                // Component is not inf config... so assembly may be writen in an older version
-                // that has no this component. So, le'ts add it hidden.
-                
-                self.componentHelper[component](self); // Call function to create object in function of its type
-                self.components[component].init({}, {}, self.configDir, false);
-                // Setting empty config
-                self.components[component].setBaseConfig();
-                
-                var gridItem=self.components[component].drawComponent();
-                
-                // Setting visibility to item
-                $(gridItem).attr("visible", false);
-                
-                // Adding item to gridster
-                self.gridster.add_widget(gridItem);
-                
-                // Hiding item if is not visible
-                
-                //$(gridItem).css("display", "none");
-                $(gridItem).css("background", "#00ff0f");
-                               
-                
-            }
+            // End if
+
     } // End for
     
     // Fit text to its container

@@ -2,7 +2,7 @@
 function weatherComponentClass(){
     this.weatherOptions=["sunny", "partial_sunny", "partial_cloudy", "cloudy", "rainy","snow"];
     this.name="Weather Selector";
-    this.icon="css/images/icons/asmode.png";
+    this.icon="components/componentIcons/weather.png";
     
 }
 

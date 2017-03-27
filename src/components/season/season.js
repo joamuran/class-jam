@@ -2,7 +2,7 @@
 function seasonComponentClass(){
     this.seasonOptions=["autumn", "summer", "winter", "spring"];
     this.name="Season Selector";
-    this.icon="css/images/icons/asmode.png";
+    this.icon="components/componentIcons/season.png";
 }
 
 seasonComponentClass.prototype=new Component();

@@ -183,12 +183,17 @@ li.editable:hover{
     margin: 10px;
     position: relative;
     
+    transition: all ease 1s;
+    
     /*display: table-cell;
     vertical-align: bottom;*/
     
-    
 }
 
+.componentVisibilitySelector:hover{
+    cursor: pointer;
+    background-color: #eeeecc;
+}
 
 .componentVisibilitySelectorText{
     position: absolute;

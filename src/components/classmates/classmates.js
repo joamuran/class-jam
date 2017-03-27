@@ -1,6 +1,6 @@
 function classmatesComponentClass(){
     this.name="Classmates Selector";
-    this.icon="css/images/icons/asmode.png";
+    this.icon="components/componentIcons/classmates.png";
 }
 
 classmatesComponentClass.prototype=new Component();

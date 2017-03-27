@@ -2,7 +2,7 @@
 function weekdayComponentClass(){
     this.weekdayOptions=["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
     this.name="WeekDay Selector";
-    this.icon="css/images/icons/asmode.png";
+    this.icon="components/componentIcons/weekday.png";
 }
 
 weekdayComponentClass.prototype=new Component();

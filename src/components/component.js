@@ -29,10 +29,13 @@ Component.prototype.getComponentControlIcon=function getComponentControlIcon(id)
         
     var retdiv=$(document.createElement("div")).attr("id", id).addClass("componentVisibilitySelector");
     var text=$(document.createElement("div")).html(self.name).addClass("componentVisibilitySelectorText");
+    console.log(self.visible);
+    if (self.visible===false) $(retdiv).css("opacity", "0.3");
     $(retdiv).css("background-image", "url("+self.icon+")");
     $(retdiv).append(text);
     
-    return $(retdiv).prop("outerHTML");
+    return $(retdiv);
+    //return $(retdiv).prop("outerHTML");
 };
 
 

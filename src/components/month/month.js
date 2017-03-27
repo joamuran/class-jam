@@ -3,7 +3,7 @@ function monthComponentClass(){
     this.monthOptions=["january", "february", "march", "april", "may", "june", "july", "august", "september", "october","november","december"];
     
     this.name="Month Selector";
-    this.icon="css/images/icons/check.png";
+    this.icon="components/componentIcons/month.png";
 }
 
 monthComponentClass.prototype=new Component();
