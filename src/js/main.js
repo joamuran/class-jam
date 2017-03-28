@@ -10,6 +10,11 @@ TO-DO:
 */
 
 function resizeFonts(){
+    
+    $("body").css("font-font-family","indieFlower");
+    /*$("body, .vex, .vex-theme-flat-attack, .vex-content").css("font-font-family","indieFlower");*/
+    
+    
     // Resizes al fonts defined with fluid class according to its zoom component and its container
     $(".textfluid").each(function(){
         var zoom=$(this).attr("fontzoom");

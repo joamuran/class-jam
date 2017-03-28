@@ -7,11 +7,16 @@
     src: url(fonts/Pacifico-Regular.ttf);
 }
 
+@font-face {
+    font-family: ShortStack;
+    src: url(fonts/ShortStack-Regular.ttf);
+}
 
 body{
     background-image: url(images/backgrounds/bg1.jpg);
     background-size: cover;
-    font-family: "indieFlower";
+    /*font-family: "indieFlower";*/
+    font-family: "ShortStack";
     font-weight: 600;
     /*font-size: 1.3vw;*/
 }
@@ -145,7 +150,8 @@ li.editable:hover{
 /* Overwrite vex.css */
 
 .vex, .vex-theme-flat-attack, .vex-content {
-    font-family: "indieFlower" !important;
+    /*font-family: "indieFlower" !important;*/
+    font-family: "ShortStack" !important;
     font-weight: 600 !important;
     font-size: 1.3vw !important;
     
