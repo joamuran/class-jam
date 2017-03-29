@@ -24,6 +24,7 @@
   "sunday":"Sunday",
   
   "month.component.title":"In wich month we are?",
+  "month.component.options":"Configure available months",
   "january":"January",
   "february":"February",
   "march":"March",

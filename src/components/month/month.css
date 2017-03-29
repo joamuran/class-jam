@@ -17,51 +17,51 @@
 
 
 .january{
-    background-color: #eeeeff;
+    background-image: url(img/january.png);
 }
 
 .february{
-    background-color: #ddddee;    
+    background-image: url(img/february.png);
 }
 
 .march{
-    background-color: #ddffee;
+    background-image: url(img/march.png);
     
 }
 .april{
-    background-color: #ccffaa;
+    background-image: url(img/april.png);
 }
 
 .may{
-    background-color: #ffffbb;
+    background-image: url(img/may.png);
 }
 
 .june{
-    background-color: #ffffcc;
+    background-image: url(img/june.png);
 }
 
 .july{
-    background-color: #ffffdd;
+    background-image: url(img/july.png);
 }
 
 .august{
-    background-color: #ffffee;
+    background-image: url(img/august.png);
 }
 
 .september{
-    background-color: #aaaa55;
+    background-image: url(img/september.png);
 }
 
 .october{
-    background-color: #aaaa77;
+    background-image: url(img/october.png);
 }
 
 .november{
-    background-color: #aaaa88;
+    background-image: url(img/november.png);
 }
 
 .december{
-    background-color: #aaaa99;
+    background-image: url(img/december.png);
 }
     
 .monthSelectIcon{
@@ -91,10 +91,14 @@
 .monthSelectInfo{
     position: absolute;
     bottom: 0;
+    padding-top:30px;
     width: 100%;
     text-align:center;
     transition: all 0.4s;
     margin-left: -15px;
+    color: #ffffff;
+    font-weight: 800;
+    -webkit-text-stroke: #000000 1px;
 }
 
 

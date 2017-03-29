@@ -169,9 +169,10 @@ UI.prototype.bindEvents=function bindEvents(){
         });
     
     $("#menuButton").on("click", function(event){
+        console.log("self.menuHidden is "+self.menuHidden);
         event.stopPropagation();
-        if (self.menuHidden) self.showControlPanel();
-        else self.hideControlPanel();
+        if (self.menuHidden) {self.showControlPanel(); console.log("111");}
+        else {self.hideControlPanel(); console.log("222");}
             
         self.menuHidden=!self.menuHidden;
         });
@@ -692,7 +693,13 @@ UI.prototype.LaunchAssembly=function LaunchAssembly(id){
         // Aplying font resize
         resizeFonts();
         $(".loadMainContainer").remove(); // Destroys load dialog
-        $("#btShowPlayerMode").click(); // Set player mode
+        //$("#btShowPlayerMode").click(); // Set player mode
+        // Setting player mode
+        self.gridster.disable();
+        self.gridster.disable_resize();
+        $(".gridster li").removeClass("editable");
+        self.mode="player";
+        
     }, 100);
 };
 

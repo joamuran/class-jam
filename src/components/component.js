@@ -28,11 +28,13 @@ Component.prototype.getComponentControlIcon=function getComponentControlIcon(id)
     //return {"name":this.name, "icon":this.icon, "visible":this.visible, "id":id+"Configurator"};
         
     var retdiv=$(document.createElement("div")).attr("id", id).addClass("componentVisibilitySelector");
-    var text=$(document.createElement("div")).html(self.name).addClass("componentVisibilitySelectorText");
-    console.log(self.visible);
-    if (self.visible===false) $(retdiv).css("opacity", "0.3");
-    $(retdiv).css("background-image", "url("+self.icon+")");
-    $(retdiv).append(text);
+    var iconDiv=$(document.createElement("div")).attr("id", id).addClass("componentVisibilitySelectorIcon");
+    var textDiv=$(document.createElement("div")).html(self.name).addClass("componentVisibilitySelectorText");
+    
+    //console.log(self.visible);
+    if (self.visible===false) $(iconDiv).css("opacity", "0.3");
+    $(iconDiv).css("background-image", "url("+self.icon+")");
+    $(retdiv).append(iconDiv, textDiv);
     
     return $(retdiv);
     //return $(retdiv).prop("outerHTML");
