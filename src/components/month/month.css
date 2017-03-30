@@ -16,53 +16,42 @@
 }
 
 
-.january{
-    background-image: url(img/january.png);
-}
+.january{ background-image: url(img/january.png); }
+.monthSelectIcon.january:hover{ background-image: url(img/january.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
 
-.february{
-    background-image: url(img/february.png);
-}
+.february{ background-image: url(img/february.png);}
+.monthSelectIcon.february:hover{ background-image: url(img/february.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
 
-.march{
-    background-image: url(img/march.png);
+.march{ background-image: url(img/march.png); }
+.monthSelectIcon.march:hover{ background-image: url(img/march.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.april{ background-image: url(img/april.png); }
+.monthSelectIcon.april:hover{ background-image: url(img/april.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.may{ background-image: url(img/may.png); }
+.monthSelectIcon.may:hover{ background-image: url(img/may.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.june{ background-image: url(img/june.png); }
+.monthSelectIcon.june:hover{ background-image: url(img/june.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.july{ background-image: url(img/july.png); }
+.monthSelectIcon.july:hover{ background-image: url(img/july.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.august{ background-image: url(img/august.png); }
+.monthSelectIcon.august:hover{ background-image: url(img/august.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.september{ background-image: url(img/september.png); }
+.monthSelectIcon.september:hover{ background-image: url(img/september.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.october{ background-image: url(img/october.png); }
+.monthSelectIcon.october:hover{ background-image: url(img/october.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.november{ background-image: url(img/november.png); }
+.monthSelectIcon.november:hover{ background-image: url(img/november.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.december{ background-image: url(img/december.png); }
+.monthSelectIcon.december:hover{ background-image: url(img/december.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
     
-}
-.april{
-    background-image: url(img/april.png);
-}
-
-.may{
-    background-image: url(img/may.png);
-}
-
-.june{
-    background-image: url(img/june.png);
-}
-
-.july{
-    background-image: url(img/july.png);
-}
-
-.august{
-    background-image: url(img/august.png);
-}
-
-.september{
-    background-image: url(img/september.png);
-}
-
-.october{
-    background-image: url(img/october.png);
-}
-
-.november{
-    background-image: url(img/november.png);
-}
-
-.december{
-    background-image: url(img/december.png);
-}
     
 .monthSelectIcon{
     position: relative;
@@ -74,6 +63,7 @@
     background-position: center;
     transition: all 0.4s;
     opacity: 0.8;
+    border-radius: 10px;
 }
 
 
@@ -83,7 +73,8 @@
      background-position: center;
      transform: scale(1.5);
      z-index: 10;
-    filter: drop-shadow(3px 3px 3px #333333);
+     box-shadow: 3px 3px 3px #333333;
+    /*filter: drop-shadow(3px 3px 3px #333333);*/
      
 }
 
@@ -96,9 +87,9 @@
     text-align:center;
     transition: all 0.4s;
     margin-left: -15px;
-    color: #ffffff;
+    color: #333333;
     font-weight: 800;
-    -webkit-text-stroke: #000000 1px;
+    /*-webkit-text-stroke: #000000 1px;*/
 }
 
 

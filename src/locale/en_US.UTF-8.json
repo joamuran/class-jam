@@ -6,7 +6,7 @@
   "confirm.save.msg.no":"Close without saving",
   
   "weather.component.title": "What's the weather like?",
-  
+  "weather.component.options":"Select weather options",
   "sunny": "Sunny",
   "partial_sunny":"Partial sunny",
   "partial_cloudy":"Partial cloudy",
@@ -15,6 +15,7 @@
   "snow":"It's snowing",
   "weather.component.today.is":"Today it is",
   
+  "weekday.component.title":"What day is today?",
   "monday":"Monday",
   "tuesday":"Tuesday",
   "wednesday": "Wednesday",

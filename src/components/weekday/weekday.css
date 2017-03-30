@@ -25,30 +25,26 @@
     width: 70%;*/
 }
 
-.monday{
-    background:#cceeff;
-}
-.tuesday{
-    background:#cceeff;
-}
-.wednesday{
-    background:#cceeff;
-}
-.thursday{
-    background:#cceeff;
-}
-.friday{
-    background:#cceeff;
-}
-.saturday{
-    background:#cceeff;
-}
-.sunday{
-    background:#cceeff;
-}
+.monday{background-image: url(img/monday.png); }
+.weekdaySelectIcon.monday:hover{background-image: url(img/monday.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
 
+.tuesday{background-image: url(img/tuesday.png); }
+.weekdaySelectIcon.tuesday:hover{background-image: url(img/tuesday.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
 
+.wednesday{background-image: url(img/wednesday.png); }
+.weekdaySelectIcon.wednesday:hover{background-image: url(img/wednesday.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
 
+.thursday{background-image: url(img/thursday.png); }
+.weekdaySelectIcon.thursday:hover{background-image: url(img/thursday.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.friday{background-image: url(img/friday.png); }
+.weekdaySelectIcon.friday:hover{background-image: url(img/friday.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.saturday{background-image: url(img/saturnday.png); }
+.weekdaySelectIcon.saturday:hover{background-image: url(img/saturnday.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.sunday{background-image: url(img/sunday.png); }
+.weekdaySelectIcon.sunday:hover{background-image: url(img/sunday.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
     
 .weekdaySelectIcon{
     position: relative;
@@ -60,6 +56,7 @@
     background-position: center;
     transition: all 0.4s;
     opacity: 0.8;
+    border-radius: 10px;
 }
 
 
@@ -69,7 +66,8 @@
      background-position: center;
      transform: scale(1.5);
      z-index: 10;
-    filter: drop-shadow(3px 3px 3px #333333);
+     box-shadow: 3px 3px 3px #333333);
+    /*filter: drop-shadow(3px 3px 3px #333333);*/
      
 }
 

@@ -6,7 +6,7 @@
   "confirm.save.msg.no":"Tanca sense guardar-la",
   
   "weather.component.title": "Quin temps fa?",
-  
+  "weather.component.options":"Configureu l'oratge",
   "sunny": "Sol",
   "partial_sunny":"Sol amb núvols",
   "partial_cloudy":"Núvols",
@@ -15,6 +15,7 @@
   "snow":"Hui neva",
   "weather.component.today.is":"Hui fa...",
   
+  "weekday.component.title":"Quin dia és?",
   "monday":"Dilluns",
   "tuesday":"Dimarts",
   "wednesday": "Dimecres",
