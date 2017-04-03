@@ -25,10 +25,33 @@ classmatesComponentClass.prototype.drawComponent=function drawComponent(){
     
     console.log(self.info);
     
-    if (JSON.stringify(self.info)==="{}"){
-        $(li).html("Classmates is undefined").css("background", "rgba(255,150,150,0.5)");
-    } /*else {*/
+    // Açò caldrà restaurar-ho quan tingam la vista feta
     
+    
+    self.info={"alu01":true,"alu02":true, "alu0":true};
+    console.log(self.config);
+    
+    if (JSON.stringify(self.info)==="{}"){
+    $(li).html("").addClass("emptySchool");
+    } else {
+        for (i in self.info){
+            console.log(self.info[i]);
+            
+            var aluname="Sense Nom";
+            var aluimg="components/classmates/img/ninya.jpeg";
+            
+            if (typeof(self.config[i])==!undefined){
+                // WIP HERE
+                if(self.config[i].name) aluname=self.config[i].name;
+                if(self.config[i].img) aluimg=self.config[i].img;
+            }
+            
+            console.log(aluname+" "+aluimg);
+            
+        }
+        
+    }
+        
     
     
     

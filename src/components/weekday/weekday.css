@@ -1,7 +1,8 @@
 
 .iconWeekday{
-    /*width: 30%;
-    height: 100%;*/
+    width: 30%;
+    float: left;
+    /*height: 100%;*/
     background-size: contain;
     background-repeat: no-repeat;
     transition: all 0.4s;
@@ -14,12 +15,16 @@
 .weekdaystatuscontainer{
     display: table;
     height: 100%;
+    width: 60%;
+    float: left;
+    
 }
 
 .iconWeekdayText{
     text-align: left;
     vertical-align: middle;
     display: table-cell;
+    
     /*font-size: 10vw;*/
     /*height: 100%;
     width: 70%;*/

@@ -504,6 +504,12 @@ UI.prototype.showLoadDialog=function showLoadDialog(){
     var slidee=$(document.createElement("ul")).addClass("slidee");
         
     var fs=require("fs");
+    
+    // Create config dir if not exists
+    if (!fs.existsSync(self.configBaseDir)) {
+        fs.mkdirSync(self.configBaseDir); }
+    
+    // Read config
     var assembleaList=fs.readdirSync(self.configBaseDir);
     for (assemblea in assembleaList){
         var config=JSON.parse(fs.readFileSync(self.configBaseDir+"/"+assembleaList[assemblea]+"/config.json"));

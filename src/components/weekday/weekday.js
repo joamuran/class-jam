@@ -24,8 +24,8 @@ weekdayComponentClass.prototype.drawComponent=function drawComponent(){
     else {
         //var weekdaytext=$(document.createElement("div")).addClass("iconWeekdayText textfluid").html(i18n.gettext("weekday.it.is"));
         // var weekdaytext=$(document.createElement("div")).addClass("iconWeekdayText textfluid");
-        var weekdayicon=$(document.createElement("div")).addClass("iconWeekday col-md-3").addClass(self.info.weekday);
-        var weekdaystatuscontainer=$(document.createElement("div")).addClass("col-md-9 weekdaystatuscontainer");
+        var weekdayicon=$(document.createElement("div")).addClass("iconWeekday").addClass(self.info.weekday);
+        var weekdaystatuscontainer=$(document.createElement("div")).addClass("weekdaystatuscontainer");
         var weekdaystatus=$(document.createElement("div")).addClass("iconWeekdayText textfluid").html(i18n.gettext(self.info.weekday)).attr("fontzoom", "1.7");
         $(weekdaystatuscontainer).append(weekdaystatus);
         //$(li).append(weekdaytext).append(weekdayicon).append(weekdaystatus);

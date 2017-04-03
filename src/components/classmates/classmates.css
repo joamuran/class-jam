@@ -53,3 +53,15 @@
     
     
 }
+
+/*  Drawing Component */
+
+.emptySchool{
+    background: url("/components/classmates/img/school.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+        
+}
+
