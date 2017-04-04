@@ -65,3 +65,29 @@
         
 }
 
+.classmatesContainer{
+     display: grid;
+  grid-template-columns: 2px 2px 2px;
+  grid-gap: 10px;
+  background-color: #ff0;
+  color: #444;
+}
+
+.aluicon{
+   background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 150%;
+}
+
+.aluiconimg{
+    
+}
+
+.aluiconname{
+    
+}
+
+
+

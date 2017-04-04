@@ -40,13 +40,23 @@ classmatesComponentClass.prototype.drawComponent=function drawComponent(){
             var aluname="Sense Nom";
             var aluimg="components/classmates/img/ninya.jpeg";
             
-            if (typeof(self.config[i])==!undefined){
-                // WIP HERE
+            console.log(typeof(self.config[i]));
+            if (typeof(self.config[i])==="object"){                
+                console.log("111");
                 if(self.config[i].name) aluname=self.config[i].name;
                 if(self.config[i].img) aluimg=self.config[i].img;
             }
             
+            
+            var container=$(document.createElement("div")).addClass("classmatesContainer");
+            var aluicon=$(document.createElement("div")).addClass("aluicon");
+            var aluiconimg=$(document.createElement("div")).addClass("aluiconimg").css("background-image", aluimg);
+            var aluiconname=$(document.createElement("div")).addClass("aluiconname").html(aluname);
+            $(aluicon).append(aluiconimg, aluiconname);
             console.log(aluname+" "+aluimg);
+            
+            $(container).append(aluicon);
+            $(li).append(container);
             
         }
         
