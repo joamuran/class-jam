@@ -52,5 +52,7 @@
   "input.new.assembly.name": "Trieu un nom",
   "input.new.assembly.icon":"Trieu una icona",
   "CreateAssembly.bt.ok":"Crea l'Assemblea",
-  "CreateAssembly.bt.cancel":"Cancel·la"
+  "CreateAssembly.bt.cancel":"Cancel·la",
+  "classmates.frontend.tile":"Qui ha vingut hui?"
+  
 }

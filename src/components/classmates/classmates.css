@@ -66,22 +66,36 @@
 }
 
 .classmatesContainer{
-     display: grid;
-  grid-template-columns: 2px 2px 2px;
+  display: grid;
+  /*grid-template-columns: 30% 30% 30%;
+  grid-template-rows: 30% 30% 30%;*/
   grid-gap: 10px;
-  background-color: #ff0;
+  /*background-color: #ff0;*/
   color: #444;
+  height: 85%;
+  
+  /*background: url("/components/classmates/img/schoolbn.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;*/
+  
 }
 
+.classMatesContainer3cols{grid-template-columns: 30% 30% 30%;}
+.classMatesContainer4cols{grid-template-columns: 20% 20% 20% 20%;}
+
 .aluicon{
-   background-color: #444;
-  color: #fff;
-  border-radius: 5px;
-  padding: 20px;
-  font-size: 150%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  
 }
 
 .aluiconimg{
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     
 }
 

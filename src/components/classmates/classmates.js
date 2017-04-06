@@ -31,34 +31,60 @@ classmatesComponentClass.prototype.drawComponent=function drawComponent(){
     self.info={"alu01":true,"alu02":true, "alu0":true};
     console.log(self.config);
     
+    // Calculate children in classroom
+    var numalum=0;
+    var rows, cols;
+    var grid_template_rows="";
+    
+    for (var i in self.info) if (self.info[i]) numalum++;
+    // And now rows and columns
+    if (numalum<10) {
+        cols=3;
+        classMatesContainer="classMatesContainer3cols";  }
+    else {
+        cols=4;
+        classMatesContainer="classMatesContainer4cols"; }
+    
+    rows=Math.floor(numalum/cols)+1;
+    var row_percent=100/(rows+1);
+    for (i=0; i<rows; i++){ grid_template_rows+=row_percent+"% "; }
+    
+    //console.log("cols="+cols);
+    //console.log("rows="+rows);
+    //console.log(grid_template_rows);
+    
+    
     if (JSON.stringify(self.info)==="{}"){
-    $(li).html("").addClass("emptySchool");
+        $(li).html("").addClass("emptySchool");
     } else {
+        var container=$(document.createElement("div")).addClass("classmatesContainer").addClass(classMatesContainer).css("grid-template-rows", grid_template_rows);
         for (i in self.info){
-            console.log(self.info[i]);
+            //console.log(self.info[i]);
             
             var aluname="Sense Nom";
             var aluimg="components/classmates/img/ninya.jpeg";
             
             console.log(typeof(self.config[i]));
             if (typeof(self.config[i])==="object"){                
-                console.log("111");
                 if(self.config[i].name) aluname=self.config[i].name;
-                if(self.config[i].img) aluimg=self.config[i].img;
+                if(self.config[i].img) aluimg="file://"+self.configDir+"/components/classmates/"+self.config[i].img;
             }
             
             
-            var container=$(document.createElement("div")).addClass("classmatesContainer");
-            var aluicon=$(document.createElement("div")).addClass("aluicon");
-            var aluiconimg=$(document.createElement("div")).addClass("aluiconimg").css("background-image", aluimg);
-            var aluiconname=$(document.createElement("div")).addClass("aluiconname").html(aluname);
-            $(aluicon).append(aluiconimg, aluiconname);
+            var aluicon=$(document.createElement("div")).addClass("aluicon").css("background-image", "url("+aluimg+")");
+            $(aluicon).attr("title", aluname);
+            /*var aluiconimg=$(document.createElement("div")).addClass("aluiconimg").css("background-image", aluimg);
+            var aluiconname=$(document.createElement("div")).addClass("aluiconname").html(aluname);*/
+            //$(aluicon).append(aluiconimg, aluiconname);
             console.log(aluname+" "+aluimg);
             
             $(container).append(aluicon);
-            $(li).append(container);
+            
             
         }
+        var titlediv=$(document.createElement("div")).html(i18n.gettext("classmates.frontend.tile")).css("height","15%").addClass("textfluid").attr("fontzoom", "0.8");
+        $(li).append(titlediv, container);
+        
         
     }
         
@@ -112,6 +138,12 @@ classmatesComponentClass.prototype.SelectImageForAlu=function SelectImageForAlu(
                 const readChunk = require('read-chunk');
                 const fileType = require('file-type');
                 const buffer = readChunk.sync(newImage, 0, 4100);
+                
+                // Check if exists classmates subdir
+                var fs=require("fs");
+                var classmatesdir=self.configDir+"/components/classmates/";
+                if (!fs.existsSync(classmatesdir)) {
+                    fs.mkdirSync(classmatesdir); }
     
                 //console.log(fileType(buffer));
                     
