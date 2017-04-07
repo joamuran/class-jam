@@ -105,3 +105,104 @@
 
 
 
+/* Drag and Drop for ASDialog*/
+
+.DragBus{
+    height: 40%;
+    background-color: #dedede;
+    background-image: url(img/bus.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding-left: 20%;
+    padding-top:2%;
+}
+
+.DragSchool{
+    height: 60%;
+    background-color: #dedede;
+    background-image: url(img/school.png);
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+.DragHome{
+    height: 60%;
+    background-color: #dedede;
+    background-image: url(img/home.png);
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    
+}
+
+.aluiconDrag{
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    /*height: 6em;
+    width: calc(height * 0.6);*/
+    width: 5em;
+    height: 6em;
+    float: left;
+    margin: 5px !important;
+    
+    display:block;
+    list-style-type:none;
+    
+    transition: ease all 0.3s;
+    
+}
+.aluiconDragging{
+    background-color: #ffffff;
+    transition: ease all 0.3s;
+    width: 100px;
+    height: 100px;
+    font-size: 2em;
+    
+}
+
+
+/*.aluiconDrag:active{
+    background-color: #ffffff;
+    transition: ease all 0.3s;
+    width: 8em;
+    height: 9em;
+    font-size: 2em;
+    
+}*/
+
+/*[data-draggable="target"]
+{
+    float:left;
+    list-style-type:none;
+    
+    width:42%;
+    height:7.5em;
+    overflow-y:auto;
+    
+    margin:0 0.5em 0.5em 0;
+    padding:0.5em;
+    
+    border:2px solid #888;
+    border-radius:0.2em;
+    
+    background:#ddd;
+    color:#555;
+}*/
+
+/* draggable items */
+/*[data-draggable="item"]
+{
+    display:block;
+    list-style-type:none;
+    
+    margin:0 0 2px 0;
+    padding:0.2em 0.4em;
+    
+    border-radius:0.2em;
+    
+    line-height:1.3;
+}*/
+

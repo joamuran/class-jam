@@ -99,20 +99,74 @@ classmatesComponentClass.prototype.drawComponent=function drawComponent(){
 classmatesComponentClass.prototype.getASDialog=function getASDialog(){
     var self=this;
                   
-    var ret={"message": i18n.gettext("data.component.title")};
+    var ret={"message": i18n.gettext("classmates.frontend.tile")};
  
-    var input=$(document.createElement("div")).html("hola");
-    //$(input).append(leftCol, centerCol, rightCol);
-
+    var input=$(document.createElement("div"));
+    var bus=$(document.createElement("ol")).attr("data-draggable", "target").addClass("DragBus col-md-12");
+    var school=$(document.createElement("ol")).attr("data-draggable", "target").addClass("DragSchool col-md-6");
+    var home=$(document.createElement("ol")).attr("data-draggable", "target").addClass("DragHome col-md-6");
+    
+    // Drawing classmates
+    self.info={alu01: true, alu02: true, alu0: true,
+               alu101: true, alu102: true, alu10: true,
+               alu201: true, alu202: true, alu20: true,
+               alu301: true, alu302: true, alu30: true,
+               alu401: true, alu042: true, alu40: true,
+               alu501: true, alu502: true, alu50: true,
+               alu061: true, alu602: true, alu60: true}
+               
+    console.log(self.info);
+       for (i in self.info){
+            var aluname="Sense Nom";
+            var aluimg="components/classmates/img/ninya.jpeg";
+       
+            if (typeof(self.config[i])==="object"){                
+                if(self.config[i].name) aluname=self.config[i].name;
+                if(self.config[i].img) aluimg="file://"+self.configDir+"/components/classmates/"+self.config[i].img;
+            }
+            
+            
+            // Data for dragging
+            var dragIcon=document.createElement("img");
+            dragIcon.src =  aluimg;
+            var height = 250;
+            //var width = height* (3/4);
+            var width = 200;
+            var c = document.createElement("canvas");
+            c.height = height;
+            c.width = width;
+            var ctx = c.getContext('2d');
+            ctx.drawImage(dragIcon,0,0,width,height);
+            var dataSrc=c.toDataURL();
+            //console.log(dataSrc);
+            // End stablishing data for dragging
+            
+            
+            var aluicon=$(document.createElement("li")).addClass("aluiconDrag").css("background-image", "url("+aluimg+")").attr("data-draggable","item").html(aluname).attr("imageSource", aluimg);
+            $(aluicon).attr("title", aluname).attr("dragImage", dataSrc);
+            
+            $(bus).append(aluicon);
+            
+            
+        }
+    
+    
+    $(input).append(bus, school, home);
     ret.input=$(input).prop("outerHTML");
     
     
     ret.bindEvents=function(){
+        $(".vex-content").addClass("vexExtraWidth");
+        $(".vex.vex-theme-default").addClass("vexExtraHeight");
+        $(".vex-dialog-input").addClass("vex_dialog_input_maxHeight");
+        self.manageDragAndDrop();
+        
+        
         
     };
     
     ret.processDialog=function(){
-    
+        
     };
         
     return ret;
@@ -120,6 +174,94 @@ classmatesComponentClass.prototype.getASDialog=function getASDialog(){
     
 };
 
+
+classmatesComponentClass.prototype.manageDragAndDrop=function manageDragAndDrop(){
+    
+    
+    //get the collection of draggable items and add their draggable attribute
+    for (var items = document.querySelectorAll('[data-draggable="item"]'), 
+        len = items.length, 
+        i = 0; i < len; i ++)
+    {
+        items[i].setAttribute('draggable', 'true');
+    }
+
+    //variable for storing the dragging item reference 
+    //this will avoid the need to define any transfer data 
+    //which means that the elements don't need to have IDs 
+    var item = null;
+
+    //dragstart event to initiate mouse dragging
+    document.addEventListener('dragstart', function(e)
+    {
+        //set the item reference to this element
+        item = e.target;
+        
+       
+       
+       // I si fem que siga un canvas també el ninotet en el bus??
+       
+         var dragIcon = document.createElement('img');
+         dragIcon.src=$(item).attr("dragImage");
+    
+        console.log(dragIcon);
+        event.dataTransfer.setDragImage(dragIcon, 100, 125);
+       
+  
+       
+
+        
+        /*    var dragIcon = document.createElement('img');
+        dragIcon.src = 'components/classmates/img/ninya.jpeg';
+        event.dataTransfer.setDragImage(dragIcon, -10, -10);*/
+
+        
+        
+        //we don't need the transfer data, but we have to define something
+        //otherwise the drop action won't work at all in firefox
+        //most browsers support the proper mime-type syntax, eg. "text/plain"
+        //but we have to use this incorrect syntax for the benefit of IE10+
+        e.dataTransfer.setData('text', '');
+        //e.dataTransfer.setDragImage("", 0, 0);
+        //console.log(e);
+    
+    }, false);
+
+    //dragover event to allow the drag by preventing its default
+    //ie. the default action of an element is not to allow dragging 
+    document.addEventListener('dragover', function(e)
+    {
+        if(item)
+        {
+            e.preventDefault();
+        }
+    
+    }, false);  
+
+    //drop event to allow the element to be dropped into valid targets
+    document.addEventListener('drop', function(e)
+    {
+        //if this element is a drop target, move the item here 
+        //then prevent default to allow the action (same as dragover)
+        if(e.target.getAttribute('data-draggable') == 'target')
+        {
+            e.target.appendChild(item);
+            
+            e.preventDefault();
+        }
+    
+    }, false);
+    
+    //dragend event to clean-up after drop or abort
+    //which fires whether or not the drop target was valid
+    document.addEventListener('dragend', function(e)
+    {
+        item = null;
+    
+    }, false);
+
+    
+}
 
 classmatesComponentClass.prototype.SelectImageForAlu=function SelectImageForAlu(){
     var self=this;
