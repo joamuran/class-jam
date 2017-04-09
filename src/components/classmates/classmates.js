@@ -28,7 +28,7 @@ classmatesComponentClass.prototype.drawComponent=function drawComponent(){
     // Açò caldrà restaurar-ho quan tingam la vista feta
     
     
-    self.info={"alu01":true,"alu02":true, "alu0":true};
+    // For Testing // self.info={"alu01":true,"alu02":true, "alu0":true};
     console.log(self.config);
     
     // Calculate children in classroom
@@ -107,20 +107,24 @@ classmatesComponentClass.prototype.getASDialog=function getASDialog(){
     var home=$(document.createElement("ol")).attr("data-draggable", "target").addClass("DragHome col-md-6");
     
     // Drawing classmates
-    self.info={alu01: true, alu02: true, alu0: true,
+    
+    /*self.info={alu01: true, alu02: true, alu0: true, // For Testing
                alu101: true, alu102: true, alu10: true,
                alu201: true, alu202: true, alu20: true,
                alu301: true, alu302: true, alu30: true,
                alu401: true, alu042: true, alu40: true,
                alu501: true, alu502: true, alu50: true,
                alu061: true, alu602: true, alu60: true}
-               
+      */         
     console.log(self.info);
+    console.log(self.config);
        for (i in self.info){
             var aluname="Sense Nom";
             var aluimg="components/classmates/img/ninya.jpeg";
        
-            if (typeof(self.config[i])==="object"){                
+            if (typeof(self.config[i])==="object"){
+                console.log(self.config[i]);
+                alert(self.config[i].img);
                 if(self.config[i].name) aluname=self.config[i].name;
                 if(self.config[i].img) aluimg="file://"+self.configDir+"/components/classmates/"+self.config[i].img;
             }
@@ -176,6 +180,7 @@ classmatesComponentClass.prototype.getASDialog=function getASDialog(){
 
 
 classmatesComponentClass.prototype.manageDragAndDrop=function manageDragAndDrop(){
+    var self=this;
     
     
     //get the collection of draggable items and add their draggable attribute
@@ -192,6 +197,12 @@ classmatesComponentClass.prototype.manageDragAndDrop=function manageDragAndDrop(
     var item = null;
 
     //dragstart event to initiate mouse dragging
+    
+    // Bug described in.. http://stackoverflow.com/questions/30887707/html-drag-drop-setdragimage-doesnt-set-ghost-image-on-first-drag
+    var dragIcon = document.createElement('img');
+    $(dragIcon).attr("src", "file://"+self.configDir+"/components/classmates/img/ninyo.jpeg");
+    
+    
     document.addEventListener('dragstart', function(e)
     {
         //set the item reference to this element
@@ -201,7 +212,7 @@ classmatesComponentClass.prototype.manageDragAndDrop=function manageDragAndDrop(
        
        // I si fem que siga un canvas també el ninotet en el bus??
        
-         var dragIcon = document.createElement('img');
+         //var dragIcon = document.createElement('img');
          dragIcon.src=$(item).attr("dragImage");
     
         console.log(dragIcon);
@@ -405,9 +416,16 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
                 componentconfig[id]={"img": filename, "name": name};
             }
             
+            
+            console.log(self.info);
+            self.info[id]=true;
+            
         });
-        console.log(componentconfig);
+        //console.log(componentconfig);
         self.config=componentconfig;
+        
+        
+        
         $("#classmatesComponent").attr("config", JSON.stringify(componentconfig));
         
         //$("#classmatesComponent").attr("config", JSON.stringify(self.config));
