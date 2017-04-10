@@ -163,6 +163,11 @@
     
 }
 
+.dragImg{
+    width: 100px !important;
+    height: 200px !important;
+    display: none;
+}
 
 /*.aluiconDrag:active{
     background-color: #ffffff;

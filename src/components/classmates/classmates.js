@@ -1,6 +1,7 @@
 function classmatesComponentClass(){
     this.name="Classmates Selector";
     this.icon="components/componentIcons/classmates.png";
+    
 }
 
 classmatesComponentClass.prototype=new Component();
@@ -99,65 +100,47 @@ classmatesComponentClass.prototype.drawComponent=function drawComponent(){
 classmatesComponentClass.prototype.getASDialog=function getASDialog(){
     var self=this;
                   
-    var ret={"message": i18n.gettext("classmates.frontend.tile")};
+    var ret={"message": i18n.gettext("classmates.frontend.tile")}; 
  
     var input=$(document.createElement("div"));
     var bus=$(document.createElement("ol")).attr("data-draggable", "target").addClass("DragBus col-md-12");
     var school=$(document.createElement("ol")).attr("data-draggable", "target").addClass("DragSchool col-md-6");
     var home=$(document.createElement("ol")).attr("data-draggable", "target").addClass("DragHome col-md-6");
     
-    // Drawing classmates
     
-    /*self.info={alu01: true, alu02: true, alu0: true, // For Testing
-               alu101: true, alu102: true, alu10: true,
-               alu201: true, alu202: true, alu20: true,
-               alu301: true, alu302: true, alu30: true,
-               alu401: true, alu042: true, alu40: true,
-               alu501: true, alu502: true, alu50: true,
-               alu061: true, alu602: true, alu60: true}
-      */         
+    // Drawing classmates
+       
     console.log(self.info);
     console.log(self.config);
-       for (i in self.info){
+    
+       for (i in self.config){
             var aluname="Sense Nom";
             var aluimg="components/classmates/img/ninya.jpeg";
        
             if (typeof(self.config[i])==="object"){
                 console.log(self.config[i]);
-                alert(self.config[i].img);
+                
                 if(self.config[i].name) aluname=self.config[i].name;
                 if(self.config[i].img) aluimg="file://"+self.configDir+"/components/classmates/"+self.config[i].img;
             }
             
-            
-            // Data for dragging
-            var dragIcon=document.createElement("img");
-            dragIcon.src =  aluimg;
-            var height = 250;
-            //var width = height* (3/4);
-            var width = 200;
-            var c = document.createElement("canvas");
-            c.height = height;
-            c.width = width;
-            var ctx = c.getContext('2d');
-            ctx.drawImage(dragIcon,0,0,width,height);
-            var dataSrc=c.toDataURL();
-            //console.log(dataSrc);
-            // End stablishing data for dragging
-            
-            
             var aluicon=$(document.createElement("li")).addClass("aluiconDrag").css("background-image", "url("+aluimg+")").attr("data-draggable","item").html(aluname).attr("imageSource", aluimg);
-            $(aluicon).attr("title", aluname).attr("dragImage", dataSrc);
+            $(aluicon).attr("sourceimg", aluimg);
+            $(aluicon).attr("title", aluname).attr("aluid",i);
             
-            $(bus).append(aluicon);
             
+            console.log(self.info);
+            if(!self.info.hasOwnProperty(i)){
+                $(bus).append(aluicon);
+            } else{
+                if(self.info[i]){ $(school).append(aluicon); }
+                else {$(home).append(aluicon);}
+            }
             
         }
     
-    
     $(input).append(bus, school, home);
     ret.input=$(input).prop("outerHTML");
-    
     
     ret.bindEvents=function(){
         $(".vex-content").addClass("vexExtraWidth");
@@ -170,7 +153,22 @@ classmatesComponentClass.prototype.getASDialog=function getASDialog(){
     };
     
     ret.processDialog=function(){
+        $("ol.DragSchool").find("li").each(function( index ) {
+            var alu=$(this).attr("aluid");
+            self.info[alu]=true;
+            });
         
+        $("ol.DragHome").find("li").each(function( index ) {
+            var alu=$(this).attr("aluid");
+            self.info[alu]=false;
+            });
+        
+        // No grava açò... cal vore per què...
+        $("#classmatesComponent").attr("data",JSON.stringify(self.info));
+        
+
+        
+        //console.log(self.info);
     };
         
     return ret;
@@ -199,8 +197,10 @@ classmatesComponentClass.prototype.manageDragAndDrop=function manageDragAndDrop(
     //dragstart event to initiate mouse dragging
     
     // Bug described in.. http://stackoverflow.com/questions/30887707/html-drag-drop-setdragimage-doesnt-set-ghost-image-on-first-drag
+    
     var dragIcon = document.createElement('img');
-    $(dragIcon).attr("src", "file://"+self.configDir+"/components/classmates/img/ninyo.jpeg");
+    dragIcon.width = 30;
+    dragIcon.src="/components/classmates/img/ninyo.jpeg";
     
     
     document.addEventListener('dragstart', function(e)
@@ -208,33 +208,14 @@ classmatesComponentClass.prototype.manageDragAndDrop=function manageDragAndDrop(
         //set the item reference to this element
         item = e.target;
         
-       
-       
-       // I si fem que siga un canvas també el ninotet en el bus??
-       
-         //var dragIcon = document.createElement('img');
-         dragIcon.src=$(item).attr("dragImage");
-    
+        
+        dragIcon.src=$(item).attr("sourceimg"); 
         console.log(dragIcon);
         event.dataTransfer.setDragImage(dragIcon, 100, 125);
-       
-  
-       
-
+          
         
-        /*    var dragIcon = document.createElement('img');
-        dragIcon.src = 'components/classmates/img/ninya.jpeg';
-        event.dataTransfer.setDragImage(dragIcon, -10, -10);*/
-
-        
-        
-        //we don't need the transfer data, but we have to define something
-        //otherwise the drop action won't work at all in firefox
-        //most browsers support the proper mime-type syntax, eg. "text/plain"
-        //but we have to use this incorrect syntax for the benefit of IE10+
         e.dataTransfer.setData('text', '');
-        //e.dataTransfer.setDragImage("", 0, 0);
-        //console.log(e);
+        
     
     }, false);
 
@@ -304,19 +285,37 @@ classmatesComponentClass.prototype.SelectImageForAlu=function SelectImageForAlu(
                     var fs=require('fs');
                        
                     var filename=newImage.split("/").pop();
-                     var oldImage=self.configDir+"/components/classmates/"+filename;
+                    var oldImage=self.configDir+"/components/classmates/"+filename;
                         
                     console.log(oldImage+ " - "+newImage);
+                    
+                    //var writeStream=fs.createWriteStream(oldImage);
+                    
+                    // RESIZE
+                        var gm = require('gm');
+                        gm(newImage)
+                        .resize(353, 257)
+                        .write(oldImage, function (err) {
+                          if (!err) {
+                            $("#img"+alu).attr("src", "file://"+oldImage);
+                            self.config[alu].img=filename;
+                          }
+                          else console.log("ERROR: "+err);
+                        });
+                    
                         
-                    var stream=fs.createReadStream(newImage).pipe(fs.createWriteStream(oldImage));
-                        
+                    /*var stream=fs.createReadStream(newImage).pipe(fs.createWriteStream(oldImage));
+                    
+                    
+                    
+                    
                     stream.on('close', function(){
                         // Wait for stream has been copied
                         $("#img"+alu).attr("src", "file://"+oldImage);
 
                         self.config[alu].img=filename;
                         //console.log(self.config);
-                    }); 
+                    }); */
                 }
             } catch (err){
                     console.log(err);
