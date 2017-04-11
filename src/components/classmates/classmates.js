@@ -1,6 +1,7 @@
 function classmatesComponentClass(){
     this.name="Classmates Selector";
     this.icon="components/componentIcons/classmates.png";
+    this.items2Delete=[];
     
 }
 
@@ -22,15 +23,8 @@ classmatesComponentClass.prototype.drawComponent=function drawComponent(){
     
     var li=$(document.createElement("li")).attr("id","classmatesComponent").attr("data", JSON.stringify(self.info)).attr("config", JSON.stringify(self.config)).addClass("component");
     // Minimal values for widget size
-    $(li).attr("data-min-sizex","2").attr("data-min-sizey","1").attr("data-max-sizex","4").attr("data-max-sizey","3");
+    $(li).attr("data-min-sizex","2").attr("data-min-sizey","1").attr("data-max-sizex","6").attr("data-max-sizey","8");
     
-    console.log(self.info);
-    
-    // Açò caldrà restaurar-ho quan tingam la vista feta
-    
-    
-    // For Testing // self.info={"alu01":true,"alu02":true, "alu0":true};
-    console.log(self.config);
     
     // Calculate children in classroom
     var numalum=0;
@@ -50,16 +44,14 @@ classmatesComponentClass.prototype.drawComponent=function drawComponent(){
     var row_percent=100/(rows+1);
     for (i=0; i<rows; i++){ grid_template_rows+=row_percent+"% "; }
     
-    //console.log("cols="+cols);
-    //console.log("rows="+rows);
-    //console.log(grid_template_rows);
-    
-    
+        
     if (JSON.stringify(self.info)==="{}"){
         $(li).html("").addClass("emptySchool");
     } else {
         var container=$(document.createElement("div")).addClass("classmatesContainer").addClass(classMatesContainer).css("grid-template-rows", grid_template_rows);
         for (i in self.info){
+            if (!self.info[i]) continue; // Ignore students that are at home
+            
             //console.log(self.info[i]);
             
             var aluname="Sense Nom";
@@ -73,7 +65,10 @@ classmatesComponentClass.prototype.drawComponent=function drawComponent(){
             
             
             var aluicon=$(document.createElement("div")).addClass("aluicon").css("background-image", "url("+aluimg+")");
-            $(aluicon).attr("title", aluname);
+            var spanaluname=$(document.createElement("span")).html(aluname).addClass("spanaluname");
+            $(aluicon).append(spanaluname);
+            //$(aluicon).attr("title", aluname);
+            
             /*var aluiconimg=$(document.createElement("div")).addClass("aluiconimg").css("background-image", aluimg);
             var aluiconname=$(document.createElement("div")).addClass("aluiconname").html(aluname);*/
             //$(aluicon).append(aluiconimg, aluiconname);
@@ -124,7 +119,8 @@ classmatesComponentClass.prototype.getASDialog=function getASDialog(){
                 if(self.config[i].img) aluimg="file://"+self.configDir+"/components/classmates/"+self.config[i].img;
             }
             
-            var aluicon=$(document.createElement("li")).addClass("aluiconDrag").css("background-image", "url("+aluimg+")").attr("data-draggable","item").html(aluname).attr("imageSource", aluimg);
+            var spanaluname=$(document.createElement("span")).html(aluname).addClass("spanaluname");
+            var aluicon=$(document.createElement("li")).addClass("aluiconDrag").css("background-image", "url("+aluimg+")").attr("data-draggable","item").append(spanaluname).attr("imageSource", aluimg);
             $(aluicon).attr("sourceimg", aluimg);
             $(aluicon).attr("title", aluname).attr("aluid",i);
             
@@ -153,22 +149,20 @@ classmatesComponentClass.prototype.getASDialog=function getASDialog(){
     };
     
     ret.processDialog=function(){
-        $("ol.DragSchool").find("li").each(function( index ) {
+        $("ol.DragSchool").find("li").each(function() {
             var alu=$(this).attr("aluid");
             self.info[alu]=true;
             });
         
-        $("ol.DragHome").find("li").each(function( index ) {
+        $("ol.DragHome").find("li").each(function() {
             var alu=$(this).attr("aluid");
             self.info[alu]=false;
             });
         
+        self.reDrawComponent();
+        
         // No grava açò... cal vore per què...
-        $("#classmatesComponent").attr("data",JSON.stringify(self.info));
-        
-
-        
-        //console.log(self.info);
+        //$("#classmatesComponent").attr("data",JSON.stringify(self.info));
     };
         
     return ret;
@@ -176,6 +170,23 @@ classmatesComponentClass.prototype.getASDialog=function getASDialog(){
     
 };
 
+classmatesComponentClass.prototype.reDrawComponent=function reDrawComponent(){
+    var self=this;
+    
+    var item=$("#classmatesComponent");
+    
+    
+    alert(JSON.stringify(self.config));
+    alert(JSON.stringify(self.info));
+    
+    $(item).attr("data", JSON.stringify(self.info)).attr("config", JSON.stringify(self.config));
+    $(item).empty();
+    var classmatesContent=self.drawComponent();
+    
+    // we have to add resizer because we have removed it
+    var spanResizer=$(document.createElement("span")).addClass("gs-resize-handle").addClass("gs-resize-handle-both");
+    $(item).append($(classmatesContent).html()).append(spanResizer);
+}
 
 classmatesComponentClass.prototype.manageDragAndDrop=function manageDragAndDrop(){
     var self=this;
@@ -332,11 +343,13 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
  
     var ret={"message": i18n.gettext("classmates.component.options")};
     
+    // Emty delete items list
+    self.items2Delete=[];
     
     var input=$(document.createElement("div")).attr("id", "classmatesConfig");
     //for (i in self.monthOptions){
     console.log(self.config);
-    for (var alu in self.config){        
+    for (var alu in self.config){
         //var aluItem=$(document.createElement("div")).attr("id", alu).addClass("col-md-3 aluItem");
         var aluItem=$(document.createElement("div")).attr("id", alu).addClass("aluItem");
         // image file
@@ -346,13 +359,14 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
             aluImgFile="file://"+self.configDir+"/components/classmates/"+self.config[alu].img;}
         else 
             aluImgFile="components/classmates/img/ninyo.jpeg";
-        
-        
+                
         var aluImg=$(document.createElement("img")).attr("src", aluImgFile).addClass("aluImg").attr("id", "img"+alu);
         //var aluName=$(document.createElement("div")).html(self.config[alu].name).addClass("aluName textfluid").attr("fontzoom",1.5);
         var aluName=$(document.createElement("input")).attr("type", "text").attr("value", self.config[alu].name).addClass("aluName textfluid").attr("fontzoom",1.5);
         //var configRow=$(document.createElement("div"));
-        $(aluItem).append(aluImg, aluName);
+        var aluRemove=$(document.createElement("span")).addClass("removeAluButton").attr("title", "Delete").attr("targetalu", alu);
+        
+        $(aluItem).append(aluImg, aluName,aluRemove);
         $(input).append(aluItem);
         
     }
@@ -396,6 +410,13 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
             
             }); // End click on newAlu
         
+        $(".removeAluButton").on("click", function(e){
+            var target=$(e.target).attr("targetalu");
+        $("#"+target).remove();
+        self.items2Delete.push(target);
+            
+        });
+        
     $("input").blur();
     
     }; // End binding events callback function
@@ -403,6 +424,7 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     ret.processDialog=function(){
         
         var componentconfig={};
+        
         //{\"alu01\":{\"img\":\"\",\"name\":\"alup1\"},\"alu02\":{\"img\":\"\",\"name\":\"alup2\"}}
         $("div.aluItem").each(function( ) {
             var id=$(this).attr("id");
@@ -410,14 +432,22 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
             var name=$(this).find("input").val();
             
             if (id!=="newAlu") { // Ignore Button
+                //alert("adding "+id);
                 var filename="";
                 if (img.substr(0,7)==="file://") filename=img.split("/").pop();
                 componentconfig[id]={"img": filename, "name": name};
+                self.info[id]=true;
             }
             
+            for (var i in self.items2Delete) {
+                alert("delete "+self.items2Delete[i]);
+                console.log(self.info);
+                delete self.info[self.items2Delete[i]];
+                console.log(self.info);
+                };
             
-            console.log(self.info);
-            self.info[id]=true;
+            
+            
             
         });
         //console.log(componentconfig);
@@ -428,7 +458,9 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
         $("#classmatesComponent").attr("config", JSON.stringify(componentconfig));
         
         //$("#classmatesComponent").attr("config", JSON.stringify(self.config));
+        
         $("#btSave").click();
+        self.reDrawComponent();
         
         
         
