@@ -149,6 +149,9 @@ classmatesComponentClass.prototype.getASDialog=function getASDialog(){
     };
     
     ret.processDialog=function(){
+        
+        self.info={};
+        
         $("ol.DragSchool").find("li").each(function() {
             var alu=$(this).attr("aluid");
             self.info[alu]=true;
@@ -176,8 +179,8 @@ classmatesComponentClass.prototype.reDrawComponent=function reDrawComponent(){
     var item=$("#classmatesComponent");
     
     
-    alert(JSON.stringify(self.config));
-    alert(JSON.stringify(self.info));
+    //alert(JSON.stringify(self.config));
+    //alert(JSON.stringify(self.info));
     
     $(item).attr("data", JSON.stringify(self.info)).attr("config", JSON.stringify(self.config));
     $(item).empty();
@@ -436,19 +439,12 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
                 var filename="";
                 if (img.substr(0,7)==="file://") filename=img.split("/").pop();
                 componentconfig[id]={"img": filename, "name": name};
-                self.info[id]=true;
+                //self.info[id]=true;
             }
             
-            for (var i in self.items2Delete) {
-                alert("delete "+self.items2Delete[i]);
-                console.log(self.info);
+            for (var i in self.items2Delete)
                 delete self.info[self.items2Delete[i]];
-                console.log(self.info);
-                };
-            
-            
-            
-            
+                
         });
         //console.log(componentconfig);
         self.config=componentconfig;

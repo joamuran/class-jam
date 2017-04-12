@@ -21,6 +21,21 @@ body{
     /*font-size: 1.3vw;*/
 }
 
+#infoPanel{
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    height: 32px;
+    border-top: 1px solid #335533;
+    background: #87de87;
+    display: none;
+    color: #335533;
+    font-weight: bold;
+    
+    padding-top: 5px;
+    padding-left: 25px;
+}
+
 h1{
     font-family: "pacifico";
     font-size: 3vw;

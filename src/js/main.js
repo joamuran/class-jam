@@ -351,7 +351,16 @@ UI.prototype.saveComponents=function saveComponents(){
     //console.log(JSON.stringify(saveItems));
     var saveData={"metadata": self.metadata, "components":saveItems};
     
-    fs.writeFileSync(self.configFile, JSON.stringify(saveData, null, '\t'));    
+    fs.writeFileSync(self.configFile, JSON.stringify(saveData, null, '\t'));
+    
+    $("#infoPanel").html(i18n.gettext("saved.assembly.message"));
+    $("#infoPanel").fadeIn();
+     window.setTimeout(function(){
+        $("#infoPanel").fadeOut();
+    },3000);
+
+    
+    
 }
 
 

@@ -4,6 +4,7 @@
   "confirm.save.msg.yes":"Guarda-la",
   "confirm.save.msg.cancel":"Cancel·la",
   "confirm.save.msg.no":"Tanca sense guardar-la",
+  "saved.assembly.message":"S'ha guardat l'assemblea",
   
   "weather.component.title": "Quin temps fa?",
   "weather.component.options":"Configureu l'oratge",

@@ -4,6 +4,7 @@
   "confirm.save.msg.yes":"Save it",
   "confirm.save.msg.cancel":"Cancel",
   "confirm.save.msg.no":"Close without saving",
+  "saved.assembly.message":"Assembly has been saved",
   
   "weather.component.title": "What's the weather like?",
   "weather.component.options":"Select weather options",

@@ -15,7 +15,10 @@
    id="svg16936"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="cross.svg">
+   sodipodi:docname="cross.svg"
+   inkscape:export-filename="/srv/svn/github/classroom-assembly/src/components/classmates/img/cross.png"
+   inkscape:export-xdpi="72"
+   inkscape:export-ydpi="72">
   <defs
      id="defs16938" />
   <sodipodi:namedview
@@ -27,7 +30,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="4.5007812"
      inkscape:cx="50.0958"
-     inkscape:cy="11.701328"
+     inkscape:cy="11.034777"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
