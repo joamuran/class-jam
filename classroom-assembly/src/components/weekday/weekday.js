@@ -56,21 +56,17 @@ weekdayComponentClass.prototype.getASDialog=function getASDialog(){
     var ret={"message": i18n.gettext("weekday.component.title")};
     
     var input=$(document.createElement("div")).attr("id", "weekdaySelector");
-    
-    // First, let's count hom many elements are actived
-    var active_items=0;
-    for (var weekday in self.config)
-        if (self.config[weekday]) active_items++;
-    //var col_md=Math.floor(12/(active_items));
+        
     var col_md=3;
-    
     // And draw elements
     for (var weekday in self.config){
-        var weekdayText=i18n.gettext(weekday);
-        var option=$(document.createElement("div")).addClass(weekday).addClass("weekdaySelectIcon").attr("weekday",weekday).addClass("col-md-"+col_md);
-        var text=$(document.createElement("div")).html(weekdayText).addClass("weekdaySelectInfo");
-        $(option).append(text);
-        $(input).append(option);
+        if(self.config[weekday]){
+            var weekdayText=i18n.gettext(weekday);
+            var option=$(document.createElement("div")).addClass(weekday).addClass("weekdaySelectIcon").attr("weekday",weekday).addClass("col-md-"+col_md);
+            var text=$(document.createElement("div")).html(weekdayText).addClass("weekdaySelectInfo");
+            $(option).append(text);
+            $(input).append(option);
+        }
     }
     
     ret.input=$(input).prop("outerHTML");
