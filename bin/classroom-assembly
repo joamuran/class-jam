@@ -1,2 +1,2 @@
 #!/bin/bash
-/usr/share/classroom-assembly/nw /usr/share/classroom-assembly/src
+/usr/share/nwjs0.21/nw /usr/share/classroom-assembly/src

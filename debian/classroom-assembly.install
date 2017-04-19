@@ -1,5 +1,4 @@
-nwjs/* /usr/share/classroom-assembly
-src/* /usr/share/classroom-assembly/src/
+classroom-assembly /usr/share/
 bin/* /usr/bin/
 desktops/* /usr/share/
 icons/* /usr/share/pixmaps/

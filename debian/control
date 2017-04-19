@@ -10,7 +10,7 @@ Homepage: https://github.com/joamuran/classroom-assembly
 
 Package: classroom-assembly
 Architecture: all
-Depends: ${misc:Depends}
+Depends: ${misc:Depends},graphicsmagick,imagemagick
 Description: Classroom Assembly
  NWJS app to perform classroom assembly
  to children and special education.
