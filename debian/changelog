@@ -1,3 +1,10 @@
+classroom-assembly (0.2) xenial; urgency=high
+
+  * Fixed some bugs in modules
+  * Reorganize directories
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Wed, 19 Apr 2017 13:53:44 +0200
+
 classroom-assembly (0.1) xenial; urgency=high
 
   * Initial release.
