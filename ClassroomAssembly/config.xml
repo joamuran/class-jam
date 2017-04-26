@@ -9,4 +9,5 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <plugin name="cordova-plugin-file" spec="https://git-wip-us.apache.org/repos/asf/cordova-plugin-file.git" />
 </widget>

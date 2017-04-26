@@ -108,7 +108,7 @@ monthComponentClass.prototype.getASDialog=function getASDialog(){
     ret.processDialog=function(){
         var selected=$($(".monthSelected")[0]).attr("month");
         //alert(selected);
-        self.info.month=selected;
+        if (selected) self.info.month=selected;
         self.reDrawComponent();
     };
         

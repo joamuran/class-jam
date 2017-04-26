@@ -84,7 +84,7 @@ weekdayComponentClass.prototype.getASDialog=function getASDialog(){
     ret.processDialog=function(){
         var selected=$($(".weekdaySelected")[0]).attr("weekday");
         //alert(selected);
-        self.info.weekday=selected;
+        if (selected) self.info.weekday=selected;
         self.reDrawComponent();
     };
         

@@ -82,7 +82,7 @@ seasonComponentClass.prototype.getASDialog=function getASDialog(){
     ret.processDialog=function(){
         var selected=$($(".seasonSelected")[0]).attr("season");
         //alert(selected);
-        self.info.season=selected;
+        if (selected) self.info.season=selected;
         self.reDrawComponent();
     };
         

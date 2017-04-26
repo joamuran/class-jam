@@ -92,7 +92,7 @@ weatherComponentClass.prototype.getASDialog=function getASDialog(){
     ret.processDialog=function(){
         var selected=$($(".weatherSelected")[0]).attr("weather");
         //alert(selected);
-        self.info.weather=selected;
+        if (selected) self.info.weather=selected;
         self.reDrawComponent();
     };
         
