@@ -1,0 +1,160 @@
+
+.iconMonth{
+    width: 100%;
+    height: 70%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: all 0.4s;
+    background-position: center;
+    overflow: hidden;
+}
+
+.iconMonthText{
+    /*font-size: 10vw;*/
+    height: 15%;
+    width: 100%;
+}
+
+
+.january{ background-image: url(img/january.png); }
+.monthSelectIcon.january:hover{ background-image: url(img/january.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.february{ background-image: url(img/february.png);}
+.monthSelectIcon.february:hover{ background-image: url(img/february.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.march{ background-image: url(img/march.png); }
+.monthSelectIcon.march:hover{ background-image: url(img/march.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.april{ background-image: url(img/april.png); }
+.monthSelectIcon.april:hover{ background-image: url(img/april.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.may{ background-image: url(img/may.png); }
+.monthSelectIcon.may:hover{ background-image: url(img/may.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.june{ background-image: url(img/june.png); }
+.monthSelectIcon.june:hover{ background-image: url(img/june.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.july{ background-image: url(img/july.png); }
+.monthSelectIcon.july:hover{ background-image: url(img/july.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.august{ background-image: url(img/august.png); }
+.monthSelectIcon.august:hover{ background-image: url(img/august.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.september{ background-image: url(img/september.png); }
+.monthSelectIcon.september:hover{ background-image: url(img/september.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.october{ background-image: url(img/october.png); }
+.monthSelectIcon.october:hover{ background-image: url(img/october.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.november{ background-image: url(img/november.png); }
+.monthSelectIcon.november:hover{ background-image: url(img/november.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+
+.december{ background-image: url(img/december.png); }
+.monthSelectIcon.december:hover{ background-image: url(img/december.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
+    
+    
+.monthSelectIcon{
+    position: relative;
+    /*width: 128px;*/
+    height: 128px;
+    float: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 0.4s;
+    opacity: 0.8;
+    border-radius: 10px;
+}
+
+
+.monthSelectIcon:hover{
+     opacity: 1;
+     cursor: pointer;
+     background-position: center;
+     transform: scale(1.5);
+     z-index: 10;
+     box-shadow: 3px 3px 3px #333333;
+    /*filter: drop-shadow(3px 3px 3px #333333);*/
+     
+}
+
+
+.monthSelectInfo{
+    position: absolute;
+    bottom: 0;
+    padding-top:30px;
+    width: 100%;
+    text-align:center;
+    transition: all 0.4s;
+    margin-left: -15px;
+    color: #333333;
+    font-weight: 800;
+    /*-webkit-text-stroke: #000000 1px;*/
+}
+
+
+
+.monthSelected:after{
+    background-image: url("../../css/images/icons/check.png");
+    background-size: 40px 40px;
+    display: inline-block;
+    width: 40px; 
+    height: 40px;
+    content:"";
+    position: absolute;
+    top: 24px;
+    left: 30%;
+}
+
+.monthConfigIcon{
+    float: left;
+    width: 48px;
+    height: 48px;
+    background-size: contain;
+    background-repeat: no-repeat;   
+}
+
+.monthConfig{}
+
+.monthConfigRow{height: 50px;}
+
+.monthConfigRow:hover{
+    cursor: pointer;
+}
+.monthConfigText{
+    float: left;
+    height: 50px;
+    vertical-align: middle;
+    line-height: 50px;
+    
+    }
+
+
+.monthConfigRow{
+    border: 1px solid #cccccc;
+    border-radius: 2px;
+    margin-bottom: 5px;
+}
+
+.monthConfigRow:hover{
+    cursor: pointer;
+    background: #42a5f5;
+}
+
+.monthConfigRow.monthStatusActive:after{
+    background-image: url("../../css/images/icons/check.png");
+    background-size: 24px 24px;
+    background-position: center;
+    display: inline-block;
+    width: 24px; 
+    height: 24px;
+    content:"";
+    position: absolute;
+    top: 50%;
+    margin-top: -12px;
+    right: 10px;
+}
+
+
+
+

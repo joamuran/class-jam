@@ -1,0 +1,264 @@
+@font-face {
+    font-family: indieFlower;
+    src: url(fonts/IndieFlower.ttf);
+}
+@font-face {
+    font-family: pacifico;
+    src: url(fonts/Pacifico-Regular.ttf);
+}
+
+@font-face {
+    font-family: ShortStack;
+    src: url(fonts/ShortStack-Regular.ttf);
+}
+
+body{
+    background-image: url(images/backgrounds/bg1.jpg);
+    background-size: cover;
+    /*font-family: "indieFlower";*/
+    font-family: "ShortStack";
+    font-weight: 600;
+    /*font-size: 1.3vw;*/
+}
+
+#infoPanel{
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    height: 32px;
+    border-top: 1px solid #335533;
+    background: #87de87;
+    display: none;
+    color: #335533;
+    font-weight: bold;
+    
+    padding-top: 5px;
+    padding-left: 25px;
+}
+
+h1{
+    font-family: "pacifico";
+    font-size: 3vw;
+    width: 100%;
+    text-align: center;
+}
+
+.textfluid{
+    text-align: center;
+    width: 100%;
+}
+
+.gridster li{
+    list-style: none;
+    margin: 1px;
+    border: 1px solid rgba(0,0,0,0);
+}
+
+li.editable{
+    border: 1px dashed #333333;
+    background: rgba(255,255,125,0.4);
+}
+
+li.editable:hover{
+    cursor: move;
+}
+
+#header{
+    height: 60px;
+}
+#controlPanel{
+    /*display: none;*/
+    /*background: rgba(0,0,0,0.2);*/
+    position: fixed;
+    right: 15px;
+    top: 75px;
+    width: 126px;
+    height: 500px;
+    z-index: 10;
+    margin-right: -15px;
+    /*background: #ff0000;*/
+}
+
+#dashBoard{
+    /*background: #ff00ff;*/
+}
+
+.component{
+    text-transform: uppercase;
+    
+    border: 1px solid #333333;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.4);
+}
+
+/* Icons */
+
+.controlButton{
+    width: 64px;
+    height: 64px;
+    margin: 10px;
+    float: right;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: all 0.4s;
+    position: fixed;
+}
+.controlButton:hover{
+    width: 74px;
+    height: 74px;
+    margin: 5px;
+    cursor: pointer;
+    filter: saturate(1.5);
+}
+
+.controlButton:active{
+    filter: brightness(1.3);
+}
+
+
+
+#menuButton{
+    background-image: url(images/icons/menu.png);
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    z-index: 100;
+}
+
+#btShowEditMode{ background-image: url(images/icons/editmode.png); z-index: 90;}
+#btShowEditMode.visible{
+    top: 80px;
+    right: 0px; }
+
+#btShowPlayerMode{ background-image: url(images/icons/asmode.png); z-index: 90;}
+#btShowPlayerMode.visible{
+    top: 80px;
+    right: 0px;
+}
+
+#BtSave, #BtSaveConfig{ background-image: url(images/icons/save.png); z-index: 80;}
+#BtSave{
+    top: 160px;
+    right: 0px;
+}
+
+#BtSaveConfig.visible{
+    top: 240px;
+    right: 0px;
+}
+
+#btOptions{ background-image: url(images/icons/options.png); z-index: 70;}
+#btOptions.visible{
+    top: 160px;
+    right: 0px;
+}
+
+
+#btQuit, #btQuitConfig{ background-image: url(images/icons/quit.png); z-index: 70;}
+#btQuit.visible{
+    top: 240px;
+    right: 0px;
+}
+
+#btQuitConfig.visible{
+    top: 320px;
+    right: 0px;
+}
+
+.buttonhidden{
+    top: 0px !important;
+    right: 0px !important;
+}
+
+/* Overwrite vex.css */
+
+.vex, .vex-theme-flat-attack, .vex-content {
+    /*font-family: "indieFlower" !important;*/
+    font-family: "ShortStack" !important;
+    font-weight: 600 !important;
+    font-size: 1.3vw !important;
+    
+}
+.vex-dialog-message{
+    font-size: 1.6vw !important;
+    text-align: center !important;
+}
+
+.vex-content{
+    float: left !important;
+    width: 66.66666667% !important;
+    position: relative !important;
+    min-height: 1px !important;
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+    margin-left: 16.66666667% !important;
+}
+
+.vex-dialog-input, .vex-dialog-buttons{
+    float: left !important;
+    clear: both;
+    width: 100%;
+}
+
+
+.vexExtraWidth{
+    width: 90% !important;
+    margin-left: 5% !important;
+    top: 10px !important;
+}
+
+.vexExtraHeight{
+    padding-top: 20px !important;
+    overflow:hidden;
+}
+
+
+.vex_dialog_input_maxHeight{
+    height:90% !important;
+}
+
+/* Component Selector */
+
+.componentVisibilitySelectorIcon{
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+    margin: 0px;
+    float: left;
+    clear: both;
+    
+}
+
+.componentVisibilitySelector{
+    width: 100px;
+    padding: 0px;
+    height: 130px;
+    float: left;
+    margin: 10px;
+    /*position: relative;*/
+    transition: all ease 1s;
+    
+    /*display: table-cell;
+    vertical-align: bottom;*/
+    
+}
+
+.componentVisibilitySelector:hover{
+    cursor: pointer;
+    background-color: #eeeecc;
+    background: linear-gradient( 0deg, rgba(255,100,100,0), rgba(255,210,100,1));
+    border-radius: 10px;
+}
+
+.componentVisibilitySelectorText{
+    /*position: absolute;
+    bottom: 0px;
+    width: 100%;*/
+    float: left;
+    margin: 0px;
+    clear: both;
+    width: 100px;
+    height: 20px;
+    text-align: center;
+}

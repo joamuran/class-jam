@@ -1,0 +1,264 @@
+
+
+.removeAluButton{
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    margin-left: -20px;
+    margin-top: -20px;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255,100,100,0.8);
+    border-radius: 50%;
+    display: none;
+    background-image: url(/components/classmates/img/cross.png);
+    
+}
+
+.removeAluButton:hover{
+    cursor: pointer;
+}
+
+.aluItem:hover .removeAluButton{
+    display: inline;
+}
+
+.aluItem:hover{
+    /*background: #ffffee;*/
+    cursor: pointer;
+}
+
+.aluItem{
+    /*box-shadow: inset 0 0 10px #000000;
+    border: 1px solid #cccccc;*/
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+    
+    width: 160px;
+    height: 160px;
+    float: left;
+    position: relative;
+    
+}
+
+
+.aluImg{
+    object-fit: contain;
+    height:70%;
+    width: 100%;
+}
+
+.aluImg:hover{
+    cursor: default;
+}
+
+.aluName{
+    text-align: left;
+    float: left;
+    clear: both;
+    text-align: center;
+    width: 100%;
+    background: #f0f0f0 !important;
+    bottom: 0px;
+    height: 30%;
+
+}
+
+.newAluButton{
+    /*background: #cccccc !important;*/
+    background: url(/css/images/icons/menu.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 64px;
+    margin-top:20px;
+    transition: all 0.2s;
+        
+}
+
+.newAluButton:hover{
+    cursor: pointer;
+    height: 74px;
+    margin-top:15px;
+    
+    
+}
+
+/*  Drawing Component */
+
+.emptySchool{
+    background: url("/components/classmates/img/school.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+        
+}
+
+.classmatesContainer{
+  display: grid;
+  /*grid-template-columns: 30% 30% 30%;
+  grid-template-rows: 30% 30% 30%;*/
+  grid-gap: 10px;
+  /*background-color: #ff0;*/
+  color: #444;
+  height: 85%;
+  
+  /*background: url("/components/classmates/img/schoolbn.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;*/
+  
+}
+
+.spanaluname{
+    background: #ffffff;
+    width: 100%;
+    text-align: center;
+    float: left;
+    position: absolute;
+    bottom: 0px;
+    border-top: 1px solid #000000;
+}
+
+.classMatesContainer3cols{grid-template-columns: 30% 30% 30%;}
+.classMatesContainer4cols{grid-template-columns: 20% 20% 20% 20%;}
+
+.aluicon{
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top;
+    
+    
+    background-color: #ffffff;
+    border: 1px solid #333333;
+    position: relative;
+    border-radius: 2px;
+  
+}
+
+.aluiconimg{
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+}
+
+.aluiconname{
+    
+}
+
+
+
+/* Drag and Drop for ASDialog*/
+
+.DragBus{
+    height: 40%;
+    background-color: #dedede;
+    background-image: url(img/bus.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding-left: 20%;
+    padding-top:2%;
+}
+
+.DragSchool{
+    height: 60%;
+    background-color: #dedede;
+    background-image: url(img/school.png);
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+.DragHome{
+    height: 60%;
+    background-color: #dedede;
+    background-image: url(img/home.png);
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    
+}
+
+.aluiconDrag{
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top;
+    /*height: 6em;
+    width: calc(height * 0.6);*/
+    width: 5em;
+    height: 6em;
+    float: left;
+    margin: 5px !important;
+    
+    display:block;
+    list-style-type:none;
+    
+    transition: ease all 0.3s;
+    background-color: #ffffff;
+    border: 1px solid #333333;
+    position: relative;
+    border-radius: 2px;
+    
+}
+.aluiconDragging{
+    background-color: #ffffff;
+    transition: ease all 0.3s;
+    width: 100px;
+    height: 100px;
+    font-size: 2em;
+    
+}
+
+.dragImg{
+    width: 100px !important;
+    height: 200px !important;
+    display: none;
+}
+
+/*.aluiconDrag:active{
+    background-color: #ffffff;
+    transition: ease all 0.3s;
+    width: 8em;
+    height: 9em;
+    font-size: 2em;
+    
+}*/
+
+/*[data-draggable="target"]
+{
+    float:left;
+    list-style-type:none;
+    
+    width:42%;
+    height:7.5em;
+    overflow-y:auto;
+    
+    margin:0 0.5em 0.5em 0;
+    padding:0.5em;
+    
+    border:2px solid #888;
+    border-radius:0.2em;
+    
+    background:#ddd;
+    color:#555;
+}*/
+
+/* draggable items */
+/*[data-draggable="item"]
+{
+    display:block;
+    list-style-type:none;
+    
+    margin:0 0 2px 0;
+    padding:0.2em 0.4em;
+    
+    border-radius:0.2em;
+    
+    line-height:1.3;
+}*/
+
