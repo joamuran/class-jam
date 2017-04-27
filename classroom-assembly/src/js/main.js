@@ -691,6 +691,39 @@ UI.prototype.createNewAssembly=function createNewAssembly(){
     
 }
 
+
+UI.prototype.speakPhrase=function speakPhrase(phrase) {
+    // Howto: https://developer.chrome.com/apps/tts
+    
+    if(phrase === "")
+    {
+        return -1;
+    }// "spanish espeak", "catalan espeak", "english espeak"
+    else
+    {
+        phrase='<?xml version="1.0"?><speak>' +phrase+'</speak>';
+        chrome.tts.speak(phrase, {'enqueue': true, 'lang':navigator.language, 'voiceName':"catalan espeak"});
+                
+        /*chrome.tts.getVoices(
+          function(voices) {
+            for (var i = 0; i < voices.length; i++) {
+              console.log('Voice ' + i + ':');
+              console.log('  name: ' + voices[i].voiceName);
+              console.log('  lang: ' + voices[i].lang);
+              console.log('  gender: ' + voices[i].gender);
+              console.log('  extension id: ' + voices[i].extensionId);
+              console.log('  event types: ' + voices[i].eventTypes);
+            }
+          });*/
+        
+        
+         
+         
+    }
+}
+
+
+
 UI.prototype.LaunchAssembly=function LaunchAssembly(id){
     var fs=require("fs");
     var self=this;
@@ -729,6 +762,7 @@ $(document).ready(function() {
     // Event handlers
     var app=new UI();
     
+    app.speakPhrase("Welcome to Classroom Assembly");
     app.showLoadDialog(); // Shows load dialog and launches assembly
     
 });

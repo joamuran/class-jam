@@ -20,5 +20,5 @@
   "webkit": {
     "plugin": true
   },
-  "chromium-args": "--ignore-certificate-errors"
+  "chromium-args": "--enable-speech-dispatcher"
 }
