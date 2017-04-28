@@ -1,3 +1,10 @@
+classroom-assembly (0.3) xenial; urgency=high
+
+  * Fixed bugs when unselected items
+  * Image redesig
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Fri, 28 Apr 2017 08:07:09 +0200
+
 classroom-assembly (0.2) xenial; urgency=high
 
   * Fixed some bugs in modules
