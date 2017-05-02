@@ -92,11 +92,12 @@
     margin: 10px;
     box-shadow: 0 6px 6px -6px black;
     height: 90%;
-    padding: 10px;
+    padding: 5px;
     transition: all ease 0.2s;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom;
+    background-origin: content-box;
 }
 
 .asItem.selected{
@@ -122,6 +123,11 @@
 }
 .AsInputName{
     width: 100%;
+}
+
+.image_picker_selector{
+    width: 520px !important;
+    height: 270px !important;
 }
 
 .image_picker_image{

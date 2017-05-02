@@ -624,6 +624,7 @@ UI.prototype.showLoadDialog=function showLoadDialog(){
 
 UI.prototype.createNewAssembly=function createNewAssembly(){
     var self=this;
+    var fs=require("fs");
     
     var inputNameLabel=$(document.createElement("div")).html(i18n.gettext("input.new.assembly.name")).addClass("NewAsFormControl");
     var inputName=$(document.createElement("input")).attr("type", "text").attr("name", "newAsName").html(i18n.gettext("newAsName")).addClass("form-control").attr("required", "required");
@@ -631,11 +632,18 @@ UI.prototype.createNewAssembly=function createNewAssembly(){
     
     var inputSelectLabel=$(document.createElement("div")).html(i18n.gettext("input.new.assembly.icon")).addClass("NewAsFormControl");
     var selectImage=$(document.createElement("select")).addClass("image-picker");
-    var op1=$(document.createElement("option")).attr("data-img-src", "css/images/icons/asmode.png").val("1");
-    var op2=$(document.createElement("option")).attr("data-img-src", "css/images/icons/check.png").val("2");
-    var op3=$(document.createElement("option")).attr("data-img-src", "css/images/icons/options.png").val("3");
-    $(selectImage).append(op1, op2, op3);
-
+    var op=[];
+    
+    console.log("123");
+    var avatarDir = 'css/images/avatars/';
+    
+    var files = fs.readdirSync(avatarDir);
+    
+    for (var i in files) {
+        op[i]=$(document.createElement("option")).attr("data-img-src", avatarDir+files[i]).val(i);  
+        $(selectImage).append(op[i]);
+    }
+    
     
     $(newAsDiv).append(inputNameLabel, inputName);
     $(newAsDiv).append(inputSelectLabel, selectImage);
