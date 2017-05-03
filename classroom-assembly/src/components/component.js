@@ -29,7 +29,7 @@ Component.prototype.getComponentControlIcon=function getComponentControlIcon(id)
         
     var retdiv=$(document.createElement("div")).attr("id", id).addClass("componentVisibilitySelector");
     var iconDiv=$(document.createElement("div")).attr("id", id).addClass("componentVisibilitySelectorIcon");
-    var textDiv=$(document.createElement("div")).html(self.name).addClass("componentVisibilitySelectorText");
+    var textDiv=$(document.createElement("div")).html(i18n.gettext(self.name)).addClass("componentVisibilitySelectorText");
     
     //console.log(self.visible);
     if (self.visible===false) $(iconDiv).css("opacity", "0.3");

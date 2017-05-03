@@ -17,6 +17,7 @@
   "weather.component.today.is":"Today it is",
   
   "weekday.component.title":"What day is today?",
+  "weekday.component.options":"Configure days of week",
   "monday":"Monday",
   "tuesday":"Tuesday",
   "wednesday": "Wednesday",
@@ -54,6 +55,14 @@
   "input.new.assembly.icon":"Select an icon",
   "CreateAssembly.bt.ok":"Crete Assembly",
   "CreateAssembly.bt.cancel":"Cancel",
-  "classmates.frontend.tile":"Who is at school?"
+  "classmates.frontend.tile":"Who is at school?",
+  
+  "Select.Assembly.Components":"Select Assembly Components",
+  "Weather Selector":"Weather Selector",
+  "Season Selector":"Season Selector",
+  "Month Selector":"Month Selector",
+  "WeekDay Selector":"WeekDay Selector",
+  "Classmates Selector":"Classmates Selector"
+  
 
 }

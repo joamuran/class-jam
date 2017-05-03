@@ -17,6 +17,7 @@
   "weather.component.today.is":"Hui fa...",
   
   "weekday.component.title":"Quin dia és?",
+  "weekday.component.options":"Configureu els dies de la setmana",
   "monday":"Dilluns",
   "tuesday":"Dimarts",
   "wednesday": "Dimecres",
@@ -54,7 +55,14 @@
   "input.new.assembly.icon":"Trieu una icona",
   "CreateAssembly.bt.ok":"Crea l'Assemblea",
   "CreateAssembly.bt.cancel":"Cancel·la",
-  "classmates.frontend.tile":"Qui ha vingut hui?"
+  "classmates.frontend.tile":"Qui ha vingut hui?",
+  
+  "Select.Assembly.Components":"Seleccioneu els components de l'Assemblea",
+  "Weather Selector":"Selector de l'oratge",
+  "Season Selector":"Selector d'Estació",
+  "Month Selector":"Selector de mes",
+  "WeekDay Selector":"Selector de dia",
+  "Classmates Selector":"Companys de classe"
   
   
 }

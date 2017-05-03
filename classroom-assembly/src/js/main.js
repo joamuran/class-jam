@@ -289,7 +289,7 @@ UI.prototype.ShowComponentsWindow=function ShowComponentsWindow(){
     
     //console.log(self.filedata);
 
-    var message="Select Assembly Components";
+    var message=i18n.gettext("Select.Assembly.Components");
     var input="";
     
     console.log(self.components);
