@@ -1,5 +1,11 @@
 classroom-assembly (0.3) xenial; urgency=high
 
+  * New designs
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Fri, 05 May 2017 13:54:22 +0200
+
+classroom-assembly (0.3) xenial; urgency=high
+
   * Fixed bugs when unselected items
   * Image redesig
 
