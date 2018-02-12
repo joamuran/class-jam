@@ -2,7 +2,7 @@ Source: classroom-assembly
 Section: misc
 Priority: optional
 Maintainer: LliureX Team <lliurex@lliurex.net>
-Build-Depends: debhelper (>= 8.0.0)
+Build-Depends: llxsrchelper,debhelper (>= 8.0.0)
 Standards-Version: 3.9.3
 Homepage: https://github.com/joamuran/classroom-assembly
 #Vcs-Git: git://git.debian.org/collab-maint/lliurex-guard.git
@@ -10,7 +10,7 @@ Homepage: https://github.com/joamuran/classroom-assembly
 
 Package: classroom-assembly
 Architecture: all
-Depends: ${misc:Depends},graphicsmagick,imagemagick,nwjs0.21
+Depends: ${misc:Depends},graphicsmagick,imagemagick,nwjs0.21,yad,wmctrl,mplayer,alsa-utils
 Description: Classroom Assembly
  NWJS app to perform classroom assembly
  to children and special education.

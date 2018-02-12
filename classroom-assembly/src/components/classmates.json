@@ -1,0 +1,8 @@
+{
+  "component": "classmates",
+  "version":"0.1",
+  "author":"Jose A. Múrcia <joamuran@gmail.com>",
+  "style": "classmates/classmates.css",
+  "script":"classmates/classmates.js",
+  "constructorCall":"new classmatesComponentClass()"
+}

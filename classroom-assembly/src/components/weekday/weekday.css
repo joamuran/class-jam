@@ -30,6 +30,11 @@
     width: 70%;*/
 }
 
+.UndefinedDayText{
+    height: 15%;
+    width: 100%;
+}
+
 .monday{background-image: url(img/monday.png); }
 .weekdaySelectIcon.monday:hover{background-image: url(img/monday.png), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)); }
 
@@ -86,19 +91,17 @@
     margin-left: -15px;
 }
 
-
-
-.weekdaySelected:after{
+/*.weekdaySelected:after{
     background-image: url("../../css/images/icons/check.png");
-    background-size: 40px 40px;
+    background-size: 40px 10px;
     display: inline-block;
-    width: 40px; 
-    height: 40px;
+    width: 10px; 
+    height: 10px;
     content:"";
     position: absolute;
     top: 24px;
     left: 30%;
-}
+}*/
 
 .weekdayConfigIcon{
     float: left;
@@ -107,6 +110,10 @@
     background-size: contain;
     background-repeat: no-repeat;   
 }
+
+/*.weekdayConfigIcon:hover{
+    cursor: copy;
+}*/
 
 .weekdayConfig{}
 
@@ -125,9 +132,11 @@
 
 
 .weekdayConfigRow{
-    border: 1px solid #cccccc;
+    /*border: 1px solid #cccccc;*/
     border-radius: 2px;
     margin-bottom: 5px;
+    opacity: 0.3;
+    filter: grayscale(80%);
 }
 
 .weekdayConfigRow:hover{
@@ -135,8 +144,15 @@
     background: #42a5f5;
 }
 
-.weekdayConfigRow.weekdayStatusActive:after{
-    background-image: url("../../css/images/icons/check.png");
+
+.weekdayConfigRow.weekdayStatusActive{
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+/*.weekdayConfigRow.weekdayStatusActive:after{
+    / *background-image: url("../../css/images/icons/check.png");* /
+    background-image: url("../../css/images/icons/eye.png");
     background-size: 24px 24px;
     background-position: center;
     display: inline-block;
@@ -147,8 +163,33 @@
     top: 50%;
     margin-top: -12px;
     right: 10px;
+}*/
+
+
+.configureComponentButton{
+    background-image: url("../../css/images/icons/options.png");
+    width: 32px;
+    height:32px;
+    background-position: center;
+    margin-top:12px;
+    background-size: cover;
 }
 
+.configureComponentButtonDefault{
+    background-image: url("../../css/images/icons/options.png");
+    width: 48px;
+    height:48px;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    transition: all 0.2s;
+}
 
-
-
+.configureComponentButtonDefault:hover{
+    width: 56px;
+    height:56px;
+    left: 8px;
+    top: 8px;
+}

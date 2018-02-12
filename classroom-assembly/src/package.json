@@ -6,19 +6,31 @@
   "keywords": [
     "application"
   ],
-  "repository":"",
-  "license":"GPL-3.0",
+  "repository": "",
+  "license": "GPL-3.0",
   "window": {
     "title": "Assemblea",
-    "icon": "",
+    "icon": "classroom-assembly.png",
     "toolbar": false,
     "frame": true,
-    "width": 1024,
-    "height": 768,
-    "position": "mouse"
+    "width": 1280,
+    "height": 1024,
+    "position": "center"
   },
   "webkit": {
     "plugin": true
   },
-  "chromium-args": "--enable-speech-dispatcher"
+  "chromium-args": "--enable-speech-dispatcher --ppapi-flash-path=/usr/lib/adobe-flashplugin/libpepflashplayer.so",
+  "dependencies": {
+    "archiver": "^2.0.3",
+    "css": "^2.2.1",
+    "decompress": "^4.2.0",
+    "file-type": "^6.1.0",
+    "fs-extra": "^4.0.2",
+    "gm": "^1.23.0",
+    "md5-file": "^3.2.3",
+    "play-sound": "^1.1.1",
+    "read-chunk": "^2.1.0",
+    "sortablejs": "^1.6.1"
+  }
 }

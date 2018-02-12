@@ -91,6 +91,48 @@ li.editable:hover{
     background: rgba(255,255,255,0.4);
 }
 
+
+.PlayComponentButton{
+    width: 20px;
+    height: 20px;
+    /*background: #00ff00;*/
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(images/icons/PlayComponentButton.png);
+    /*background-image: url(images/icons/PlayComponentButton.svg);*/
+    filter: opacity(0);
+    
+}
+
+.component:hover .PlayComponentButton, .component.hover .PlayComponentButton{
+    background-image: url(images/icons/PlayComponentButtonHover.png);
+    animation: filter-animation 1s infinite;
+}
+
+@keyframes filter-animation {
+    0% {
+    filter: opacity(0);
+    }
+    
+    50% {
+    filter: opacity(1);
+    }
+        
+    100% {
+    filter: opacity(0);
+    }}
+
+
+.PlayComponentButton:hover{
+    background-image: url(images/icons/PlayComponentButtonHover.png) !important;
+    filter:opacity(1);
+    animation: none !important;
+}
+
 /* Icons */
 
 .controlButton{
@@ -115,7 +157,9 @@ li.editable:hover{
     filter: brightness(1.3);
 }
 
-
+#exportDialog, #importDialog{
+    display: none;
+}
 
 #menuButton{
     background-image: url(images/icons/menu.png);
@@ -125,20 +169,26 @@ li.editable:hover{
     z-index: 100;
 }
 
+#btResetAssembly{ background-image: url(images/icons/restart.png); z-index: 90;}
+#btResetAssembly.visible{
+    top: 80px;
+    right: 0px; }
+    
 #btShowEditMode{ background-image: url(images/icons/editmode.png); z-index: 90;}
 #btShowEditMode.visible{
-    top: 80px;
+    top: 160px;
     right: 0px; }
 
 #btShowPlayerMode{ background-image: url(images/icons/asmode.png); z-index: 90;}
 #btShowPlayerMode.visible{
-    top: 80px;
+    top: 160px;
     right: 0px;
 }
 
 #BtSave, #BtSaveConfig{ background-image: url(images/icons/save.png); z-index: 80;}
+
 #BtSave{
-    top: 160px;
+    top: 240px;
     right: 0px;
 }
 
@@ -147,23 +197,41 @@ li.editable:hover{
     right: 0px;
 }
 
-#btOptions{ background-image: url(images/icons/options.png); z-index: 70;}
+
+
+
+#BtExport, #BtExportConfig{ background-image: url(images/icons/export.png); z-index: 80;}
+
+#BtExport{
+    top: 320px;
+    right: 0px;
+}
+
+#BtExportConfig.visible{
+    top: 320px;
+    right: 0px;
+}
+
+
+
+#btOptions{ background-image: url(images/icons/optionsApp.png); z-index: 70;}
 #btOptions.visible{
-    top: 160px;
+    top: 80px;
     right: 0px;
 }
 
 
 #btQuit, #btQuitConfig{ background-image: url(images/icons/quit.png); z-index: 70;}
 #btQuit.visible{
-    top: 240px;
+    top: 400px;
     right: 0px;
 }
 
 #btQuitConfig.visible{
-    top: 320px;
+    top: 400px;
     right: 0px;
 }
+
 
 .buttonhidden{
     top: 0px !important;
@@ -205,6 +273,12 @@ li.editable:hover{
     width: 90% !important;
     margin-left: 5% !important;
     top: 10px !important;
+}
+
+.vexExtraWidthExpanded{
+    width: 90% !important;
+    margin-left: 5% !important;
+    top: 50px !important;
 }
 
 .vexExtraHeight{
@@ -261,4 +335,361 @@ li.editable:hover{
     width: 100px;
     height: 20px;
     text-align: center;
+}
+
+.modifyable{
+       cursor: copy;
+}
+
+.visibilityIcon{
+    width: 24px;
+    height: 24px;
+    top: 3px;
+    right: 3px;
+    position: absolute;
+    
+    background-size: cover;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 1px 1px 5px #888888;
+}
+
+.visibilityIcon:hover{
+    cursor: pointer;
+}
+
+.visibleItem{background-image: url(images/icons/eye.png);}
+.hidenItem{background-image: url(images/icons/eye_closed.png);}
+.hideparentDiv{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.85);
+}
+
+/* playWindow */
+
+.playWindow{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    /*background: #ffffff;*/
+    z-index: 100;
+    opacity: 0;
+    background-image: url(images/backgrounds/bg1.jpg);
+    background-size: cover;
+}
+
+.playWindowCloseButton{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 50px;
+    height: 50px;
+    /*background-color: #cccccc;*/
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(images/icons/closePlayButton.png);
+    
+}
+
+.PlayableContent{
+    position: absolute;
+    top: 10%;
+    bottom: 10%;
+    left: 10%;
+    width: 80%;
+    height: auto;
+    background: #ffffff;
+    border-radius: 5%;
+}
+
+.PlayableContentLite{
+    position: absolute;
+    top: 10%;
+    bottom: 30%;
+    left: 20%;
+    width: 60%;
+    height: auto;
+    box-shadow: 0 18px 18px -18px black;
+    background: #ffffff;
+    border-radius: 3%;
+    
+    /*background: #ffff00;*/
+}
+
+.ConfirSectionFingers{
+    position: absolute;
+    top: 70%;
+    bottom: 5%;
+    left: 20%;
+    right: 20%;
+    width: 60%;
+    height: auto;
+    /*background: #ffff00;*/
+}
+
+.thumbs{
+    background-size: contain;
+    background-position:center;
+    background-repeat: no-repeat;
+    height: 100%;
+    transition: all ease 0.3s;
+    /*background-color: #ff00ff;*/
+}
+
+.thumbs:hover{
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+.thumbsup{
+    background-image: url(images/icons/thumbup.png);
+}
+
+.thumbsdown{
+    background-image: url(images/icons/thumbdown.png);
+}
+
+.playBigIcon{
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    /*background-color: #ff00ff;*/
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    bottom:15%;
+    right: 15%;
+}
+
+.playBigIconLite{
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    bottom:20%;
+    right: 20%;
+}
+
+
+.playContentButton{
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    /*background-color: #ff0000;*/
+    position: absolute;
+    top: 90%;
+    left: 45%;
+    bottom:0%;
+    right: 45%;
+    background-image: url(images/icons/PlayContentButton.png);
+    transition: all ease 0.3s;
+}
+
+.playContentButton:hover{
+    top: 85%;
+    left: 43%;
+    bottom:0%;
+    right: 43%;
+}
+
+#audioStartStop{
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 90%;
+    right: 90%;
+    left: 1%;
+    bottom:1%;
+    background-image: url(images/icons/audio.png);
+    display: none;
+}
+.pulsatingaudio {
+    /* Animation */
+    display: block !important;
+    animation-name: pulse_animation;
+	animation-duration: 500ms;
+	transform-origin:70% 70%;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+    
+}
+
+#audioStartStop:hover{
+    background-image: url(images/icons/stopaudio.png);
+}
+
+@keyframes pulse_animation {
+	0% { transform: scale(1); }
+	30% { transform: scale(1.05); }
+	40% { transform: scale(1.1); }
+	50% { transform: scale(1.05); }
+	60% { transform: scale(1); }
+	/*70% { transform: scale(1.05); }
+	80% { transform: scale(1); }
+	100% { transform: scale(1); }*/
+}
+
+.mediaplayer{
+    display: none;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    right: 10%;
+    bottom: 10%;
+    width: 80%;
+    height: 80%;
+    z-index: 110;
+    background: rgba(255,255,255,0.8);
+    
+}
+
+.previewPlayButton, .recordButton{
+    border-radius:50%;
+    width: 32px;
+    height: 32px;
+    padding:0px !important;
+    margin:0px 0px 0px 10px !important;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(0,0,0,0);
+    border-color: rgba(0,0,0,0);
+        
+}
+
+.previewPlayButton:active, .previewPlayButton:focus {
+    outline: 0 !important;
+    background-image: url(images/icons/audio.png);
+    background-color: rgba(0,0,0,0) !important;
+    border-color: rgba(0,0,0,0) !important;
+}
+
+.recordButton:active, .recordButton:focus {
+    outline: 0 !important;
+    background-image: url(images/icons/recording.png);
+    background-color: rgba(0,0,0,0) !important;
+    border-color: rgba(0,0,0,0) !important;
+}
+
+
+.previewPlayButton:hover, .recordButton:hover{
+    border-radius:50%;
+    width: 32px;
+    height: 32px;
+    padding:0px !important;
+    margin:0px 0px 0px 10px !important;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(0,0,0,0);
+    border-color: rgba(0,0,0,0);
+    
+}
+
+.previewPlayButton{
+    /*background-image: url(images/icons/PlayComponentButton.png);*/
+    background-image: url(images/icons/audio.png);
+}
+
+.recordButton{
+    background-image: url(images/icons/recording.png);
+}
+
+.snippet{
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 90px;
+}
+
+input[type="text"].text_error{
+  background-color: #fce4e4 !important;
+  border: 1px solid #cc0033 !important;
+  outline: none !important;
+}
+
+input[type="file"].text_error{
+  background-color: #fce4e4 !important;
+  color:  #cc0033 !important;
+  outline: none !important;
+}
+
+
+/* CSS for recording audio */
+
+.microphone{
+    background-image: url(images/icons/recording.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding-top: 20%;
+}
+
+.microphone:hover{
+    background-image: url(images/icons/recordingHover.png);
+    cursor: pointer;
+}
+
+
+.microphoneRecording{
+    background-image: url(images/icons/recordingBW.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding-top: 20%;
+}
+
+.microphoneRecording:after{
+    animation: blinker 1.5s cubic-bezier(.5, 0, 1, 1) infinite alternate;
+    background-color: #ff0000;
+    border-radius: 50px;
+    display: inline-block;
+    width: 24px; 
+    height: 24px;
+    content:"";
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    margin-left:32px;
+    
+}
+
+.microphoneRecording:hover{
+    cursor: pointer;
+}
+
+.audioRecordMessage{
+    text-align:center;
+    margin-top: 32px;
+}
+
+
+.InActiveButtonPlay{}
+.ActiveButtonPlay{
+    background-color: #5cb85c;
+    color: #ffffff;
+}
+.ActiveButtonAccept{
+    background-color: #3288e6;
+    color: #ffffff;
+}
+.InActiveButtonAccept, .InActiveButtonPlay{ }
+
+
+/*.Blink {
+  animation: blinker 1.5s cubic-bezier(.5, 0, 1, 1) infinite alternate;  
+}*/
+@keyframes blinker {  
+  from { opacity: 1; }
+  to { opacity: 0; }
 }

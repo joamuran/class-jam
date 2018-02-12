@@ -1,8 +1,17 @@
 
 function weatherComponentClass(){
+    var self=this;
     this.weatherOptions=["sunny", "partial_sunny", "partial_cloudy", "cloudy", "rainy","snow"];
     this.name="Weather Selector";
     this.icon="components/componentIcons/weather.png";
+    this.componentname="weather";
+    this.playableData={"top_text":"weather.component.today.is",
+                       getCurrentInfo: function getCurrentInfo(){
+                        return self.info.weather;
+                        },
+                        setCurrentInfo: function setCurrentInfo(data){
+                        self.info.weather=data;
+                        }};
     
 }
 
@@ -12,23 +21,37 @@ weatherComponentClass.prototype.constructor = weatherComponentClass;
 weatherComponentClass.prototype.setBaseConfig=function setBaseConfig(){
     var self=this;
     
-    self.info={"weather":"sunny"};
+    self.info={"weather":""};
+    self.actions={"actions":""};
     self.config={"sunny":true,"partial_sunny":true,"partial_cloudy":true,
                 "cloudy":true,"rainy":true,"snow":false};
+};
+
+weatherComponentClass.prototype.resetComponent=function resetComponent(){
+    var self=this;
+    self.info={"weather":""};
 };
 
 weatherComponentClass.prototype.drawComponent=function drawComponent(){
     var self=this;
     /*data={weather:self.weather};*/
-    var li=$(document.createElement("li")).attr("id","weatherComponent").attr("data", JSON.stringify(self.info)).attr("config", JSON.stringify(self.config)).addClass("component");
-    
-    if (self.info.weather==="") $(div).html("weather is undefined");
+    var weathertext="";
+    var li=$(document.createElement("li")).attr("id","weatherComponent").attr("data", JSON.stringify(self.info)).attr("config", JSON.stringify(self.config)).attr("actions", JSON.stringify(self.actions)).addClass("component");
+    //console.log(self.info);
+    //alert(self.info.weather);
+    if (self.info.weather==="") {
+        weathertext=$(document.createElement("div")).addClass("iconWeatherText textfluid").html(i18n.gettext("undefined.weather"));
+        $(li).append(weathertext);
+    }
     else {
-        var weathertext=$(document.createElement("div")).addClass("iconWeatherText textfluid").html(i18n.gettext("weather.component.today.is"));
+        weathertext=$(document.createElement("div")).addClass("iconWeatherText textfluid").html(i18n.gettext("weather.component.today.is"));
         var weathericon=$(document.createElement("div")).addClass("iconWeather").addClass(self.info.weather);
         //var weathericon=$(document.createElement("img")).addClass("iconWeather").attr("src", "css/images/components/weather/sunny.png");
         var weatherstatus=$(document.createElement("div")).addClass("iconWeatherText textfluid").html(i18n.gettext(self.info.weather));
         $(li).append(weathertext).append(weathericon).append(weatherstatus);
+        
+        var PlayComponentButton=self.getPlayComponentButton();
+        $(li).append(PlayComponentButton);
     }
     
     return li;
@@ -83,9 +106,24 @@ weatherComponentClass.prototype.getASDialog=function getASDialog(){
     
     ret.bindEvents=function(){
         $(".weatherSelectIcon").on("click", function(){
-            //alert("clicked on "+$(this).attr("weather"));
+            
+            /*//alert("clicked on "+$(this).attr("weather"));
+            $(".weatherSelectIcon").removeClass("weatherSelected");
+            $(this).addClass("weatherSelected");*/
+            
             $(".weatherSelectIcon").removeClass("weatherSelected");
             $(this).addClass("weatherSelected");
+         
+            // Perform a processDialog before show confirm
+            var selected=$($(".weatherSelected")[0]).attr("weather");
+            var oldselected=self.info.weather;
+            if (selected) self.info.weather=selected;
+            self.reDrawComponent();
+            appGlobal.bindCompomentsEvents();
+    
+            self.showConfirmItem(oldselected); // Sending selected to restore if cancel
+            
+            
             });  
     };
     
@@ -94,6 +132,7 @@ weatherComponentClass.prototype.getASDialog=function getASDialog(){
         //alert(selected);
         if (selected) self.info.weather=selected;
         self.reDrawComponent();
+        appGlobal.bindCompomentsEvents(); // Rebind component events to allow click on Play after redrawing it
     };
         
     return ret;
@@ -110,22 +149,30 @@ weatherComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     
     
     var input=$(document.createElement("div")).attr("id", "weatherConfig");
+    
+    var defaultConfigBt=$(document.createElement("div")).addClass("configureComponentButtonDefault col-md-1").attr("title", i18n.gettext("click.set.actions.default")).attr("weather", "default").attr("actions","");
+    
+    $(input).append(defaultConfigBt);
+    
     //for (i in self.weatherOptions){
     for (var weather in self.config){
-        var configRow=$(document.createElement("div")).addClass("weatherConfigRow").addClass("col-md-4 col-md-offset-4").attr("weather_data", weather);
+        var configRow=$(document.createElement("div")).addClass("weatherConfigRow").addClass("col-md-8 col-md-offset-2").attr("weather_data", weather);        
+        var configRowWeather=$(document.createElement("div")).addClass("col-md-10").attr("weather_data", weather);        
+        
         if (self.config[weather]) $(configRow).addClass("weatherStatusActive");
-        //var weather=self.weatherOptions[i];
+        
         var weatherText=i18n.gettext(weather);
         
-        var icon=$(document.createElement("div")).addClass(weather).addClass("weatherConfigIcon");
+        var icon=$(document.createElement("div")).addClass(weather).addClass("weatherConfigIcon modifyable").attr("title", i18n.gettext("click.change.img"));
         var text=$(document.createElement("div")).html(weatherText).addClass("weatherConfigText");
-        /*var selected=$(document.createElement("input")).attr("type","checkbox");*/
         
-        // WIP HERE::::: a vore com posem el checkbox, i preparar els callbacks per a la configuració i tal...
+        var iconConfigBt=$(document.createElement("div")).addClass("configureComponentButton col-md-1").attr("title", i18n.gettext("click.set.actions")).attr("weather", weather).attr("actions","");
         
-        $(configRow).append(icon);
-        $(configRow).append(text);
-        /*$(configRow).append(selected);*/
+        $(configRowWeather).append(icon);
+        $(configRowWeather).append(text);
+        $(configRow).append(configRowWeather);
+        $(configRow).append(iconConfigBt);
+        
         $(input).append(configRow);
         
     }
@@ -138,7 +185,38 @@ weatherComponentClass.prototype.getConfigDialog=function getConfigDialog(){
             //alert("clicked on "+$(this).attr("weather"));
             if($(this).hasClass("weatherStatusActive")) $(this).removeClass("weatherStatusActive");
             else $(this).addClass("weatherStatusActive");
-            });  
+            });
+        
+        
+        $(".configureComponentButton, .configureComponentButtonDefault").on("click", function (event) {
+            event.stopPropagation();
+            event.preventDefault();
+            
+            var weather=$(event.target).attr("weather");
+                        
+            //console.log(self.actions[weather]);
+            
+            if (!self.hasOwnProperty("actions")) console.log("NO ACTIONS DEFINED");
+            console.log("ACTIONS::::::::");
+            console.log(self.actions);
+            
+            if (self.hasOwnProperty("actions"))
+                self.showConfigActions(weather, function(data){
+                    if(data){
+                        console.log(data);
+                        //dataToSave[weekday]=data;
+                        self.saveActions(weather, data);
+                    }
+                });
+                
+        });
+        
+        
+        // Click to change image
+        // Calling to parent class method to bind click event on icon for change its image
+        self.bindClickForChangeImg("weatherConfigIcon");
+        
+        
     };
     
     ret.processDialog=function(){
@@ -150,6 +228,9 @@ weatherComponentClass.prototype.getConfigDialog=function getConfigDialog(){
         
         // Apply changes to data in widget
         $("#weatherComponent").attr("config", JSON.stringify(self.config));
+        
+        // Serialize actions to component
+        if (self.hasOwnProperty("actions")) $("#weatherComponent").attr("actions", JSON.stringify(self.actions));
         
         
     };

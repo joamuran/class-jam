@@ -77,6 +77,10 @@
     margin-left: -15px;
 }
 
+.undefinedWeatherBg{
+    background: #ff0000 !important;
+}
+
 /*.weatherSelectIcon:hover .weatherSelectInfo{
       font-size: 2vw;
       cursor: pointer;
@@ -89,7 +93,7 @@
 }*/
 
 
-.weatherSelected:after{
+/*.weatherSelected:after{
     background-image: url("../../css/images/icons/check.png");
     background-size: 40px 40px;
     display: inline-block;
@@ -99,7 +103,7 @@
     position: absolute;
     top: 24px;
     left: 30%;
-}
+}*/
 
 .weatherConfigIcon{
     float: left;
@@ -121,14 +125,13 @@
     height: 50px;
     vertical-align: middle;
     line-height: 50px;
-    
-    }
-
+}
 
 .weatherConfigRow{
-    border: 1px solid #cccccc;
     border-radius: 2px;
     margin-bottom: 5px;
+    opacity: 0.3;
+    filter: grayscale(80%);
 }
 
 .weatherConfigRow:hover{
@@ -136,7 +139,12 @@
     background: #42a5f5;
 }
 
-.weatherConfigRow.weatherStatusActive:after{
+.weatherConfigRow.weatherStatusActive{
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+/*.weatherConfigRow.weatherStatusActive:after{
     background-image: url("../../css/images/icons/check.png");
     background-size: 24px 24px;
     background-position: center;
@@ -148,7 +156,7 @@
     top: 50%;
     margin-top: -12px;
     right: 10px;
-}
+}*/
 
 
 

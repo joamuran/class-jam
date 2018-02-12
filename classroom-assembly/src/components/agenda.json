@@ -1,0 +1,10 @@
+{
+  "component": "agenda",
+  "version":"0.1",
+  "author":"Jose A. Múrcia <joamuran@gmail.com>",
+  "style": "agenda/agenda.css",
+  "script":"agenda/agenda.js",
+  "constructorCall":"new agendaComponentClass()"
+}
+
+

@@ -1,0 +1,253 @@
+
+/*.iconAgenda{
+    width: 100%;
+    height: 70%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: all 0.4s;
+    background-position: center;
+    overflow: hidden;
+}*/
+
+.titleAgendaText{  /* icons */
+    /*font-size: 10vw;*/
+    height: 15%;
+    width: 100%;
+    
+}
+
+#agendaComponent{
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.iconAgendaContent{
+    /*background: #ffeeaa;*/
+    margin: 1px;
+    /*height: 8%;*/
+    min-height: 64px;
+    max-height: 20% !important;
+    width: 100%;
+    position: relative;
+    
+    background-size: contain;
+    background-color: #ffffff;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 0.4s;
+}
+
+.iconAgendaContent:hover{
+    transition: all ease 0.2s;
+    cursor: pointer;
+    /*box-shadow: inset 0 0 0 100px rgba(36, 70, 105, 0.74);*/
+    box-shadow: inset 0 0 0 100px rgba(255, 255, 255, 0.75);
+    /*background-size: 80%;*/
+}
+
+.iconAgendaContent:hover .iconAgendaItemText, .iconAgendaContent.hover .iconAgendaItemText {
+        font-size: 2em !important;
+        text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
+        
+}
+
+.iconAgendaItemText{
+    position:absolute;
+    bottom:0px;
+    transition: all ease 0.2s;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+
+
+    
+.agendaSelectIcon{
+    position: relative;
+    /*width: 128px;*/
+    height: 128px;
+    float: left;
+    background-color: #ffffff;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 0.4s;
+    opacity: 0.8;
+}
+
+
+.agendaSelectIcon:hover{
+     opacity: 1;
+     cursor: pointer;
+     background-position: center;
+     /*transform: scale(1.5);*/
+     z-index: 10;
+    filter: drop-shadow(3px 3px 3px #333333);
+     
+}
+
+
+.agendaSelectInfo{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align:center;
+    transition: all 0.4s;
+    margin-left: -15px;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/*.agendaSelectIcon:hover .seasonSelectInfo{
+      font-size: 2vw;
+      cursor: pointer;
+}*/
+
+/*.seasonSelected{
+    background-color: #42a5f5;
+    border-radius: 5px;
+    
+}*/
+
+/*
+.seasonSelected:after{
+    background-image: url("../../css/images/icons/check.png");
+    background-size: 40px 40px;
+    display: inline-block;
+    width: 40px; 
+    height: 40px;
+    content:"";
+    position: absolute;
+    top: 24px;
+    left: 30%;
+}
+
+.seasonConfigIcon{
+    float: left;
+    width: 48px;
+    height: 48px;
+    background-size: contain;
+    background-repeat: no-repeat;   
+}
+
+.seasonConfig{}
+
+.seasonConfigRow{height: 50px;}
+
+.seasonConfigRow:hover{
+    cursor: pointer;
+}
+.seasonConfigText{
+    float: left;
+    height: 50px;
+    vertical-align: middle;
+    line-height: 50px;
+    
+    }
+
+*/
+
+.agendaConfigText{
+    /*float: left;
+    height: 50px;
+    vertical-align: middle;
+    line-height: 50px;*/
+    
+    
+    bottom: 0px;
+    position: absolute;
+    background-color: rgba(255,255,255,0.7);
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    transition: all ease 0.4s;
+    
+}
+
+#agendaConfig{
+    height: 500px;
+    overflow-y: auto;
+}
+
+.agendaConfigItem{
+    background-position: center;
+    float: left;
+    height: 120px;
+    width: 120px;
+    border: 1px solid #000000;
+    margin: 2px;
+    overflow: hidden;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    padding: 0px;
+    transition: all ease 0.4s;
+    position: relative;
+    
+}
+
+.agendaConfigItem:hover{
+    background-size: 120%;
+    background-position: center;
+    transition: all ease 0.4s;
+}
+
+.agendaText{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+}
+
+.agendaConfigItem:hover .agendaConfigText, .agendaConfigItem.hover .agendaConfigText {
+    height: 100%;
+    bottom: 0px;
+    position: absolute;
+    font-size: 1.5em;
+}
+
+
+#agendaSelectLeft{
+    overflow:auto;
+}
+
+#agendaSelectRight{
+    overflow:auto;
+    min-height:100px;
+    border: 1px #333333 dashed;
+    padding: 5px;
+    text-align:center;
+}
+
+
+#agendaSelectRight .agendaSelectIcon{
+    max-height: 100px;
+}
+
+
+
+/*.seasonConfigRow{
+    border: 1px solid #cccccc;
+    border-radius: 2px;
+    margin-bottom: 5px;
+}
+
+.seasonConfigRow:hover{
+    cursor: pointer;
+    background: #42a5f5;
+}
+
+.seasonConfigRow.seasonStatusActive:after{
+    background-image: url("../../css/images/icons/check.png");
+    background-size: 24px 24px;
+    background-position: center;
+    display: inline-block;
+    width: 24px; 
+    height: 24px;
+    content:"";
+    position: absolute;
+    top: 50%;
+    margin-top: -12px;
+    right: 10px;
+}
+
+
+*/
+

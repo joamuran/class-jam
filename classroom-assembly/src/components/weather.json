@@ -1,0 +1,8 @@
+{
+  "component": "weather",
+  "version":"0.1",
+  "author":"Jose A. Múrcia <joamuran@gmail.com>",
+  "style": "weather/weather.css",
+  "script":"weather/weather.js",
+  "constructorCall":"new weatherComponentClass();"
+}

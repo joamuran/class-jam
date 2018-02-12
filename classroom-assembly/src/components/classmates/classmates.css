@@ -87,14 +87,14 @@
 
 /*  Drawing Component */
 
-.emptySchool{
-    background: url("/components/classmates/img/school.png");
+.emptySchool, .emptySchool.editable{
+    background-image: url("/components/classmates/img/school.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    
-        
 }
+
+
 
 .classmatesContainer{
   display: grid;
@@ -109,6 +109,11 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;*/
+  
+  background-image: url("/components/classmates/img/school.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
   
 }
 

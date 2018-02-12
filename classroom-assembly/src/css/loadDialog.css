@@ -19,7 +19,8 @@
 
 .fileSelector{
     float: left;
-    width: 100%;
+    width: 60%;
+    margin-left: 20%;
     margin-top: 250px;
     transition: all ease 0.3s;
 }
@@ -92,25 +93,42 @@
     margin: 10px;
     box-shadow: 0 6px 6px -6px black;
     height: 90%;
+    /*height: 120px;
+    width: 100px;*/
     padding: 5px;
     transition: all ease 0.2s;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom;
     background-origin: content-box;
+    text-align:center;
+    transition: all ease 0.2s !important;
 }
 
 .asItem.selected{
-    background: #ffffef;
-    
+    background: #fac800;
+    padding: 1px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom;
+    background-origin: content-box;
 }
 
 .asItem:hover{
     margin-top: 0px;
     box-shadow: 0 8px 6px -6px black;
+}
+
+.asName{
+    width: 100%;
+    text-align: center;
+    border: none;
+    background-color: transparent;
+}
+
+
+.asName:focus{
+    background-color: #ffffff;
 }
 
 .newAsDiv{
@@ -138,4 +156,42 @@
 .NewAsFormControl{
     font-size: 1.5em;
     margin-top: 30px;
+}
+
+
+.loadWinHelpMessage{
+    position: fixed;
+    bottom: 200px;
+    width: 100%;
+    text-align: center;
+    
+}
+
+.trashIcon{
+    position: fixed;
+    bottom: 100px;
+    left: 100px;
+    width: 128px;
+    height: 128px;
+    background-image: url("images/icons/trash.png");
+    background-size: contain;
+    transition: all ease 0.4s;
+}
+
+.trashIconDrag{
+    width: 150px !important;
+    height: 150px !important;
+    bottom: 89px !important;
+    left: 89px !important;
+    
+}
+
+.dragIcon{
+    width: 100px;
+    height: 134px;
+    padding-top: 34px;
+    display: block;
+    opacity: 0.9 !important;
+    box-shadow: 0 6px 6px -6px black;
+    background-color: #ffffff;
 }

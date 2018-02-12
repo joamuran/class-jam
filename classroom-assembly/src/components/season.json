@@ -1,0 +1,8 @@
+{
+  "component": "season",
+  "version":"0.1",
+  "author":"Jose A. Múrcia <joamuran@gmail.com>",
+  "style": "season/season.css",
+  "script":"season/season.js",
+  "constructorCall":"new seasonComponentClass()"
+}

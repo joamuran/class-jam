@@ -1,9 +1,19 @@
 
 function monthComponentClass(){
+    var self=this;
     this.monthOptions=["january", "february", "march", "april", "may", "june", "july", "august", "september", "october","november","december"];
     
     this.name="Month Selector";
     this.icon="components/componentIcons/month.png";
+    this.componentname="month";
+    
+    this.playableData={"top_text":"month.it.is",
+                       getCurrentInfo: function getCurrentInfo(){
+                        return self.info.month;
+                        },
+                        setCurrentInfo: function setCurrentInfo(data){
+                        self.info.month=data;
+                        }};
 }
 
 monthComponentClass.prototype=new Component();
@@ -24,6 +34,7 @@ monthComponentClass.prototype.setBaseConfig=function setBaseConfig(){
     var currentMonthName="";
     
     
+    
     for (i in baseConfig){
         if (monthCount===currentMonth) {
             currentMonthName=i;
@@ -35,14 +46,23 @@ monthComponentClass.prototype.setBaseConfig=function setBaseConfig(){
     // Setting data
     
     self.info={"month":currentMonthName};
+    self.actions={"actions":""};
     self.config=baseConfig;
+};
+
+monthComponentClass.prototype.resetComponent=function resetComponent(){
+    var self=this;
+    self.info={"month":""};
 };
 
 monthComponentClass.prototype.drawComponent=function drawComponent(){
     var self=this;
-    var li=$(document.createElement("li")).attr("id","monthComponent").attr("data", JSON.stringify(self.info)).attr("config", JSON.stringify(self.config)).addClass("component");
+    var li=$(document.createElement("li")).attr("id","monthComponent").attr("data", JSON.stringify(self.info)).attr("config", JSON.stringify(self.config)).attr("actions", JSON.stringify(self.actions)).addClass("component");
     
-    if (self.info.month==="") $(div).html("month is undefined");
+    if (self.info.month==="") {
+        monthtext=$(document.createElement("div")).addClass("iconMonthText textfluid").html(i18n.gettext("month.component.title"));
+        $(li).append(monthtext);
+    }
     else {
         //var monthtext=$(document.createElement("div")).addClass("iconMonthText textfluid").html(i18n.gettext("month.it.is"));
         var monthtext=$(document.createElement("div")).addClass("iconMonthText textfluid");
@@ -50,6 +70,10 @@ monthComponentClass.prototype.drawComponent=function drawComponent(){
         
         var monthstatus=$(document.createElement("div")).addClass("iconMonthText textfluid").html(i18n.gettext(self.info.month));
         $(li).append(monthtext).append(monthicon).append(monthstatus);
+        
+        var PlayComponentButton=self.getPlayComponentButton();
+        $(li).append(PlayComponentButton);
+        
     }
     
     return li;
@@ -102,6 +126,18 @@ monthComponentClass.prototype.getASDialog=function getASDialog(){
 
             $(".monthSelectIcon").removeClass("monthSelected");
             $(this).addClass("monthSelected");
+            
+            // Perform a processDialog before show confirm
+            var selected=$($(".monthSelected")[0]).attr("month");
+            var oldselected=self.info.month;
+            if (selected) self.info.month=selected;
+            self.reDrawComponent();
+            appGlobal.bindCompomentsEvents();
+    
+            self.showConfirmItem(oldselected); // Sending selected to restore if cancel
+            
+            
+            
             });  
     };
     
@@ -110,6 +146,7 @@ monthComponentClass.prototype.getASDialog=function getASDialog(){
         //alert(selected);
         if (selected) self.info.month=selected;
         self.reDrawComponent();
+        appGlobal.bindCompomentsEvents(); // Rebind component events to allow click on Play after redrawing it
     };
         
     return ret;
@@ -126,23 +163,46 @@ monthComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     
     
     var input=$(document.createElement("div")).attr("id", "monthConfig");
+    
+    var defaultConfigBt=$(document.createElement("div")).addClass("configureComponentButtonDefault col-md-1").attr("title", i18n.gettext("click.set.actions.default")).attr("month", "default").attr("actions","");
+    
+    $(input).append(defaultConfigBt);
+    
     //for (i in self.monthOptions){
     for (var month in self.config){
         var configRow=$(document.createElement("div")).addClass("monthConfigRow").addClass("col-md-4 col-md-offset-4").attr("month_data", month);
+        
+        var configRowMonth=$(document.createElement("div")).addClass("col-md-10").attr("month_data", month);
+        
         if (self.config[month]) $(configRow).addClass("monthStatusActive");
         
         var monthText=i18n.gettext(month);
         
-        var icon=$(document.createElement("div")).addClass(month).addClass("monthConfigIcon");
+        var icon=$(document.createElement("div")).addClass(month).addClass("monthConfigIcon modifyable").attr("title", i18n.gettext("click.change.img"));
         var text=$(document.createElement("div")).html(monthText).addClass("monthConfigText");
-        /*var selected=$(document.createElement("input")).attr("type","checkbox");*/
         
-        // WIP HERE::::: a vore com posem el checkbox, i preparar els callbacks per a la configuració i tal...
+        var iconConfigBt=$(document.createElement("div")).addClass("configureComponentButton col-md-1").attr("title", i18n.gettext("click.set.actions")).attr("month", month).attr("actions","");
         
-        $(configRow).append(icon);
-        $(configRow).append(text);
-        /*$(configRow).append(selected);*/
+        $(configRowMonth).append(icon);
+        $(configRowMonth).append(text);
+        $(configRow).append(configRowMonth);
+        $(configRow).append(iconConfigBt);
+        
         $(input).append(configRow);
+        
+        /*
+        
+        WIP
+        
+        Queda associar el clic al botó de configuració
+        
+        i modificar els css...
+        
+        
+        */
+        
+        
+        
         
     }
     
@@ -154,7 +214,32 @@ monthComponentClass.prototype.getConfigDialog=function getConfigDialog(){
             
             if($(this).hasClass("monthStatusActive")) $(this).removeClass("monthStatusActive");
             else $(this).addClass("monthStatusActive");
-            });  
+            });
+        
+
+    $(".configureComponentButton, .configureComponentButtonDefault").on("click", function (event) {
+            event.stopPropagation();
+            event.preventDefault();
+            
+            var month=$(event.target).attr("month");
+                        
+            //console.log(self.actions[month]);
+            //console.log(self.config[weekday]);
+            if (self.hasOwnProperty("actions"))
+                self.showConfigActions(month, function(data){
+                    if(data){
+                        console.log(data);
+                        //dataToSave[weekday]=data;
+                        self.saveActions(month, data);
+                    }
+                });
+                
+        });
+        
+        // Click to change image
+        // Calling to parent class method to bind click event on icon for change its image
+        self.bindClickForChangeImg("monthConfigIcon");
+        
     };
     
     ret.processDialog=function(){
@@ -166,6 +251,9 @@ monthComponentClass.prototype.getConfigDialog=function getConfigDialog(){
         
         // Apply changes to data in widget
         $("#monthComponent").attr("config", JSON.stringify(self.config));
+        
+        // Serialize actions to component
+        if (self.hasOwnProperty("actions")) $("#monthComponent").attr("actions", JSON.stringify(self.actions));
         
         
     };

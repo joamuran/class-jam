@@ -1,0 +1,8 @@
+{
+  "component": "month",
+  "version":"0.1",
+  "author":"Jose A. Múrcia <joamuran@gmail.com>",
+  "style": "month/month.css",
+  "script":"month/month.js",
+  "constructorCall":"new monthComponentClass()"
+}

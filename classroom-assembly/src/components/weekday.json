@@ -1,0 +1,8 @@
+{
+  "component": "weekday",
+  "version":"0.1",
+  "author":"Jose A. Múrcia <joamuran@gmail.com>",
+  "style": "weekday/weekday.css",
+  "script":"weekday/weekday.js",
+  "constructorCall":"new weekdayComponentClass()"
+}

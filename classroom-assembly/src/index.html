@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		
+		<meta http-equiv="cache-control" content="no-cache" /> 
 		
 		<!-- Loading libs -->
 		<script type="text/javascript" src="lib/jquery-3.1.1.min.js"></script>
@@ -14,15 +14,18 @@
 		<script type="text/javascript" src="lib/image-picker/image-picker.js"></script>
 		<script type="text/javascript" src="lib/sly.min.js"></script>
 		
+		<script type="text/javascript" src="lib/utils.js"></script>
+		
 		
 		<!-- Loading Components-->
 		<script type="text/javascript" src="components/component.js"></script>
-		<script type="text/javascript" src="components/data/data.js"></script>
+		<!--script type="text/javascript" src="components/data/data.js"></script>
 		<script type="text/javascript" src="components/weather/weather.js"></script>
 		<script type="text/javascript" src="components/season/season.js"></script>
 		<script type="text/javascript" src="components/month/month.js"></script>
 		<script type="text/javascript" src="components/weekday/weekday.js"></script>
 		<script type="text/javascript" src="components/classmates/classmates.js"></script>
+		<script type="text/javascript" src="components/agenda/agenda.js"></script-->
 		
 		<!-- Loading main -->
 		<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
@@ -44,13 +47,15 @@
 		
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<link rel="stylesheet" type="text/css" href="css/loadDialog.css">
-		<link rel="stylesheet" type="text/css" href="components/weather/weather.css">
+		<!--link rel="stylesheet" type="text/css" href="components/weather/weather.css">
 		<link rel="stylesheet" type="text/css" href="components/data/data.css">
 		<link rel="stylesheet" type="text/css" href="components/season/season.css">
 		<link rel="stylesheet" type="text/css" href="components/month/month.css">
 		<link rel="stylesheet" type="text/css" href="components/weekday/weekday.css">
 		<link rel="stylesheet" type="text/css" href="components/classmates/classmates.css">
-
+		<link rel="stylesheet" type="text/css" href="components/agenda/agenda.css"-->
+		
+		<style id="customStyles"></style>
 
 	
 	</head>
@@ -62,16 +67,21 @@
 			
 			<div id="controlPanel">	
 				<div id="controlPanelPlayer">
+					<div class="controlButton buttonhidden" id="btResetAssembly" title="Start Assembly"></div>
 					<div class="controlButton buttonhidden" id="btShowEditMode" title="Edit Mode"></div>
 					<div class="controlButton buttonhidden" id="btSave" title="Save"></div>
+					<div class="controlButton buttonhidden" id="btExport" title="Export"></div>
 					<div class="controlButton buttonhidden" id="btQuit" title="Quit"></div>
+					<input type="file" id="exportDialog" nwsaveas="assemblea.zip" />
+					<input type="file" id="importDialog"/>
 					<!--div class="controlButton buttonhidden" id="btOptions" title="Options"></div-->
 				</div>
 				
 				<div id="controlPanelEdit" style="display:none">
+					<div class="controlButton buttonhidden" id="btOptions" title="Options"></div>
 					<div class="controlButton buttonhidden" id="btShowPlayerMode" title="Player Mode"></div>
 					<div class="controlButton buttonhidden" id="btSaveConfig" title="Save Config"></div>
-					<div class="controlButton buttonhidden" id="btOptions" title="Options"></div>
+					<div class="controlButton buttonhidden" id="btExportConfig" title="Export"></div>
 					<div class="controlButton buttonhidden" id="btQuitConfig" title="Quit"></div>
 				</div>
 				</div>
@@ -85,11 +95,18 @@
 		</div> <!-- gridster -->
 	</div> <!-- DashBoard -->
 
-	<div id="infoPanel"></div>
+	<div id="infoPanel">hola</div>
+	<div id="audioStartStop"></div>
 	
+	
+	 <!--iframe width="420" height="315"
+		src="https://youtu.be/BF7w-xJUlwM/">
+		</iframe-->
+	 
+	 <!--iframe width="640" height="360" src="" id="youtubeplayer" class="mediaplayer"
+			 frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe-->
 
-		
-			
+	
 </body>
 
 </html>

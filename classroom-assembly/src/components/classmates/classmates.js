@@ -2,6 +2,7 @@ function classmatesComponentClass(){
     this.name="Classmates Selector";
     this.icon="components/componentIcons/classmates.png";
     this.items2Delete=[];
+    this.componentname="classmates";
     
 }
 
@@ -17,6 +18,10 @@ classmatesComponentClass.prototype.setBaseConfig=function setBaseConfig(){
     self.config={};
 };
 
+Component.prototype.resetComponent=function resetComponent(){
+    var self=this;
+    self.info={};
+};
 
 classmatesComponentClass.prototype.drawComponent=function drawComponent(){
     var self=this;
@@ -31,8 +36,10 @@ classmatesComponentClass.prototype.drawComponent=function drawComponent(){
     var rows, cols;
     var grid_template_rows="";
     
+    
     for (var i in self.info) if (self.info[i]) numalum++;
     // And now rows and columns
+    
     if (numalum<10) {
         cols=3;
         classMatesContainer="classMatesContainer3cols";  }
@@ -45,8 +52,14 @@ classmatesComponentClass.prototype.drawComponent=function drawComponent(){
     for (i=0; i<rows; i++){ grid_template_rows+=row_percent+"% "; }
     
         
-    if (JSON.stringify(self.info)==="{}"){
-        $(li).html("").addClass("emptySchool");
+    if (JSON.stringify(self.info)==="{}"){        
+        
+        $(li).empty();
+        //$(li).addClass("emptySchool");
+        var titlediv=$(document.createElement("div")).html(i18n.gettext("classmates.frontend.tile")).css("height","15%").addClass("textfluid").attr("fontzoom", "0.8");
+        container=$(document.createElement("div")).addClass("classmatesContainer").html(i18n.gettext("no students added")).css("top","40%").addClass("textfluid").attr("fontzoom", "0.5")
+        $(li).append(titlediv, container);
+        
     } else {
         var container=$(document.createElement("div")).addClass("classmatesContainer").addClass(classMatesContainer).css("grid-template-rows", grid_template_rows);
         for (i in self.info){
@@ -83,10 +96,6 @@ classmatesComponentClass.prototype.drawComponent=function drawComponent(){
         
         
     }
-        
-    
-    
-    
          
     return li;
 };
@@ -221,6 +230,11 @@ classmatesComponentClass.prototype.manageDragAndDrop=function manageDragAndDrop(
     {
         //set the item reference to this element
         item = e.target;
+        //console.log(item);
+        //alert(e);
+        
+        // To ensure that we are on ClassMates...
+        if (!$(item).hasClass("aluiconDrag")) return -1;
         
         
         dragIcon.src=$(item).attr("sourceimg"); 
@@ -409,7 +423,7 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
             // Rebind some events like click on image
             self.SelectImageForAlu(); 
             
-            resizeFonts();
+            Utils.resizeFonts();
             
             }); // End click on newAlu
         
@@ -450,14 +464,12 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
         self.config=componentconfig;
         
         
-        
         $("#classmatesComponent").attr("config", JSON.stringify(componentconfig));
         
         //$("#classmatesComponent").attr("config", JSON.stringify(self.config));
         
         $("#btSave").click();
         self.reDrawComponent();
-        
         
         
     };
