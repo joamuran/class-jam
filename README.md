@@ -2,7 +2,9 @@
   <img src="https://raw.githubusercontent.com/joamuran/classroom-assembly/master/icons/classroom-assembly.png"><br><br>
 </div>
 
-#Classroom Assembly
+-----------------
+
+# Classroom Assembly
 
 In childhood education, it is usual to perform the Classroom Assembly, where the children gather to discuss some aspects like weather, day of the week, or the agenda of the day.
 
