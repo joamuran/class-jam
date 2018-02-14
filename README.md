@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/joamuran/classroom-assembly/master/icons/classroom-assembly.png"><br><br>
+  <img src="https://raw.githubusercontent.com/joamuran/classroom-assembly/master/classroom-assembly/splash.png"><br><br>
 </div>
 
 -----------------
