@@ -1392,14 +1392,12 @@ UI.prototype.getAudioFilename=function getAudioFilename(){
 };
 
 
-$(document).ready(function() {
-    // Removing splash
-    // [[ `wmctrl -l | grep Hola | wc -l` != 1 ]] || wmctrl -c Hola
-    // yad --image=img.png --no-buttons --splash --width=400 --height=225 --title="Hola" --no-escape --borders=0
-    // https://www.freebsd.org/cgi/man.cgi?query=yad&sektion=1&manpath=freebsd-release-ports
-    const { exec } = require('child_process');
-    exec('[[ `wmctrl -l | grep assembly-splash | wc -l` != 1 ]] || wmctrl -c assembly-splash');
-
+$(document).ready(function() {    
+    // Removing splash touching file in /tmp
+    require ("fs");
+    var filepath="/tmp/.classroom-assembly-working";
+    var fd = fs.openSync(filepath, 'w');
+    fs.closeSync(fs.openSync(filepath, 'w'));
         
     // Setting up vex
     vex.defaultOptions.className = 'vex-theme-default';
@@ -1411,7 +1409,7 @@ $(document).ready(function() {
     var app=new UI();
     
     appGlobal=app;
-    //app.speakPhrase("Welcome to Classroom Assembly");
+    app.speakPhrase("");
     
     
     // Registering Components
