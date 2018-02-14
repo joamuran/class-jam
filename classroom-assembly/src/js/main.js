@@ -933,7 +933,7 @@ UI.prototype.showLoadDialog=function showLoadDialog(){
         event.stopPropagation();
     });
     
-    $("body").on("drop", function(e) {
+    $("#loadMainContainer").on("drop", function(e) {
   // this/e.target is current target element.
 
       if (e.stopPropagation) {

@@ -13,7 +13,7 @@
 }
 
 body{
-    background-image: url(images/backgrounds/bg1.jpg);
+    background-image: url(images/backgrounds/bg3.png);
     background-size: cover;
     /*font-family: "indieFlower";*/
     font-family: "ShortStack";
@@ -380,7 +380,7 @@ li.editable:hover{
     /*background: #ffffff;*/
     z-index: 100;
     opacity: 0;
-    background-image: url(images/backgrounds/bg1.jpg);
+    background-image: url(images/backgrounds/bg3.png);
     background-size: cover;
 }
 
