@@ -165,31 +165,3 @@
     right: 10px;
 }*/
 
-
-.configureComponentButton{
-    background-image: url("../../css/images/icons/options.png");
-    width: 32px;
-    height:32px;
-    background-position: center;
-    margin-top:12px;
-    background-size: cover;
-}
-
-.configureComponentButtonDefault{
-    background-image: url("../../css/images/icons/options.png");
-    width: 48px;
-    height:48px;
-    background-position: center;
-    background-size: cover;
-    position: absolute;
-    left: 12px;
-    top: 12px;
-    transition: all 0.2s;
-}
-
-.configureComponentButtonDefault:hover{
-    width: 56px;
-    height:56px;
-    left: 8px;
-    top: 8px;
-}

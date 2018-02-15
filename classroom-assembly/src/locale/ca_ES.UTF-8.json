@@ -67,11 +67,14 @@
   "no students added":"Encara no heu passat llista",
   
   "Select.Assembly.Components":"Seleccioneu els components de l'Assemblea",
+  "global.config":"Configureu l'assemblea",
   "Weather Selector":"Selector de l'oratge",
   "Season Selector":"Selector d'Estació",
   "Month Selector":"Selector de mes",
   "WeekDay Selector":"Selector de dia",
   "Classmates Selector":"Companys de classe",
+  "select.mays": "Utilitza lletres majúscules a la interfície",
+  "select.background": "Utilitza un altre fons: ",
   
   "add.new.image":"Modifiqueu la imatge",
   "back.to.default.image": "Restaura la imatge per defecte",

@@ -65,8 +65,11 @@
   "CreateAssembly.bt.cancel":"Cancel",
   "classmates.frontend.tile":"Who is at school?",
   "no students added":"No students at class",
+  "select.mays": "Use capital letters on the interface",
+  "select.background": "Select another background: ",
   
   "Select.Assembly.Components":"Select Assembly Components",
+  "global.config":"Configure Assembly",
   "Weather Selector":"Weather Selector",
   "Season Selector":"Season Selector",
   "Month Selector":"Month Selector",

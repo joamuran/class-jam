@@ -68,11 +68,14 @@
   "no students added":"No se ha pasado lista todavía",
   
   "Select.Assembly.Components":"Seleccione los componentes de la asamblea",
+  "global.config":"Configure la asamblea",
   "Weather Selector":"Selector del tiempo",
   "Season Selector":"Selector de estación",
   "Month Selector":"Selector de mes",
   "WeekDay Selector":"Selector de dia",
   "Classmates Selector":"Compañeros de clase",
+  "select.mays": "Utiliza letras majúsculas en la interfaz",
+  "select.background": "Utiliza otro fondo: ",
   
   "add.new.image":"Modifica la imatgen",
   "back.to.default.image": "Restaura la imagen por defecto",

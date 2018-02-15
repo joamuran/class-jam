@@ -2,10 +2,18 @@
 function UtilsClass(){}
 
 UtilsClass.prototype.resizeFonts=function resizeFonts(){
-    $("body").css("font-font-family","indieFlower");
+    //$("body").css("font-font-family","indieFlower");
+    //$("body").css("font-family","indieFlower");
     /*$("body, .vex, .vex-theme-flat-attack, .vex-content").css("font-font-family","indieFlower");*/
     
-    
+    // Setting uppercase in Player mode if it's selected
+    if (appGlobal.useUpperCase && appGlobal.mode==="player"){
+            $("body").css("text-transform","uppercase");
+            $("#header").css("text-transform","capitalize");
+    } else {
+        $("body").css("text-transform","capitalize");
+    }
+        
     // Resizes al fonts defined with fluid class according to its zoom component and its container
     $(".textfluid").each(function(){
         var zoom=$(this).attr("fontzoom");

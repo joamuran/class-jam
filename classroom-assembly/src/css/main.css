@@ -693,3 +693,39 @@ input[type="file"].text_error{
   from { opacity: 1; }
   to { opacity: 0; }
 }
+
+
+
+.configureComponentButton{
+    background-image: url("../../css/images/icons/options.png");
+    width: 32px;
+    height:32px;
+    background-position: center;
+    margin-top:12px;
+    background-size: cover;
+}
+
+.configureComponentButton:hover{
+    background-image: url("../../css/images/icons/optionsHover.png");
+}
+
+.configureComponentButtonDefault{
+    background-image: url("../../css/images/icons/options.png");
+    width: 48px;
+    height:48px;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    transition: all 0.2s;
+}
+
+.configureComponentButtonDefault:hover{
+    background-image: url("../../css/images/icons/optionsHover.png");
+    width: 56px;
+    height:56px;
+    left: 8px;
+    top: 8px;
+}
+

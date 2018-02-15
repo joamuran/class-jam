@@ -21,6 +21,7 @@ function UI(){
     this.components=[];
     this.dragSrcEl = null;
     this.player=null; // will store play-sound
+    this.useUpperCase=true;
     
     
     
@@ -544,7 +545,7 @@ UI.prototype.bindEvents=function bindEvents(){
     });
     
     $("#btOptions").on("click", function(){
-        self.ShowComponentsWindow();
+        self.ShowConfigWindow();
         });
         
     $("#btQuit, #btQuitConfig").on("click", function(){
@@ -595,16 +596,29 @@ UI.prototype.bindEvents=function bindEvents(){
     
 };
 
-UI.prototype.ShowComponentsWindow=function ShowComponentsWindow(){
+UI.prototype.ShowConfigWindow=function ShowConfigWindow(){
     var self=this;
     
     //console.log(self.filedata);
 
-    var message=i18n.gettext("Select.Assembly.Components");
-    var input="";
+    //var message=i18n.gettext("Select.Assembly.Components");
+    var message=i18n.gettext("global.config");
+    var checked="";
     
-    console.log(self.components);
-    console.log(self.filedata);
+    if (appGlobal.useUpperCase) checked="checked";
+    
+    var input="<div style='display: table-cell'>";
+    input+='<label for="toggle-mays" class="col-md-12" style="display:table-cell; margin: 20px 0px 20px 0px"><div class="col-md-9" style="height:1.5em; font-weight:600">'+i18n.gettext("select.mays")+'</div><div class="col-md-3" style="height:1.5em"><input id="toggle-mays" '+checked+' type="checkbox" data-size="mini" data-onstyle="success"></div></label>';
+    
+
+    //input+='<div style="display: table-cell; margin: 20px 0px 20px 0px" class="col-md-12"><div class="col-md-9">'+i18n.gettext("select.background")+'</div><input type="file" class="col-md-3" accept=".jpg, .png, .gif" name="setupBgAssembly" id="setupBgAssembly"></div>';
+    
+    input+='<div style="display: table-cell; margin: 20px 0px 20px 0px" class="col-md-12"><div class="col-md-9">'+i18n.gettext("select.background")+'</div><button class="col-md-3" "BtsetupBgAssembly" id="BtsetupBgAssembly">Tria el fons</button></div>';
+    
+    //console.log(self.components);
+    //console.log(self.filedata);
+    
+    input+="<div style='display:table-cell'>"+i18n.gettext("Select.Assembly.Components")+"</div>";
     
     for (index in self.filedata) {
         //alert(index);
@@ -615,12 +629,35 @@ UI.prototype.ShowComponentsWindow=function ShowComponentsWindow(){
         input=input+componentItem.prop("outerHTML");
     }
     
+    input+="</div>";
+    
     vex.dialog.open({
         message:message,
         input:input,
         showCloseButton: true,
         escapeButtonCloses: true,
         overlayClosesOnClick: false,
+        afterOpen: function(){
+             $(function() {
+                    $('#toggle-mays').bootstrapToggle({
+                      on: 'Enabled',
+                      off: 'Disabled'
+                    });
+                  })
+            
+            $("#BtsetupBgAssembly").on("click", function(){
+                alert("123");
+                
+                // WIP
+                
+                // http://rvera.github.io/image-picker/
+                
+                return false;
+                });
+            
+            Utils.resizeFonts(); 
+            
+            },
         callback: function(data){
             for (i in self.components){
                 //alert(i+" is "+self.components[i].visible);
@@ -628,6 +665,9 @@ UI.prototype.ShowComponentsWindow=function ShowComponentsWindow(){
                 if(self.components[i].visible) $("#"+i).css("display", "list-item");
                 else $("#"+i).css("display", "none");
             }
+            
+            appGlobal.useUpperCase=($("#toggle-mays").prop("checked"));
+            
         }
     });
     
@@ -658,6 +698,10 @@ UI.prototype.saveComponents=function saveComponents(){
     
     var saveItems=self.gridster.serialize();
     //console.log(JSON.stringify(saveItems));
+    
+    // Adding useUpperCase property to metadata
+    self.metadata.useUpperCase=self.useUpperCase.toString();
+    
     var saveData={"metadata": self.metadata, "components":saveItems};
     
      fs.writeFileSync(self.configFile, JSON.stringify(saveData, null, '\t'));
@@ -800,6 +844,30 @@ UI.prototype.checkConfigDir=function checkConfigDir(){
        var fileContent=(JSON.parse(file));
        self.metadata=fileContent.metadata;
        self.filedata = fileContent.components;
+       
+       // Setting self.useUpperCase if is defined
+       self.useUpperCase=false;
+       if (self.metadata.hasOwnProperty("useUpperCase"))
+        if (self.metadata.useUpperCase=="true") self.useUpperCase=true;
+        
+        // Setting background if is defined
+        if (self.metadata.hasOwnProperty("background"))
+            {
+                var bg="";
+                // Check if exists in media or in backgrounds
+                console.log(self.configDir+"/media/"+self.metadata.background);
+                console.log(self.configDir+"/css/images/backgrounds/"+self.metadata.background);
+                
+                if (fs.existsSync(self.configDir+"/media/"+self.metadata.background))
+                    bg=self.configDir+"/media/"+self.metadata.background;
+                else if (fs.existsSync("css/images/backgrounds/"+self.metadata.background))
+                    bg="css/images/backgrounds/"+self.metadata.background;
+                
+                console.log(bg);    
+                if (bg!=="") $("body").css("background-image", "url("+bg+")");
+            }
+        
+       
        
        self.loadComponents();
     }catch(e){
