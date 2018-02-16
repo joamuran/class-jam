@@ -661,9 +661,13 @@ UI.prototype.ShowConfigWindow=function ShowConfigWindow(){
                 // Crear directori /media/backgrounds amb els fons personalitzats si no existix
                 // I filtrar els fitxers per imatges
                 
-                var files=fs.readdirSync(folder);
-                files=files.concat(fs.readdirSync(self.configDir+"/media/"));
+                // Checking media/backgrounds folder
+               if (!fs.existsSync(self.configDir+"/media/backgrounds")) {
+                    fs.mkdirSync(self.configDir+"/media/backgrounds", 0744);
+               }
                 
+                // Adding default background images
+                var files=fs.readdirSync(folder);
                 files.forEach(file => {
                     console.log(file);
                     var filename="css/images/backgrounds/"+file;
@@ -672,6 +676,24 @@ UI.prototype.ShowConfigWindow=function ShowConfigWindow(){
                     console.log(newitem);
                     text+=newitem;
                 });
+                
+                // Adding files in custom media for assembly
+                files=fs.readdirSync(self.configDir+"/media/backgrounds");
+                files.forEach(file => {
+                    console.log(file);
+                    var filename="file:///"+self.configDir+"/media/backgrounds/"+file;
+                    console.log(filename);
+                    var newitem="<option data-img-src='"+filename+"' value='"+file+"'>";
+                    console.log(newitem);
+                    text+=newitem;
+                });
+                
+                // TO-DO: Modificar la ul resultant per a que ocupe el 100% (des del afteropen)
+                // Fer que en acceptar es canvie el fons
+                
+                //files=files.concat(fs.readdirSync(self.configDir+"/media/backgrounds"));
+                
+                
                 
                 text+="</select>";
                 
