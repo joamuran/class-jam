@@ -646,14 +646,53 @@ UI.prototype.ShowConfigWindow=function ShowConfigWindow(){
                   })
             
             $("#BtsetupBgAssembly").on("click", function(){
-                alert("123");
+                const fs = require('fs');
+                //var folder=self.configDir+'css/images/backgrounds/';
+                var folder='css/images/backgrounds/';
                 
-                // WIP
                 
-                // http://rvera.github.io/image-picker/
+                var text="<select class='image-picker show-html'>";
+                
+                
+                console.log("*******************");
+                console.log(folder);
+                
+                // TO-DO
+                // Crear directori /media/backgrounds amb els fons personalitzats si no existix
+                // I filtrar els fitxers per imatges
+                
+                var files=fs.readdirSync(folder);
+                files=files.concat(fs.readdirSync(self.configDir+"/media/"));
+                
+                files.forEach(file => {
+                    console.log(file);
+                    var filename="css/images/backgrounds/"+file;
+                    console.log(filename);
+                    var newitem="<option data-img-src='"+filename+"' value='"+file+"'>";
+                    console.log(newitem);
+                    text+=newitem;
+                });
+                
+                text+="</select>";
+                
+                console.log(text);
+            
+                vex.dialog.open({
+                    message:"Select Image",
+                    input:text,
+                    showCloseButton: true,
+                    /*escapeButtonCloses: true,*/
+                    /*buttons: {},*/
+                    overlayClosesOnClick: false,
+                    afterOpen: function(){
+                        $("select.image-picker").imagepicker();
+                        },
+                    //callback: function(data){ if (data) dialog.processDialog();Utils.resizeFonts(); }
+                    callback: function(data){ alert(data); }
+                });
                 
                 return false;
-                });
+            });
             
             Utils.resizeFonts(); 
             
@@ -855,10 +894,10 @@ UI.prototype.checkConfigDir=function checkConfigDir(){
             {
                 var bg="";
                 // Check if exists in media or in backgrounds
-                console.log(self.configDir+"/media/"+self.metadata.background);
-                console.log(self.configDir+"/css/images/backgrounds/"+self.metadata.background);
+                //console.log(self.configDir+"/media/"+self.metadata.background);
+                //console.log(self.configDir+"/css/images/backgrounds/"+self.metadata.background);
                 
-                if (fs.existsSync(self.configDir+"/media/"+self.metadata.background))
+                if (fs.existsSync(self.configDir+"/media/backgrounds/"+self.metadata.background))
                     bg=self.configDir+"/media/"+self.metadata.background;
                 else if (fs.existsSync("css/images/backgrounds/"+self.metadata.background))
                     bg="css/images/backgrounds/"+self.metadata.background;
