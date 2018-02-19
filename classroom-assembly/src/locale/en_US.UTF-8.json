@@ -67,6 +67,11 @@
   "no students added":"No students at class",
   "select.mays": "Use capital letters on the interface",
   "select.background": "Select another background: ",
+  "select.background.bt": "Set background",
+  "bgimage.exists":"Image already exists",
+  "selectBgOk":"Ok",
+  "selectBgAdd":"Add image",
+  "selectBgCancel":"Cancel",
   
   "Select.Assembly.Components":"Select Assembly Components",
   "global.config":"Configure Assembly",

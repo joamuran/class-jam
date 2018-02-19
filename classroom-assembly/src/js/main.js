@@ -613,7 +613,7 @@ UI.prototype.ShowConfigWindow=function ShowConfigWindow(){
 
     //input+='<div style="display: table-cell; margin: 20px 0px 20px 0px" class="col-md-12"><div class="col-md-9">'+i18n.gettext("select.background")+'</div><input type="file" class="col-md-3" accept=".jpg, .png, .gif" name="setupBgAssembly" id="setupBgAssembly"></div>';
     
-    input+='<div style="display: table-cell; margin: 20px 0px 20px 0px" class="col-md-12"><div class="col-md-9">'+i18n.gettext("select.background")+'</div><button class="col-md-3" "BtsetupBgAssembly" id="BtsetupBgAssembly">Tria el fons</button></div>';
+    input+='<div style="display: table-cell; margin: 20px 0px 20px 0px" class="col-md-12"><div class="col-md-9">'+i18n.gettext("select.background")+'</div><button class="col-md-3 btn btn-success" "BtsetupBgAssembly" id="BtsetupBgAssembly">'+i18n.gettext("select.background.bt")+'</button></div>';
     
     //console.log(self.components);
     //console.log(self.filedata);
@@ -643,23 +643,14 @@ UI.prototype.ShowConfigWindow=function ShowConfigWindow(){
                       on: 'Enabled',
                       off: 'Disabled'
                     });
-                  })
+                  });
             
             $("#BtsetupBgAssembly").on("click", function(){
                 const fs = require('fs');
                 //var folder=self.configDir+'css/images/backgrounds/';
                 var folder='css/images/backgrounds/';
                 
-                
-                var text="<select class='image-picker show-html'>";
-                
-                
-                console.log("*******************");
-                console.log(folder);
-                
-                // TO-DO
-                // Crear directori /media/backgrounds amb els fons personalitzats si no existix
-                // I filtrar els fitxers per imatges
+                var text="<select class='image-picker show-html' id='bg_selector'>";
                 
                 // Checking media/backgrounds folder
                if (!fs.existsSync(self.configDir+"/media/backgrounds")) {
@@ -687,15 +678,11 @@ UI.prototype.ShowConfigWindow=function ShowConfigWindow(){
                     console.log(newitem);
                     text+=newitem;
                 });
-                
-                // TO-DO: Modificar la ul resultant per a que ocupe el 100% (des del afteropen)
-                // Fer que en acceptar es canvie el fons
-                
-                //files=files.concat(fs.readdirSync(self.configDir+"/media/backgrounds"));
-                
-                
-                
+                                
                 text+="</select>";
+                
+                // Adding hidden input for file selector
+                text+='<input style="display:none" type="file" class="col-md-3" accept=".jpg, .png, .gif" name="addNewBg" id="addNewBg"></input>';
                 
                 console.log(text);
             
@@ -704,13 +691,78 @@ UI.prototype.ShowConfigWindow=function ShowConfigWindow(){
                     input:text,
                     showCloseButton: true,
                     /*escapeButtonCloses: true,*/
-                    /*buttons: {},*/
-                    overlayClosesOnClick: false,
+                    buttons:
+                        [
+                        $.extend({}, vex.dialog.buttons.YES, {
+                            className: 'vex-dialog-button-primary',
+                            text: i18n.gettext("selectBgOk")/*,
+                            click: function() {}*/
+                        }),
+                        $.extend({}, vex.dialog.buttons.NO, {
+                            className: 'vex-dialog-button',
+                            text: i18n.gettext("selectBgAdd"),
+                            click: function() {
+                                $("#addNewBg").click();
+                                return false;
+                            }
+                        }),
+                        $.extend({}, vex.dialog.buttons.NO, {
+                            className: 'vex-dialog-button',
+                            text: i18n.gettext("selectBgCancel"),
+                            click: function() {
+                            vex.close(this);
+                        }})
+                        
+                        ],
+                    /*overlayClosesOnClick: false,*/
                     afterOpen: function(){
                         $("select.image-picker").imagepicker();
-                        },
+                        
+                        //$(".thumbnail").addClass("thumbnailBG");
+                        $(".thumbnail").each(function(key, val){
+                            //console.log(val);
+                            // TO-DO:
+                            // Crear unou element removeBgButton per incloure dins
+                            // Agafa per exemple el d'eliminar xiquets del mòdul classmates
+                            
+                        });
+                        
+                        
+                        
+                        
+                        
+                        
+                         $("#addNewBg").on("change", function(){
+                            var fs=require("fs");
+                            var fse=require("fs-extra");
+                            
+                            var newImg=($("#addNewBg").val());
+                            var newNameArray=newImg.split("/");
+                            var newName=newNameArray[newNameArray.length-1];
+                            if  (fs.existsSync(self.configDir+"/media/backgrounds/"+newName)){
+                                vex.dialog.alert({
+                                    message:i18n.gettext("bgimage.exists")
+                                });
+                            } else {
+                                // If not exists file in media/backgrounds, let's copy it
+                                fse.copySync(newImg, self.configDir+"/media/backgrounds/"+newName);
+                                              var newitem=$(document.createElement("option")).attr("data-img-src", "file:///"+self.configDir+"/media/backgrounds/"+newName).attr("value",newName);
+                                              $("#bg_selector").append(newitem);
+                                              // Redraw ImagePicker
+                                              $("select.image-picker").imagepicker();
+                            }
+                             return false;
+                        });
+                    },
                     //callback: function(data){ if (data) dialog.processDialog();Utils.resizeFonts(); }
-                    callback: function(data){ alert(data); }
+                    callback: function(data){
+                        //console.log("********");
+                        //console.log(data);
+                        if (data){
+                            self.metadata.background=($("#bg_selector").val());
+                            self.paintBackground();
+                            }
+                        }
                 });
                 
                 return false;
@@ -744,12 +796,7 @@ UI.prototype.ShowConfigWindow=function ShowConfigWindow(){
                 }
         });
     
-    // Cal mirar com fer que al fer clic als elements funcione açò... a vore com ho faig a la resta de diàlesgs de components i els callbacks...
-    
-    /*$(retdiv).on("click", function(){
-        alert($(this).attr("id"));
-        });*/
-    
+  
 }
 
 UI.prototype.saveComponents=function saveComponents(){
@@ -914,18 +961,7 @@ UI.prototype.checkConfigDir=function checkConfigDir(){
         // Setting background if is defined
         if (self.metadata.hasOwnProperty("background"))
             {
-                var bg="";
-                // Check if exists in media or in backgrounds
-                //console.log(self.configDir+"/media/"+self.metadata.background);
-                //console.log(self.configDir+"/css/images/backgrounds/"+self.metadata.background);
-                
-                if (fs.existsSync(self.configDir+"/media/backgrounds/"+self.metadata.background))
-                    bg=self.configDir+"/media/"+self.metadata.background;
-                else if (fs.existsSync("css/images/backgrounds/"+self.metadata.background))
-                    bg="css/images/backgrounds/"+self.metadata.background;
-                
-                console.log(bg);    
-                if (bg!=="") $("body").css("background-image", "url("+bg+")");
+                self.paintBackground();
             }
         
        
@@ -952,6 +988,25 @@ UI.prototype.checkConfigDir=function checkConfigDir(){
         
     } // catch
     
+}
+
+UI.prototype.paintBackground=function paintBackground(){
+    var self=this;
+    var bg="";
+    var fs=require("fs");
+                
+    if (fs.existsSync(self.configDir+"/media/backgrounds/"+self.metadata.background))
+        bg="file:///"+self.configDir+"/media/backgrounds/"+self.metadata.background;
+    else if (fs.existsSync("css/images/backgrounds/"+self.metadata.background))
+        bg="css/images/backgrounds/"+self.metadata.background;
+    
+    console.log(bg);    
+    if (bg!=="")
+        {
+            $("body").css("background-image", "url("+bg+")");
+            $("playWindow").css("background-image", "url("+bg+")");
+            
+        }
 }
 
 
@@ -1296,9 +1351,13 @@ UI.prototype.createNewAssembly=function createNewAssembly(){
         $(selectImage).append(op[i]);
     }
     
+    // Create container for select
+    var image_picker_selector_newAs=$(document.createElement("div")).addClass("image_picker_selector_newAs");
     
     $(newAsDiv).append(inputNameLabel, inputName);
-    $(newAsDiv).append(inputSelectLabel, selectImage);
+    $(image_picker_selector_newAs).append(selectImage);
+    $(newAsDiv).append(inputSelectLabel, image_picker_selector_newAs);
+    
     
     // Ok Button
     var bt_ok=$(document.createElement("button")).html(i18n.gettext("CreateAssembly.bt.ok")).addClass("btn btn-success").css("float", "right").css("margin-left", "5px").attr("id", "createNewAsButtonOk");

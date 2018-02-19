@@ -76,6 +76,11 @@
   "Classmates Selector":"Compañeros de clase",
   "select.mays": "Utiliza letras majúsculas en la interfaz",
   "select.background": "Utiliza otro fondo: ",
+  "select.background.bt": "Escoge el fondo",
+  "bgimage.exists":"La imagen ya existe",
+  "selectBgOk":"De acuerdo",
+  "selectBgAdd":"Añade imagen",
+  "selectBgCancel":"Cancelar",
   
   "add.new.image":"Modifica la imatgen",
   "back.to.default.image": "Restaura la imagen por defecto",

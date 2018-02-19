@@ -75,6 +75,11 @@
   "Classmates Selector":"Companys de classe",
   "select.mays": "Utilitza lletres majúscules a la interfície",
   "select.background": "Utilitza un altre fons: ",
+  "select.background.bt": "Tria el fons",
+  "bgimage.exists":"La imatge ja existeix!",
+  "selectBgOk":"D'acord",
+  "selectBgAdd":"Puja una imatge",
+  "selectBgCancel":"Cancel·la",
   
   "add.new.image":"Modifiqueu la imatge",
   "back.to.default.image": "Restaura la imatge per defecte",

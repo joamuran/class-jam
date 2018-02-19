@@ -143,9 +143,10 @@
     width: 100%;
 }
 
-.image_picker_selector{
+.image_picker_selector_newAs{
     width: 520px !important;
     height: 270px !important;
+    overflow-y: scroll;
 }
 
 .image_picker_image{

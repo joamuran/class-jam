@@ -377,10 +377,10 @@ li.editable:hover{
     left: 0px;
     right: 0px;
     bottom: 0px;
-    /*background: #ffffff;*/
+    background-color: rgba(255,255,255,0.8);
     z-index: 100;
     opacity: 0;
-    background-image: url(images/backgrounds/bg3.png);
+    /*background-image: url(images/backgrounds/bg3.png);*/
     background-size: cover;
 }
 
@@ -394,8 +394,7 @@ li.editable:hover{
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url(images/icons/closePlayButton.png);
-    
+    background-image: url(images/icons/closePlayButton.png);    
 }
 
 .PlayableContent{
@@ -729,3 +728,39 @@ input[type="file"].text_error{
     top: 8px;
 }
 
+.thumbnailBG:hover:after{
+    background-color: #ff0000;
+    border-radius: 50px;
+    /*display: inline-block;*/
+    width: 24px; 
+    height: 24px;
+    content:"";
+    position: static;
+    bottom: 0px;
+    left: 50%;
+    margin-left:32px;
+    
+}
+
+.removeBgButton{
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    margin-left: -20px;
+    margin-top: -20px;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255,100,100,0.8);
+    border-radius: 50%;
+    display: none;
+    background-image: url(/components/classmates/img/cross.png);
+    
+}
+
+.removeBgButton:hover{
+    cursor: pointer;
+}
+
+.thumbnail:hover .removeBgButton{
+    display: inline;
+}
