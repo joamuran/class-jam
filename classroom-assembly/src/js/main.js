@@ -720,10 +720,19 @@ UI.prototype.ShowConfigWindow=function ShowConfigWindow(){
                         
                         //$(".thumbnail").addClass("thumbnailBG");
                         $(".thumbnail").each(function(key, val){
-                            //console.log(val);
-                            // TO-DO:
-                            // Crear unou element removeBgButton per incloure dins
-                            // Agafa per exemple el d'eliminar xiquets del mòdul classmates
+                            var delbt=$(document.createElement("div")).addClass("removeBgButton");
+                            $(val).append(delbt);
+                            $(val).parent().css("position", "relative");
+                            $(val).on("click", function(ev){
+                                console.log($(ev.target));
+                                // WIP:
+                                // Trobar la imatge a partir de l'element per eliminar-lo
+                                // (sempre i quan no estiga al css)
+                                
+                                });
+                            
+                            
+                            
                             
                         });
                         
