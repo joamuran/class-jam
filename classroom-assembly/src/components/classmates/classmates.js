@@ -68,7 +68,7 @@ classmatesComponentClass.prototype.drawComponent=function drawComponent(){
             //console.log(self.info[i]);
             
             var aluname="Sense Nom";
-            var aluimg="components/classmates/img/ninya.jpeg";
+            var aluimg=appGlobal.metadata.icon;
             
             console.log(typeof(self.config[i]));
             if (typeof(self.config[i])==="object"){                
@@ -119,7 +119,8 @@ classmatesComponentClass.prototype.getASDialog=function getASDialog(){
     
        for (i in self.config){
             var aluname="Sense Nom";
-            var aluimg="components/classmates/img/ninya.jpeg";
+            //var aluimg="components/classmates/img/alum.png";
+            var aluimg=appGlobal.metadata.icon;
        
             if (typeof(self.config[i])==="object"){
                 console.log(self.config[i]);
@@ -223,7 +224,8 @@ classmatesComponentClass.prototype.manageDragAndDrop=function manageDragAndDrop(
     
     var dragIcon = document.createElement('img');
     dragIcon.width = 30;
-    dragIcon.src="/components/classmates/img/ninyo.jpeg";
+    //dragIcon.src="/components/classmates/img/alum.png";
+    dragIcon.src=appGlobal.metadata.icon;
     
     
     document.addEventListener('dragstart', function(e)
@@ -375,7 +377,7 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
         {
             aluImgFile="file://"+self.configDir+"/components/classmates/"+self.config[alu].img;}
         else 
-            aluImgFile="components/classmates/img/ninyo.jpeg";
+            aluImgFile=appGlobal.metadata.icon;
                 
         var aluImg=$(document.createElement("img")).attr("src", aluImgFile).addClass("aluImg").attr("id", "img"+alu);
         //var aluName=$(document.createElement("div")).html(self.config[alu].name).addClass("aluName textfluid").attr("fontzoom",1.5);
@@ -413,7 +415,7 @@ classmatesComponentClass.prototype.getConfigDialog=function getConfigDialog(){
             //var aluItem=$(document.createElement("div")).attr("id", newItemId).addClass("col-md-3 aluItem");
             var aluItem=$(document.createElement("div")).attr("id", newItemId).addClass("aluItem");
             // image file
-            var aluImgFile="components/classmates/img/ninyo.jpeg";
+            var aluImgFile=appGlobal.metadata.icon;
             var aluImg=$(document.createElement("img")).attr("src", aluImgFile).addClass("aluImg").attr("id", "imgalu"+newItemId);
             var aluName=$(document.createElement("input")).attr("type", "text").attr("value", "Nou").addClass("aluName textfluid").attr("fontzoom",1.5);
             console.log(aluItem);

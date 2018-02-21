@@ -72,6 +72,9 @@
   "selectBgOk":"Ok",
   "selectBgAdd":"Add image",
   "selectBgCancel":"Cancel",
+  "ask_delete_background":"Do you want to delete background image?",
+  "No_keep_bg":"No, keep background image",
+  "yes_remove_bg":"Yes, delete background",
   
   "Select.Assembly.Components":"Select Assembly Components",
   "global.config":"Configure Assembly",

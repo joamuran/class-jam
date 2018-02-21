@@ -81,6 +81,10 @@
   "selectBgOk":"De acuerdo",
   "selectBgAdd":"Añade imagen",
   "selectBgCancel":"Cancelar",
+  "ask_delete_background":"¿Desea eliminar el fondo?",
+  "No_keep_bg":"No, mantén el fondo",
+  "yes_remove_bg":"Sí, elimina el fondo",
+  
   
   "add.new.image":"Modifica la imatgen",
   "back.to.default.image": "Restaura la imagen por defecto",

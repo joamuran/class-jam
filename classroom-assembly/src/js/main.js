@@ -718,23 +718,58 @@ UI.prototype.ShowConfigWindow=function ShowConfigWindow(){
                     afterOpen: function(){
                         $("select.image-picker").imagepicker();
                         
-                        //$(".thumbnail").addClass("thumbnailBG");
+                        $(".thumbnail").addClass("thumbnailBG");
                         $(".thumbnail").each(function(key, val){
-                            var delbt=$(document.createElement("div")).addClass("removeBgButton");
+                            var src=$(val).find("img").attr("src");
+                            if (src.substring(0,4)=="file") // Add remove button if it's a custom file
+                            {
+                            var delbt=$(document.createElement("div")).addClass("removeBgButton").attr("src", src);
                             $(val).append(delbt);
                             $(val).parent().css("position", "relative");
-                            $(val).on("click", function(ev){
-                                console.log($(ev.target));
-                                // WIP:
-                                // Trobar la imatge a partir de l'element per eliminar-lo
-                                // (sempre i quan no estiga al css)
+                            $(delbt).on("click", function(ev){
+      
+                                vex.dialog.confirm({
+                                    message: i18n.gettext('ask_delete_background'),
+                                    buttons: [
+                                        $.extend({}, vex.dialog.buttons.YES, {
+                                        className: 'vex-dialog-button-primary',
+                                        text: i18n.gettext("yes_remove_bg"),
+                                        click: function() {
+                                            // yes-> Delete item
+                                            var fs=require("fs");
+                                            console.log($(ev.target));
+                                            //console.log($(ev.target).attr("src"));
+                                            fs.unlinkSync($(ev.target).attr("src").replace("file:///", ""));
+                                            $(ev.target).parent().parent().remove();
+                                            
+                                            } // end click on yes
+                                        }),
+                                        $.extend({}, vex.dialog.buttons.NO, {
+                                        className: 'vex-dialog-button',
+                                        text: i18n.gettext("No_keep_bg"),
+                                        click: function() {
+                                            vex.close(this);
+                                        }})
+                                        ],
+                                        callback: function () {}
+                                    });
+                                  
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
                                 
                                 });
                             
                             
+                            } // end if
                             
-                            
-                        });
+                        }); // end each
                         
                         
                         

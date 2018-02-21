@@ -80,6 +80,9 @@
   "selectBgOk":"D'acord",
   "selectBgAdd":"Puja una imatge",
   "selectBgCancel":"Cancel·la",
+  "ask_delete_background":"Destgeu eliminar aquesta imatge de fons?",
+  "No_keep_bg":"No, mantín la imatge de fons",
+  "yes_remove_bg":"Sí, elimina la imatge de fons",
   
   "add.new.image":"Modifiqueu la imatge",
   "back.to.default.image": "Restaura la imatge per defecte",

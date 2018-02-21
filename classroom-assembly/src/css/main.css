@@ -728,18 +728,9 @@ input[type="file"].text_error{
     top: 8px;
 }
 
-.thumbnailBG:hover:after{
-    background-color: #ff0000;
-    border-radius: 50px;
-    /*display: inline-block;*/
-    width: 24px; 
-    height: 24px;
-    content:"";
-    position: static;
-    bottom: 0px;
-    left: 50%;
-    margin-left:32px;
-    
+
+.thumbnailBG:hover{
+    background-color: #ffcc00 !important;
 }
 
 .removeBgButton{
