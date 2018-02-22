@@ -759,7 +759,6 @@ Component.prototype.createFormRadios=function createFormRadios(data){
     
     $(ret.append(legend));
     
-    
     for (radio in data.radios){
         //console.log(data.radios[radio].id);
         

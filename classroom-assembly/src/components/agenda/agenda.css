@@ -18,7 +18,7 @@
 
 #agendaComponent{
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: hidden;v
 }
 
 .iconAgendaContent{
@@ -219,9 +219,51 @@
 
 #agendaSelectRight .agendaSelectIcon{
     max-height: 100px;
+    
 }
 
 
+.deleteAgendaComponent{
+    width: 24px;
+    height: 24px;
+    bottom: 3px;
+    right: 3px;
+    position: absolute;
+    background-size: cover;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 5px #888888;
+    
+    background-color: rgba(255,100,100,0.9);
+    border-radius: 50%;
+    background-image: url(/components/classmates/img/cross.png);
+    background-size: contain;
+}
+
+.deleteAgendaComponent:hover{
+    cursor: pointer;
+}
+
+.addNewAgendaComponent{
+    border: none !important;
+}
+
+#NewActivityImage{
+    border: dashed 2px #aaaaaa;
+    border-radius: 50px;
+    width: 256px;
+    height: 256px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 50px 20px 50px 20px;
+    color: #aaaaaa;
+    text-align: center;
+    background-size: cover;
+    
+}
+
+#NewActivityImage:hover{
+    cursor: pointer;
+}
 
 /*.seasonConfigRow{
     border: 1px solid #cccccc;

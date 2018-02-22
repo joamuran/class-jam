@@ -85,11 +85,17 @@ agendaComponentClass.prototype.drawComponent=function drawComponent(){
     
     for (var item in self.info){
         
+        // Getting text
         var textToWrite=self.config[item].text;
         if (textToWrite=="") textToWrite=i18n.gettext(item);
         
+        // Getting Image
+        var url_base="components/agenda/img/";
+        if (self.config[item].hasOwnProperty("custom") && self.config[item].custom=="true")
+        url_base="file:///"+appGlobal.configDir+"/components/agenda/";
+        
         var agendaitemText=$(document.createElement("div")).addClass("iconAgendaItemText textfluid").html(textToWrite).attr("fontzoom", "0.5");
-        var agendaitem=$(document.createElement("div")).addClass("iconAgendaContent").css("height", componentHeight+"%").css("background-image","url(components/agenda/img/"+self.config[item].img+")");
+        var agendaitem=$(document.createElement("div")).addClass("iconAgendaContent").css("height", componentHeight+"%").css("background-image","url("+url_base+self.config[item].img+")");
 
         $(agendaitem).append(agendaitemText);
         $(li).append(agendaitem);
@@ -134,13 +140,18 @@ agendaComponentClass.prototype.getASDialog=function getASDialog(){
     for (var agenda in self.config){
         if (self.config[agenda].active!="false"){   
             var agendaText=self.config[agenda].text;
-            if (self.config[agenda].text=="") agendaText=i18n.gettext(agenda);
+            if (self.config[agenda].text==="") agendaText=i18n.gettext(agenda);
+            
+            // Setting background
+            var url_base="components/agenda/img/";
+            if (self.config[agenda].hasOwnProperty("custom") && self.config[agenda].custom=="true")
+            url_base="file:///"+appGlobal.configDir+"/components/agenda/";
             
             //console.log(agenda);
             var option=$(document.createElement("div")).addClass(agenda).addClass("agendaSelectIcon").attr("agenda",agenda).addClass("list-group-item col-md-"+col_md);
             var text=$(document.createElement("div")).html(agendaText).addClass("agendaSelectInfo");
             //console.log(agendaText);
-            $(option).css("background-image", "url(components/agenda/img/"+self.config[agenda].img+")");
+            $(option).css("background-image", "url("+url_base+self.config[agenda].img+")");
             $(option).append(text);
             
             $(leftside).append(option);
@@ -267,25 +278,27 @@ agendaComponentClass.prototype.getASDialog=function getASDialog(){
 }
 
 
-agendaComponentClass.prototype.getConfigDialog=function getConfigDialog(){
+agendaComponentClass.prototype.drawConfigureComponent=function drawConfigureComponent(agenda){
     var self=this;
- 
-    var ret={"message": i18n.gettext("agenda.component.options")};    
     
-    var input=$(document.createElement("div")).attr("id", "agendaConfig");
-    //for (i in self.agendaOptions){
-    for (var agenda in self.config){
-        /*console.log("****");
-        console.log(agenda);
-        console.log(self.config[agenda]);*/
-        var configRow=$(document.createElement("div")).addClass("agendaConfigItem").addClass("col-md-2").attr("agenda_data", agenda).css("background-image","url(components/agenda/img/"+self.config[agenda].img+")");
+    // Custom components storages images in agenda config path; default components in app path.
+    var url_base="components/agenda/img/";
+    if (self.config[agenda].hasOwnProperty("custom") && self.config[agenda].custom=="true")
+        url_base="file:///"+appGlobal.configDir+"/components/agenda/";
+    
+    var configRow=$(document.createElement("div")).addClass("agendaConfigItem").addClass("col-md-2").attr("agenda_data", agenda).css("background-image","url("+url_base+self.config[agenda].img+")");
         
+        // Add text translated or customized text if exists
         var agendaText=$(document.createElement("div")).addClass("agendaText").html(i18n.gettext(agenda));
+        if (self.config[agenda].text!=="") agendaText=self.config[agenda].text;
+        
         var text=$(document.createElement("div")).addClass("agendaConfigText").append(agendaText);
    
         var visibilityIcon=$(document.createElement("div")).addClass("visibilityIcon");
+        
+        var deleteBt=$(document.createElement("div")).addClass("deleteAgendaComponent").attr("delete_target", agenda);
                 
-        console.log(self.config[agenda].active);
+        //console.log(self.config[agenda].active);
         
         if (self.config[agenda].active=="false") {
             $(visibilityIcon).addClass("hidenItem");
@@ -298,14 +311,43 @@ agendaComponentClass.prototype.getConfigDialog=function getConfigDialog(){
         //console.log(text);        
         $(configRow).append(text);
         $(configRow).append(visibilityIcon);
-        console.log(configRow);
+        $(configRow).append(deleteBt);
+        
+        return configRow;
+    }
+
+agendaComponentClass.prototype.getConfigDialog=function getConfigDialog(){
+    var self=this;
+ 
+    var ret={"message": i18n.gettext("agenda.component.options")};    
+    
+    var input=$(document.createElement("div")).attr("id", "agendaConfig");
+    //for (i in self.agendaOptions){
+    for (var agenda in self.config){
+        
+        var configRow=self.drawConfigureComponent(agenda);
+        
         $(input).append(configRow);
         
     }
     
+    // Adding new item for add component
+    var addConfigBt=$(document.createElement("div")).addClass("agendaConfigItem addNewAgendaComponent").addClass("col-md-2").attr("agenda_data", agenda).css("background-image","url(/css/images/icons/addAlum.png)").attr("id","addNewComponentForAgenda");
+    $(input).append(addConfigBt);
+    
+    
+    
     ret.input=$(input).prop("outerHTML");    
     
     ret.bindEvents=function(){
+        
+        $(".addNewAgendaComponent").on("click", function(){
+            // Create new dialog for adding item
+            self.showDialogForEditActivity();
+            
+            });
+        
+        
         $(".agendaConfigRow").on("click", function(){
             
             if($(this).hasClass("agendaStatusActive")) $(this).removeClass("agendaStatusActive");
@@ -339,6 +381,50 @@ agendaComponentClass.prototype.getConfigDialog=function getConfigDialog(){
             
             });
         
+        $(".deleteAgendaComponent").on("click", function(ev){
+            
+            
+                vex.dialog.confirm({
+                    message: i18n.gettext('ask_delete_agenda_item'),
+                    buttons: [
+                    $.extend({}, vex.dialog.buttons.YES, {
+                        className: 'vex-dialog-button-primary',
+                        //text: i18n.gettext("confirm.save.msg.yes"),
+                        text: i18n.gettext("yes"),
+                        click: function() {
+                            var item_to_delete=$(ev.target).attr("delete_target");
+                            $("[agenda_data="+item_to_delete+"]").remove();
+                            
+                            delete self.config[item_to_delete];
+                            delete self.info[item_to_delete];
+                            
+                            $("#agendaComponent").attr("config", JSON.stringify(self.config));
+                            $("#agendaComponent").attr("data", JSON.stringify(self.info));
+                            
+                            self.reDrawComponent();
+                            
+                            // Saving Assembly
+                            appGlobal.saveComponents();
+                            //appGlobal.components["agendaComponent"].config["assembly"]
+                            
+                            
+                            //alert("delete!");
+                        }}),
+                    $.extend({}, vex.dialog.buttons.NO, {
+                        className: 'vex-dialog-button',
+                        //text: i18n.gettext("confirm.save.msg.cancel"),
+                        text: i18n.gettext("no"),
+                        click: function() {
+                            vex.close(this);
+                        }})
+                    ],
+                    callback: function () {}
+                });
+            
+            
+        });
+                
+
         
         
     };
@@ -366,3 +452,144 @@ agendaComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     console.log(ret);
     return ret;
 };
+
+
+
+
+agendaComponentClass.prototype.showDialogForEditActivity=function showDialogForEditActivity(name=null, image=null, text=null){
+    var self=this;
+    var ActName=name;
+    var ActImg=image;
+    var ActText=text || "";
+    var ImgText =i18n.gettext("click.to.select.img");
+    
+    text="<div id='NewActivityImage'>"+ImgText+"</div>";
+    
+    
+    text+='<label class="form-check-label col-md-12" style="margin-bottom: 16px;"><span name="speakOnShow_label" style="margin-left: 20px;">'+i18n.gettext("new.activity.name")+'</span><input type="text" class="col-md-6" value="'+ActText+'" name="newActName" id="newActName"></div></label>';
+    
+    text+="<input id='uploadImgForActivity' name='uploadImgForActivity' type='file' style='display:none;'  accept='.jpg, .png, .gif'></input>";
+            
+    vex.dialog.open({
+        message:"Select Image",
+        input:text,
+        showCloseButton: true,
+        /*escapeButtonCloses: true,*/
+        buttons:
+            [
+            $.extend({}, vex.dialog.buttons.YES, {
+                className: 'vex-dialog-button-primary',
+                text: i18n.gettext("ok")/*,
+                click: function() {}*/
+            }),
+            $.extend({}, vex.dialog.buttons.NO, {
+                className: 'vex-dialog-button',
+                text: i18n.gettext("cancel"),
+                click: function() {
+                vex.close(this);    
+            
+
+        
+            }})
+                        
+            ],
+            /*overlayClosesOnClick: false,*/
+            afterOpen: function(){
+                
+                $("#NewActivityImage").on("click", function(){
+                    $("#uploadImgForActivity").click();
+                });
+                
+                $("#uploadImgForActivity").on("change", function(ev){
+                    var fse=require("fs-extra");
+                    var fs=require("fs");
+                    
+                    var fullpath=$(ev.target).val();
+                    
+                    var newNameArray=fullpath.split("/");
+                    var newName=newNameArray[newNameArray.length-1];
+                    
+                    var destPath=appGlobal.configDir+"/components/agenda";
+                    var newPath=destPath+"/"+newName;
+                    
+                    // Create path for agenda customization if not exists
+                    if (!fs.existsSync(destPath)){
+                        fs.mkdirSync(destPath);
+                    }
+                    
+                    // Check if there is another image with this name
+                    if  (fs.existsSync(newPath)){
+                                vex.dialog.confirm({
+                                    message:i18n.gettext("custom.agenda.image.exists"),
+                                    buttons: [
+                                        $.extend({}, vex.dialog.buttons.YES, {
+                                            className: 'vex-dialog-button-primary',
+                                            text: i18n.gettext("yes"),
+                                            click: function() {
+                                                // If answers yes, overwrite
+                                                fse.copySync(fullpath, newPath);
+                                                $("#NewActivityImage").attr("imageName", newName).css("background-image", "url(file:///"+newPath+")");
+                                            }}),
+                                        $.extend({}, vex.dialog.buttons.NO, {
+                                            className: 'vex-dialog-button',
+                                            text: i18n.gettext("no"),
+                                            click: function() {
+                                            vex.close(this);
+                                            }})
+                                        ],
+                                    callback: function () {}
+                    
+                                });
+                                
+                            } else {
+                                console.log(fullpath);
+                                console.log(destPath);
+                                fse.copySync(fullpath, newPath);
+                                $("#NewActivityImage").attr("imageName", newName).css("background-image", "url(file:///"+newPath+")");
+                            }
+                             return false;
+                    
+                    
+                    
+                    
+
+                });
+                        
+            },
+                    
+            callback: function(){
+                // Image has been saved. Let's create a new item to add to component
+                console.log($("#newActName").val());
+                console.log($("#NewActivityImage").attr("imageName"));
+                
+                // Get last id for custom activity
+                var num=0;
+                var basename="customActivity";
+                
+                var newid=basename+num.toString();
+                
+                while (self.config.hasOwnProperty(newid)){
+                    num++;
+                    newid=basename+num.toString();
+                }
+                
+                // Create item and add to component config
+                var newitem={"custom":"true","active":"true","img":$("#NewActivityImage").attr("imageName"),"text":$("#newActName").val() };
+                self.config[newid]=newitem;
+                
+                var item=self.drawConfigureComponent(newid);
+                
+                console.log(item);
+                // Add new item to DOM
+                $(item).insertBefore("#addNewComponentForAgenda");
+                //document.querySelector("#agendaConfig").insertBefore(item, document.querySelector("#addNewComponentForAgenda"));
+
+                
+                //console.log(self.config);
+                                     
+                
+                
+            }
+        });
+            
+}
