@@ -1,6 +1,7 @@
 
 function agendaComponentClass(){
-    // Mirar a vore com faig açò en la de classmates
+    var self=this;
+    
     this.agendaBaseOptions={"assembly":{text: "", img:"assembly.png"},
                             "language":{text: "", img:"language.png"},
                             "writing":{text: "", img:"writing.png"},
@@ -46,6 +47,16 @@ function agendaComponentClass(){
     this.name="Activities";
     this.icon="components/componentIcons/agenda.png";
     this.componentname="agenda";
+    
+    this.playableData={"top_text":"what.will.we.do.today",
+        getCurrentInfo: function getCurrentInfo(){
+            return self.info;
+        }/*,
+        setCurrentInfo: function setCurrentInfo(data){
+        self.info.weather=data;}*/
+    }
+
+    
 }
 
 agendaComponentClass.prototype=new Component();
@@ -80,6 +91,7 @@ agendaComponentClass.prototype.drawComponent=function drawComponent(){
         var span=$(document.createElement("div")).addClass("iconAgendaItemText textfluid").html(textToWrite).attr("fontzoom", "0.5");
         $(span).html(i18n.gettext("No tasks defined for today")).css("top", "40%");
         $(li).append(span);
+        
         return li;
     }
     
@@ -100,6 +112,10 @@ agendaComponentClass.prototype.drawComponent=function drawComponent(){
         $(agendaitem).append(agendaitemText);
         $(li).append(agendaitem);
     }
+    
+    // Adding play button
+    var PlayComponentButton=self.getPlayComponentButton();
+    $(li).append(PlayComponentButton);
     
     
         
@@ -547,12 +563,7 @@ agendaComponentClass.prototype.showDialogForEditActivity=function showDialogForE
                                 fse.copySync(fullpath, newPath);
                                 $("#NewActivityImage").attr("imageName", newName).css("background-image", "url(file:///"+newPath+")");
                             }
-                             return false;
-                    
-                    
-                    
-                    
-
+                             return false;  
                 });
                         
             },
@@ -584,12 +595,143 @@ agendaComponentClass.prototype.showDialogForEditActivity=function showDialogForE
                 $(item).insertBefore("#addNewComponentForAgenda");
                 //document.querySelector("#agendaConfig").insertBefore(item, document.querySelector("#addNewComponentForAgenda"));
 
-                
                 //console.log(self.config);
-                                     
-                
                 
             }
         });
             
+}
+
+
+
+
+Component.prototype.getPlayableContent=function getPlayableContent(){
+    // Differ than generic method
+    var self=this;
+    
+    var item=$(document.createElement("div")).addClass("PlayableContent");
+    
+    var currentList=self.playableData.getCurrentInfo();
+    
+    var toptext=$(document.createElement("div")).html(i18n.gettext(self.playableData.top_text)).css("text-align","center").css("top", "0px").attr("fontzoom", "1").addClass("textfluid").css("z-index","1001").css("position", "absolute");
+
+    var container=$(document.createElement("div")).addClass("container");
+    var carousel=$(document.createElement("div")).addClass("carousel");
+    
+    /*var img1=$(document.createElement("div")).css("background", "#ff44aa").addClass("item").css("transform","rotateY(0deg) translateZ(250px)");
+    var img2=$(document.createElement("div")).css("background", "#ff44ff").addClass("item").css("transform","rotateY(90deg) translateZ(250px)");
+    var img3=$(document.createElement("div")).css("background", "#ffaaaa").addClass("item").css("transform","rotateY(180deg) translateZ(250px)");
+    var img4=$(document.createElement("div")).css("background", "#aa44aa").addClass("item").css("transform","rotateY(270deg) translateZ(250px)");
+    
+     $(carousel).append(img1, img2, img3, img4);
+     */
+    
+    var incDeg=360/(Object.keys(currentList).length);
+    var baseDeg=0;
+    
+    for (i in currentList){
+        // Setting base url for images
+        var url_base="components/agenda/img/";
+        if (self.config[i].hasOwnProperty("custom") && self.config[i].custom=="true")
+        url_base="file:///"+appGlobal.configDir+"/components/agenda/";
+        
+        // Setting text to write
+        var textToWrite=self.config[i].text;
+        if (textToWrite==="") textToWrite=i18n.gettext(i);
+        
+        var agendaitemText=$(document.createElement("div")).addClass("iconAgendaItemText textfluid").html(textToWrite).attr("fontzoom", "0.5");
+        // WIP
+        // Revisar les classes: iconAgendaContent; son per a mostrar en xicotet. Cal ajustar per a q se vega en gran
+        var agendaitem=$(document.createElement("div")).addClass("iconAgendaContent").css("background-image","url("+url_base+self.config[i].img+")");
+        
+        var img=$(document.createElement("div")).addClass("item").css("transform","rotateY("+baseDeg+"deg) translateZ(250px)");
+        
+        baseDeg+=incDeg;
+        
+        $(img).append(agendaitem, agendaitemText);
+        $(carousel).append(img);
+        
+    }
+     
+     $(container).append(carousel);
+     
+    var prev=$(document.createElement("div")).addClass("prev").html("prev");
+    var next=$(document.createElement("div")).addClass("next").html("next");
+
+    $(item).append(toptext, container, prev,next);
+    
+    
+    
+    //$(item).append(toptext, icon, bottomtext);
+    $(item).attr("incdeg", incDeg); // Adding degrees to increase
+    return item;
+    
+}
+
+
+
+UI.prototype.PlayComponent=function PlayComponent(component){
+    var self=this;
+    var id=$(component).attr("id");
+    
+    //console.log("CAlling playable content!");
+    var compDiv=self.components[id].getPlayableContent();
+    var incDeg=$(compDiv).attr("incdeg");
+    
+    console.log(compDiv);
+    
+    console.log("Playwindow: "+$(".playWindow").length);
+    
+    var playWindow=$(document.createElement("div")).addClass("playWindow");
+    console.log("Adding playWindow to body");
+    $("body").append(playWindow);
+       
+    $(playWindow).animate({
+        opacity: 1
+        }, 500, function() {
+            var closebutton=$(document.createElement("div")).addClass("playWindowCloseButton");
+            
+            $(playWindow).append(compDiv);
+            $(playWindow).append(closebutton);
+            
+            Utils.resizeFonts();
+            
+            // Animate slider
+            var carousel = $(".carousel"),
+                currdeg  = 0;
+            
+            $(".next").on("click", { d: "n" }, rotate);
+            $(".prev").on("click", { d: "p" }, rotate);
+            
+            function rotate(e){
+              if(e.data.d=="n"){
+                currdeg = currdeg - incDeg;
+              }
+              if(e.data.d=="p"){
+                currdeg = currdeg + incDeg;
+              }
+              carousel.css({
+                "-webkit-transform": "rotateY("+currdeg+"deg)",
+                "-moz-transform": "rotateY("+currdeg+"deg)",
+                "-o-transform": "rotateY("+currdeg+"deg)",
+                "transform": "rotateY("+currdeg+"deg)"
+              });
+            }
+            
+            
+            
+            
+           $(closebutton).on("click", function(){
+            
+                $(playWindow).animate({
+                    opacity: 0
+                    },500,function(){
+                        $(".playWindow").remove();
+                    });
+            });
+                       
+        
+            
+            
+        });
 }

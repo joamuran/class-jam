@@ -406,6 +406,7 @@ li.editable:hover{
     height: auto;
     background: #ffffff;
     border-radius: 5%;
+    overflow: hidden;
 }
 
 .PlayableContentLite{

@@ -293,3 +293,55 @@
 
 */
 
+
+
+
+/*Carrousel */
+
+
+.container {
+  margin: 0 auto;
+  width: 500px;
+  height: 400px;
+  position: relative;
+  top: 200px;
+  perspective: 1000px;
+}
+
+.carousel {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+
+.item {
+  display: block;
+  position: absolute;
+  background: #000;
+  width: 500px;
+  height: 400px;
+  line-height: 400px;
+  font-size: 5em;
+  text-align: center;
+  color: #FFF;
+  opacity: 0.95;
+  border-radius: 10px;
+}
+
+.next, .prev {
+  color: #444;
+  position: absolute;
+  top: 100px;
+  padding: 1em 2em;
+  cursor: pointer;
+  background: #CCC;
+  border-radius: 5px;
+  border-top: 1px solid #FFF;
+  box-shadow: 0 5px 0 #999;
+  transition: box-shadow 0.1s, top 0.1s;
+  z-index: 99999;
+}
+.next:hover, .prev:hover { color: #000; }
+.next:active, .prev:active {
