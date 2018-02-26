@@ -164,91 +164,102 @@ UI.prototype.PlayComponent=function PlayComponent(component){
     var self=this;
     var id=$(component).attr("id");
     
-    //console.log("CAlling playable content!");
+    //console.log("Calling playable content!");
     var compDiv=self.components[id].getPlayableContent();
     console.log(compDiv);
     
-    console.log("Playwindows: "+$(".playWindow").length);
+    // If component has own a PlayComponent method, let's call it. If not, use generic...
+    console.log(self.components[id]);
     
-    var playWindow=$(document.createElement("div")).addClass("playWindow");
-    console.log("Adding playWindow to body");
-    $("body").append(playWindow);
-    
-    $(playWindow).animate({
-        opacity: 1
-        }, 500, function() {
-            var closebutton=$(document.createElement("div")).addClass("playWindowCloseButton");
-            var playButton=$(document.createElement("div")).addClass("playContentButton");
-            $(playWindow).append(compDiv);
-            $(playWindow).append(closebutton);
-            
-            // Add PlayButton if is media play defined
-            if($(compDiv).attr("playmediasource")!==undefined && $(compDiv).attr("playmediasource")!=="") $(playWindow).append(playButton);
-            
-            Utils.resizeFonts();
-            
-            // Perform onShow event
-            if ($(compDiv).attr("tts")!==undefined)
-                self.speakPhrase($(compDiv).attr("tts"));
-            else if ($(compDiv).attr("audiofile")!==undefined)
-                self.playAudio($(compDiv).attr("audiofile"));
-            
-           $(closebutton).on("click", function(){
-            
-                if ($("#youtubeplayer").css("display")!=="none")
-                    $("#youtubeplayer").fadeOut(function(){
-                        $("#youtubeplayer").remove();
-                        });
-                    
-                 if ($("#mediaplayer").css("display")!=="none")
-                    $("#mediaplayer").fadeOut(function(){
-                        $("#mediaplayer").remove();
-                        });
-            
-                $(playWindow).animate({
-                    opacity: 0
-                    },500,function(){
-                        $(".playWindow").remove();
-                    });
-            });
-                       
+    //if (self.components[id].componentname=="agenda")
+    if (self.components[id].hasOwnProperty("playComponent"))
+        {
+            self.components[id].PlayComponent(compDiv);
+        }
+    else{
         
-            
-            
-            $(playButton).on("click", function(){
-                if ($(compDiv).attr("playmediasource")!==undefined)
-                    if ($(compDiv).attr("playmediatype")==="file")
-                        {
-                            if ($(compDiv).attr("playmediaaction")==="sound")
-                                self.playAudio($(compDiv).attr("playmediasource"));
-                            else if ($(compDiv).attr("playmediaaction")==="video")
-                                {
-                                    var video=$(document.createElement("video")).attr("id", "mediaplayer").addClass("mediaplayer").attr("controls","true").attr("autoplay", "true");
-                                    var source=$(document.createElement("source")).attr("src", "file://"+self.configDir+'/media/'+$(compDiv).attr("playmediasource"));
-                                    $(video).append(source);
-                                    $("body").append(video);
-                                    
-                                    $(video).fadeIn();
-                                }
-                        }
-                    else if ($(compDiv).attr("playmediatype")==="youtube")
-                        {
-                            /*$("#youtubeplayer").attr("src","https://www.youtube.com/embed/"+$(compDiv).attr("playmediasource"));
-                            $("#youtubeplayer").css("display","block");*/
-                            var iframe=$(document.createElement("iframe")).attr("width","640","height","360").addClass("mediaplayer").attr("id","youtubeplayer").attr("allowfullscreen", "allowfullscreen");
-                            $(iframe).attr("src", "https://www.youtube.com/embed/"+$(compDiv).attr("playmediasource"));
-                            $(iframe).attr("frameborder", "0").attr("gesture","media").attr("allow", "encrypted-media");
-                            $(iframe).css("display","block");
-                            $("body").append(iframe);
-                            
+        console.log("Playwindows: "+$(".playWindow").length);
+        
+        var playWindow=$(document.createElement("div")).addClass("playWindow");
+        console.log("Adding playWindow to body");
+        $("body").append(playWindow);
+        
+        $(playWindow).animate({
+            opacity: 1
+            }, 500, function() {
+                var closebutton=$(document.createElement("div")).addClass("playWindowCloseButton");
+                var playButton=$(document.createElement("div")).addClass("playContentButton");
+                $(playWindow).append(compDiv);
+                $(playWindow).append(closebutton);
+                
+                // Add PlayButton if is media play defined
+                if($(compDiv).attr("playmediasource")!==undefined && $(compDiv).attr("playmediasource")!=="") $(playWindow).append(playButton);
+                
+                Utils.resizeFonts();
+                
+                // Perform onShow event
+                if ($(compDiv).attr("tts")!==undefined)
+                    self.speakPhrase($(compDiv).attr("tts"));
+                else if ($(compDiv).attr("audiofile")!==undefined)
+                    self.playAudio($(compDiv).attr("audiofile"));
+                
+               $(closebutton).on("click", function(){
+                
+                    if ($("#youtubeplayer").css("display")!=="none")
+                        $("#youtubeplayer").fadeOut(function(){
+                            $("#youtubeplayer").remove();
+                            });
                         
-                            
-                        }
-                    
+                     if ($("#mediaplayer").css("display")!=="none")
+                        $("#mediaplayer").fadeOut(function(){
+                            $("#mediaplayer").remove();
+                            });
+                
+                    $(playWindow).animate({
+                        opacity: 0
+                        },500,function(){
+                            $(".playWindow").remove();
+                        });
                 });
+                           
             
-            
-        });
+                
+                
+                $(playButton).on("click", function(){
+                    if ($(compDiv).attr("playmediasource")!==undefined)
+                        if ($(compDiv).attr("playmediatype")==="file")
+                            {
+                                if ($(compDiv).attr("playmediaaction")==="sound")
+                                    self.playAudio($(compDiv).attr("playmediasource"));
+                                else if ($(compDiv).attr("playmediaaction")==="video")
+                                    {
+                                        var video=$(document.createElement("video")).attr("id", "mediaplayer").addClass("mediaplayer").attr("controls","true").attr("autoplay", "true");
+                                        var source=$(document.createElement("source")).attr("src", "file://"+self.configDir+'/media/'+$(compDiv).attr("playmediasource"));
+                                        $(video).append(source);
+                                        $("body").append(video);
+                                        
+                                        $(video).fadeIn();
+                                    }
+                            }
+                        else if ($(compDiv).attr("playmediatype")==="youtube")
+                            {
+                                /*$("#youtubeplayer").attr("src","https://www.youtube.com/embed/"+$(compDiv).attr("playmediasource"));
+                                $("#youtubeplayer").css("display","block");*/
+                                var iframe=$(document.createElement("iframe")).attr("width","640","height","360").addClass("mediaplayer").attr("id","youtubeplayer").attr("allowfullscreen", "allowfullscreen");
+                                $(iframe).attr("src", "https://www.youtube.com/embed/"+$(compDiv).attr("playmediasource"));
+                                $(iframe).attr("frameborder", "0").attr("gesture","media").attr("allow", "encrypted-media");
+                                $(iframe).css("display","block");
+                                $("body").append(iframe);
+                                
+                            
+                                
+                            }
+                        
+                    });
+                
+                
+            });
+    } // else for play component
 };
 
 UI.prototype.playAudio=function playAudio(file){

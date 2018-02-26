@@ -55,6 +55,8 @@ function agendaComponentClass(){
         setCurrentInfo: function setCurrentInfo(data){
         self.info.weather=data;}*/
     }
+    
+    this.playComponent=function(){};
 
     
 }
@@ -286,6 +288,7 @@ agendaComponentClass.prototype.getASDialog=function getASDialog(){
         }
         
         self.reDrawComponent();
+        appGlobal.bindCompomentsEvents();
     };
         
     return ret;
@@ -418,6 +421,7 @@ agendaComponentClass.prototype.getConfigDialog=function getConfigDialog(){
                             $("#agendaComponent").attr("data", JSON.stringify(self.info));
                             
                             self.reDrawComponent();
+                            appGlobal.bindCompomentsEvents();
                             
                             // Saving Assembly
                             appGlobal.saveComponents();
@@ -603,9 +607,7 @@ agendaComponentClass.prototype.showDialogForEditActivity=function showDialogForE
 }
 
 
-
-
-Component.prototype.getPlayableContent=function getPlayableContent(){
+agendaComponentClass.prototype.getPlayableContent=function getPlayableContent(){
     // Differ than generic method
     var self=this;
     
@@ -639,10 +641,9 @@ Component.prototype.getPlayableContent=function getPlayableContent(){
         var textToWrite=self.config[i].text;
         if (textToWrite==="") textToWrite=i18n.gettext(i);
         
-        var agendaitemText=$(document.createElement("div")).addClass("iconAgendaItemText textfluid").html(textToWrite).attr("fontzoom", "0.5");
-        // WIP
-        // Revisar les classes: iconAgendaContent; son per a mostrar en xicotet. Cal ajustar per a q se vega en gran
-        var agendaitem=$(document.createElement("div")).addClass("iconAgendaContent").css("background-image","url("+url_base+self.config[i].img+")");
+        var agendaitemText=$(document.createElement("div")).addClass("iconAgendaItemTextPlay textfluid").html(textToWrite).attr("fontzoom", "0.5");
+        
+        var agendaitem=$(document.createElement("div")).addClass("iconAgendaContentPlay").css("background-image","url("+url_base+self.config[i].img+")");
         
         var img=$(document.createElement("div")).addClass("item").css("transform","rotateY("+baseDeg+"deg) translateZ(250px)");
         
@@ -653,13 +654,12 @@ Component.prototype.getPlayableContent=function getPlayableContent(){
         
     }
      
-     $(container).append(carousel);
+    $(container).append(carousel);
      
-    var prev=$(document.createElement("div")).addClass("prev").html("prev");
-    var next=$(document.createElement("div")).addClass("next").html("next");
+    var prev=$(document.createElement("div")).addClass("prev");
+    var next=$(document.createElement("div")).addClass("next");
 
     $(item).append(toptext, container, prev,next);
-    
     
     
     //$(item).append(toptext, icon, bottomtext);
@@ -670,12 +670,12 @@ Component.prototype.getPlayableContent=function getPlayableContent(){
 
 
 
-UI.prototype.PlayComponent=function PlayComponent(component){
+agendaComponentClass.prototype.PlayComponent=function PlayComponent(compDiv){
     var self=this;
-    var id=$(component).attr("id");
+    //var id=$(component).attr("id");
     
-    //console.log("CAlling playable content!");
-    var compDiv=self.components[id].getPlayableContent();
+    console.log("CAlling playable content!");
+    //var compDiv=self.components[id].getPlayableContent();
     var incDeg=$(compDiv).attr("incdeg");
     
     console.log(compDiv);
@@ -705,10 +705,18 @@ UI.prototype.PlayComponent=function PlayComponent(component){
             
             function rotate(e){
               if(e.data.d=="n"){
+                console.log("Press on next...");
+                console.log("currdeg: "+currdeg+" incDeg: "+incDeg);
                 currdeg = currdeg - incDeg;
+                console.log("currdeg: "+currdeg);
+                
               }
               if(e.data.d=="p"){
-                currdeg = currdeg + incDeg;
+                console.log("Press on prev...");
+                console.log("currdeg: "+currdeg+" incDeg: "+incDeg);
+
+                currdeg =  Number(currdeg) + Number(incDeg);
+                console.log("currdeg: "+currdeg);
               }
               carousel.css({
                 "-webkit-transform": "rotateY("+currdeg+"deg)",

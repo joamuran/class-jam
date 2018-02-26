@@ -113,8 +113,6 @@ weekdayComponentClass.prototype.getConfigDialog=function getConfigDialog(){
         var text=$(document.createElement("div")).html(weekdayText).addClass("weekdayConfigText");
         /*var selected=$(document.createElement("input")).attr("type","checkbox");*/
         
-        // WIP HERE::::: a vore com posem el checkbox, i preparar els callbacks per a la configuració i tal...
-        
         $(configRow).append(icon);
         $(configRow).append(text);
         /*$(configRow).append(selected);*/
