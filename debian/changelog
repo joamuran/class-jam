@@ -1,3 +1,13 @@
+classroom-assembly (1.1) xenial; urgency=high
+
+  * Added capabilities for Playing Modules
+  * Added configuration options for modules when playing
+  * Added more global options: Using of mays and min, custom backgrounds...
+  * Modified splash screen technology (python)
+  * Fixed default class icon for childs in classmates module
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Mon, 26 Feb 2018 12:43:50 +0100
+
 classroom-assembly (1.0) xenial; urgency=medium
 
   * Core: Restructured component architecture (more plugable)
