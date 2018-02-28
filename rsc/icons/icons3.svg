@@ -17,9 +17,9 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="icons3.svg"
-   inkscape:export-filename="/srv/vcs/github/classroom-assembly/classroom-assembly/src/components/classmates/img/alum.png"
-   inkscape:export-xdpi="260.10001"
-   inkscape:export-ydpi="260.10001">
+   inkscape:export-filename="/srv/vcs/github/classroom-assembly/classroom-assembly/src/components/agenda/img/next.png"
+   inkscape:export-xdpi="130.05"
+   inkscape:export-ydpi="130.05">
   <defs
      id="defs4">
     <linearGradient
@@ -785,7 +785,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="1.0247525"
      inkscape:cx="-94.617908"
-     inkscape:cy="30.501387"
+     inkscape:cy="26.598005"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -3362,7 +3362,7 @@
        sodipodi:nodetypes="ccsc" />
     <g
        id="g18932"
-       transform="translate(315.66777,142.47341)">
+       transform="matrix(-1,0,0,1,-141.9673,142.47341)">
       <path
          transform="matrix(0.70710678,-0.70710678,0.70710678,0.70710678,-1216.8478,-554.06124)"
          sodipodi:nodetypes="cccccccc"

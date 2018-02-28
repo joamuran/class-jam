@@ -239,8 +239,44 @@
     background-size: contain;
 }
 
-.deleteAgendaComponent:hover{
+
+.editAgendaComponent{
+    width: 24px;
+    height: 24px;
+    bottom: 32px;
+    right: 3px;
+    position: absolute;
+    background-size: cover;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 5px #888888;
+    
+    background-color: rgba(103,201,145,0.9);
+    border-radius: 50%;
+    background-image: url(/components/classmates/img/edit.png);
+    background-size: contain;
+}
+
+
+.deleteAgendaComponent:hover, .editAgendaComponent:hover{
     cursor: pointer;
+}
+
+.editAgendaComponent .tooltiptext{
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+.editAgendaComponent:hover .tooltiptext {
+    visibility: visible;
 }
 
 .addNewAgendaComponent{

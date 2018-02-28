@@ -313,9 +313,10 @@ agendaComponentClass.prototype.drawConfigureComponent=function drawConfigureComp
         
         var text=$(document.createElement("div")).addClass("agendaConfigText").append(agendaText);
    
-        var visibilityIcon=$(document.createElement("div")).addClass("visibilityIcon");
+        var visibilityIcon=$(document.createElement("div")).addClass("visibilityIcon").attr("title", i18n.gettext("Hide.or.show.activity"));
         
-        var deleteBt=$(document.createElement("div")).addClass("deleteAgendaComponent").attr("delete_target", agenda);
+        var deleteBt=$(document.createElement("div")).addClass("deleteAgendaComponent").attr("delete_target", agenda).attr("title", i18n.gettext("Delete.activity"));
+        var editBt=$(document.createElement("div")).addClass("editAgendaComponent").attr("edit_target", agenda).attr("text", self.config[agenda].text).attr("imgbg", url_base+self.config[agenda].img).attr("title", i18n.gettext("Edit.activity"));
                 
         //console.log(self.config[agenda].active);
         
@@ -330,10 +331,111 @@ agendaComponentClass.prototype.drawConfigureComponent=function drawConfigureComp
         //console.log(text);        
         $(configRow).append(text);
         $(configRow).append(visibilityIcon);
+        $(configRow).append(editBt);
         $(configRow).append(deleteBt);
+        
+        
         
         return configRow;
     }
+
+
+agendaComponentClass.prototype.bindEventsForConfigAgenda=function bindEventsForConfigAgenda(){
+    var self=this;
+    
+   $(".addNewAgendaComponent").off("click");
+    $(".agendaConfigRow").off("click");
+    $(".visibilityIcon").off("click");
+    $(".editAgendaComponent").off("click");
+    $(".deleteAgendaComponent").off("click");
+    
+    $(".addNewAgendaComponent").on("click", function(){
+        // Create new dialog for adding item
+        self.showDialogForEditActivity();
+        
+        });
+    
+    
+    $(".agendaConfigRow").on("click", function(){
+        
+        if($(this).hasClass("agendaStatusActive")) $(this).removeClass("agendaStatusActive");
+        else $(this).addClass("agendaStatusActive");
+        });
+    
+    
+    $(".visibilityIcon").on("click", function(e){
+        var target=$(e.target);
+        if ($(target).hasClass("visibleItem")) {
+            $(target).removeClass("visibleItem");
+            $(target).addClass("hidenItem");
+            var hideparentdiv=$(document.createElement("div")).addClass("hideparentDiv");
+            $($(target).parent()).prepend(hideparentdiv);
+            
+        } else{
+            $(target).removeClass("hidenItem");
+            $(target).addClass("visibleItem");
+            $($($(target).parent()).find(".hideparentDiv")).remove();
+            
+            }
+        
+        });
+    
+    
+    $(".editAgendaComponent").on("click", function(ev){
+        //self.showDialogForEditActivity(name=null, image=null, text=null);
+        var name=($(ev.target).attr("edit_target"));
+        var text=($(ev.target).attr("text"));
+        var image=($(ev.target).attr("imgbg"));
+        self.showDialogForEditActivity(name, image, text);
+    });
+    
+    $(".deleteAgendaComponent").on("click", function(ev){
+        
+            vex.dialog.confirm({
+                message: i18n.gettext('ask_delete_agenda_item'),
+                buttons: [
+                $.extend({}, vex.dialog.buttons.YES, {
+                    className: 'vex-dialog-button-primary',
+                    //text: i18n.gettext("confirm.save.msg.yes"),
+                    text: i18n.gettext("yes"),
+                    click: function() {
+                        var item_to_delete=$(ev.target).attr("delete_target");
+                        $("[agenda_data="+item_to_delete+"]").remove();
+                        
+                        delete self.config[item_to_delete];
+                        delete self.info[item_to_delete];
+                        
+                        $("#agendaComponent").attr("config", JSON.stringify(self.config));
+                        $("#agendaComponent").attr("data", JSON.stringify(self.info));
+                        
+                        self.reDrawComponent();
+                        appGlobal.bindCompomentsEvents();
+                        
+                        // Saving Assembly
+                        appGlobal.saveComponents();
+                        //appGlobal.components["agendaComponent"].config["assembly"]
+                        
+                        
+                        //alert("delete!");
+                    }}),
+                $.extend({}, vex.dialog.buttons.NO, {
+                    className: 'vex-dialog-button',
+                    //text: i18n.gettext("confirm.save.msg.cancel"),
+                    text: i18n.gettext("no"),
+                    click: function() {
+                        vex.close(this);
+                    }})
+                ],
+                callback: function () {}
+            });
+        
+        
+    });
+                
+
+    
+}
+
 
 agendaComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     var self=this;
@@ -351,7 +453,7 @@ agendaComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     }
     
     // Adding new item for add component
-    var addConfigBt=$(document.createElement("div")).addClass("agendaConfigItem addNewAgendaComponent").addClass("col-md-2").attr("agenda_data", agenda).css("background-image","url(/css/images/icons/addAlum.png)").attr("id","addNewComponentForAgenda");
+    var addConfigBt=$(document.createElement("div")).addClass("agendaConfigItem addNewAgendaComponent").addClass("col-md-2").attr("agenda_data", "add_new_item").css("background-image","url(/css/images/icons/addAlum.png)").attr("id","addNewComponentForAgenda");
     $(input).append(addConfigBt);
     
     
@@ -360,92 +462,7 @@ agendaComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     
     ret.bindEvents=function(){
         
-        $(".addNewAgendaComponent").on("click", function(){
-            // Create new dialog for adding item
-            self.showDialogForEditActivity();
-            
-            });
-        
-        
-        $(".agendaConfigRow").on("click", function(){
-            
-            if($(this).hasClass("agendaStatusActive")) $(this).removeClass("agendaStatusActive");
-            else $(this).addClass("agendaStatusActive");
-            });
-        
-        // Calling to parent class method to bind click event on icon for change its image
-        //self.bindClickForChangeImg("agendaConfigIcon");
-               
-        
-        /*$(".agendaConfigIcon").on("click", function(event){
-            event.stopPropagation();
-            var item=$($(event)[0].target).attr("class").replace("agendaConfigIcon","").replace(" ", "");
-            self.changeImage(item, self.componentname);
-        });*/
-        
-        $(".visibilityIcon").on("click", function(e){
-            var target=$(e.target);
-            if ($(target).hasClass("visibleItem")) {
-                $(target).removeClass("visibleItem");
-                $(target).addClass("hidenItem");
-                var hideparentdiv=$(document.createElement("div")).addClass("hideparentDiv");
-                $($(target).parent()).prepend(hideparentdiv);
-                
-            } else{
-                $(target).removeClass("hidenItem");
-                $(target).addClass("visibleItem");
-                $($($(target).parent()).find(".hideparentDiv")).remove();
-                
-                }
-            
-            });
-        
-        $(".deleteAgendaComponent").on("click", function(ev){
-            
-            
-                vex.dialog.confirm({
-                    message: i18n.gettext('ask_delete_agenda_item'),
-                    buttons: [
-                    $.extend({}, vex.dialog.buttons.YES, {
-                        className: 'vex-dialog-button-primary',
-                        //text: i18n.gettext("confirm.save.msg.yes"),
-                        text: i18n.gettext("yes"),
-                        click: function() {
-                            var item_to_delete=$(ev.target).attr("delete_target");
-                            $("[agenda_data="+item_to_delete+"]").remove();
-                            
-                            delete self.config[item_to_delete];
-                            delete self.info[item_to_delete];
-                            
-                            $("#agendaComponent").attr("config", JSON.stringify(self.config));
-                            $("#agendaComponent").attr("data", JSON.stringify(self.info));
-                            
-                            self.reDrawComponent();
-                            appGlobal.bindCompomentsEvents();
-                            
-                            // Saving Assembly
-                            appGlobal.saveComponents();
-                            //appGlobal.components["agendaComponent"].config["assembly"]
-                            
-                            
-                            //alert("delete!");
-                        }}),
-                    $.extend({}, vex.dialog.buttons.NO, {
-                        className: 'vex-dialog-button',
-                        //text: i18n.gettext("confirm.save.msg.cancel"),
-                        text: i18n.gettext("no"),
-                        click: function() {
-                            vex.close(this);
-                        }})
-                    ],
-                    callback: function () {}
-                });
-            
-            
-        });
-                
-
-        
+        self.bindEventsForConfigAgenda();
         
     };
     
@@ -483,12 +500,23 @@ agendaComponentClass.prototype.showDialogForEditActivity=function showDialogForE
     var ActText=text || "";
     var ImgText =i18n.gettext("click.to.select.img");
     
-    text="<div id='NewActivityImage'>"+ImgText+"</div>";
+    var imgComponent="";
+    var defaultValueForImg="";
+    if (image!==null) {
+        
+        var imgarray=image.split("/");
+        var img=imgarray[imgarray.length-1];
+        imgComponent=" style='background-image: url("+image+")' imageName='"+img+"' ";
+        defaultValueForImg=" value='"+image+"'";
+        
+    }
+    text="<div id='NewActivityImage'"+imgComponent+">"+ImgText+"</div>";
+    
     
     
     text+='<label class="form-check-label col-md-12" style="margin-bottom: 16px;"><span name="speakOnShow_label" style="margin-left: 20px;">'+i18n.gettext("new.activity.name")+'</span><input type="text" class="col-md-6" value="'+ActText+'" name="newActName" id="newActName"></div></label>';
     
-    text+="<input id='uploadImgForActivity' name='uploadImgForActivity' type='file' style='display:none;'  accept='.jpg, .png, .gif'></input>";
+    text+="<input id='uploadImgForActivity' name='uploadImgForActivity' type='file' style='display:none;'  accept='.jpg, .png, .gif'"+defaultValueForImg+"></input>";
             
     vex.dialog.open({
         message:"Select Image",
@@ -499,14 +527,65 @@ agendaComponentClass.prototype.showDialogForEditActivity=function showDialogForE
             [
             $.extend({}, vex.dialog.buttons.YES, {
                 className: 'vex-dialog-button-primary',
-                text: i18n.gettext("ok")/*,
-                click: function() {}*/
+                text: i18n.gettext("ok"),
+                click: function() {
+                         // Image has been saved. Let's create a new item to add to component
+                        console.log($("#newActName").val());
+                        console.log($("#NewActivityImage").attr("imageName"));
+                        
+                        // Is a new activity or we are modifying it?
+                        
+                        if (name!==null){
+                            // If we are modifying an element, we have just to modify it, but no add to Agenda
+                            
+                            var newitem={"custom":"true","active":"true","img":$("#NewActivityImage").attr("imageName"),"text":$("#newActName").val() };
+                            self.config[name]=newitem;
+                            
+                            var item=self.drawConfigureComponent(name);
+                            
+                            // Modify DOM Item
+                            $(".agendaConfigItem[agenda_data="+name+"]").replaceWith(item);
+                            
+                            //console.log(item);
+                            
+                            
+                        } else {
+                            // If we are adding a new element, we have to create it and add it to Agenda
+                            // Get last id for custom activity
+                            var num=0;
+                            var basename="customActivity";
+                            var newid=basename+num.toString();
+                            while (self.config.hasOwnProperty(newid)){
+                                num++;
+                                newid=basename+num.toString();
+                            }
+                            
+                            // Create item and add to component config
+                            var newitem={"custom":"true","active":"true","img":$("#NewActivityImage").attr("imageName"),"text":$("#newActName").val() };
+                            self.config[newid]=newitem;
+                            
+                            var item=self.drawConfigureComponent(newid);
+                            console.log("**********");
+                            console.log(newitem);
+                            console.log(item);
+                            // Add new item to DOM
+                            $(item).insertBefore("#addNewComponentForAgenda");
+                            
+                            
+                        } // End else
+                        
+                        // And finally rebind events
+                        self.bindEventsForConfigAgenda();
+                        
+                        
+                    
+                }
             }),
             $.extend({}, vex.dialog.buttons.NO, {
                 className: 'vex-dialog-button',
                 text: i18n.gettext("cancel"),
                 click: function() {
-                vex.close(this);    
+                vex.close(this);
             
 
         
@@ -572,36 +651,7 @@ agendaComponentClass.prototype.showDialogForEditActivity=function showDialogForE
                         
             },
                     
-            callback: function(){
-                // Image has been saved. Let's create a new item to add to component
-                console.log($("#newActName").val());
-                console.log($("#NewActivityImage").attr("imageName"));
-                
-                // Get last id for custom activity
-                var num=0;
-                var basename="customActivity";
-                
-                var newid=basename+num.toString();
-                
-                while (self.config.hasOwnProperty(newid)){
-                    num++;
-                    newid=basename+num.toString();
-                }
-                
-                // Create item and add to component config
-                var newitem={"custom":"true","active":"true","img":$("#NewActivityImage").attr("imageName"),"text":$("#newActName").val() };
-                self.config[newid]=newitem;
-                
-                var item=self.drawConfigureComponent(newid);
-                
-                console.log(item);
-                // Add new item to DOM
-                $(item).insertBefore("#addNewComponentForAgenda");
-                //document.querySelector("#agendaConfig").insertBefore(item, document.querySelector("#addNewComponentForAgenda"));
-
-                //console.log(self.config);
-                
-            }
+            callback: function(){ }
         });
             
 }

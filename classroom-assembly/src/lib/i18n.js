@@ -50,6 +50,8 @@ I18n.prototype.gettext = function(key,substitution){
 I18n.prototype.translateHtmlElement=function translateHtmlElement(element){
   var self=this;
   element.innerHTML=self.gettext(element.innerHTML);
+  if (typeof ($(element).attr("title"))!==typeof undefined)
+	$(element).attr("title", self.gettext($(element).attr("title")));
 };
 
 I18n.prototype.translateHtml=function translateHtml(element){
