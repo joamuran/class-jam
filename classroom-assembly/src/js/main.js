@@ -664,6 +664,10 @@ UI.prototype.ShowConfigWindow=function ShowConfigWindow(){
                 var text="<select class='image-picker show-html' id='bg_selector'>";
                 
                 // Checking media/backgrounds folder
+                
+                if (!fs.existsSync(self.configDir+"/media")) {
+                    fs.mkdirSync(self.configDir+"/media", 0744);
+                }
                if (!fs.existsSync(self.configDir+"/media/backgrounds")) {
                     fs.mkdirSync(self.configDir+"/media/backgrounds", 0744);
                }

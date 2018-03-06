@@ -1,3 +1,9 @@
+classroom-assembly (1.1.1) xenial; urgency=high
+
+  * Fixed bug in backgrounds folder
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Tue, 06 Mar 2018 12:42:27 +0100
+
 classroom-assembly (1.1) xenial; urgency=high
 
   * Added capabilities for Playing Modules
