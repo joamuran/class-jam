@@ -1,17 +1,27 @@
-Source: classroom-assembly
+Source: class-jam
 Section: misc
 Priority: optional
 Maintainer: LliureX Team <lliurex@lliurex.net>
 Build-Depends: llxsrchelper,debhelper (>= 8.0.0)
 Standards-Version: 3.9.3
-Homepage: https://github.com/joamuran/classroom-assembly
+Homepage: https://github.com/joamuran/class-jam
 #Vcs-Git: git://git.debian.org/collab-maint/lliurex-guard.git
 #Vcs-Browser: http://git.debian.org/?p=collab-maint/lliurex-guard.git;a=summary
 
-Package: classroom-assembly
+Package: class-jam
 Architecture: all
 Depends: ${misc:Depends},python,graphicsmagick,imagemagick,nwjs0.21,wmctrl,mplayer,alsa-utils,lliurex-tts
+Breaks: classroom-assembly (<<1.2)
+Replaces: classroom-assembly (<<1.2)
+Provides: classroom-assembly
 Description: Classroom Assembly
  NWJS app to perform classroom assembly
  to children and special education.
+
+
+Package: classroom-assembly
+Architecture: all
+Depends: class-jam
+Description: Classroom Assembly
+ Transitional package for class-jam
  

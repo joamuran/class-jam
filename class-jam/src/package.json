@@ -1,8 +1,8 @@
 {
   "main": "index.html",
-  "name": "Assemblea",
+  "name": "class-jam",
   "description": "Application",
-  "version": "0.1.0",
+  "version": "1.2.0",
   "keywords": [
     "application"
   ],
@@ -10,7 +10,7 @@
   "license": "GPL-3.0",
   "window": {
     "title": "Assemblea",
-    "icon": "classroom-assembly.png",
+    "icon": "class-jam.png",
     "toolbar": false,
     "frame": true,
     "width": 1280,
@@ -20,7 +20,7 @@
   "webkit": {
     "plugin": true
   },
-  "chromium-args": "--enable-speech-dispatcher --ppapi-flash-path=/usr/lib/adobe-flashplugin/libpepflashplayer.so",
+  "chromium-args": "--enable-speech-dispatcher",
   "dependencies": {
     "archiver": "^2.0.3",
     "css": "^2.2.1",

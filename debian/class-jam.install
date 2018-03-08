@@ -1,0 +1,5 @@
+class-jam /usr/share/
+bin/* /usr/bin/
+desktops/* /usr/share/
+icons/* /usr/share/pixmaps/
+llx-help/* /usr/share/lliurex-help/documents/

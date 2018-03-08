@@ -1,3 +1,10 @@
+class-jam (1.2) xenial; urgency=high
+
+  * Renamed to class-jam
+  * Added help for lliurex-help
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Thu, 08 Mar 2018 13:42:15 +0100
+
 classroom-assembly (1.1.1) xenial; urgency=high
 
   * Fixed bug in backgrounds folder

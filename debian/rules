@@ -11,3 +11,13 @@
 
 %:
 	dh $@ --with llxsrc
+
+override_dh_install: npm-install
+
+	dh_install
+
+# Call npm install before building package
+
+npm-install:
+
+	(cd class-jam/src/ && npm install)

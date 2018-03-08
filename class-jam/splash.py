@@ -150,7 +150,7 @@ height"""
 		
 if __name__ == "__main__":
 	# gobject.threads_init()
-	background="/usr/share/classroom-assembly/splash.png"
+	background="/usr/share/class-jam/splash.png"
 	splash = splashScreen(background)
 	splash.setup()
 	splash.show()

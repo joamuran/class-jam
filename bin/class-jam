@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Show splash
+python /usr/share/class-jam/splash.py &
+
+# Loading app
+/usr/share/nwjs0.21/nw /usr/share/class-jam/src
+~                                                            
