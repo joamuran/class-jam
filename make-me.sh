@@ -2,8 +2,7 @@
 
 # install node and bower modules
 
-(cd class-jam && npm install)
-#(cd lliurex-help && bower-installer)
+(cd class-jam/src && npm install)
 
 gbp buildpackage -S -us -uc --git-ignore-new
 
