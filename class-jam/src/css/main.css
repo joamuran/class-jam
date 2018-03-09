@@ -232,6 +232,19 @@ li.editable:hover{
     right: 0px;
 }
 
+#btLlxHelp, #btLlxHelpConfig{ background-image: url(images/icons/help.png); z-index: 70;}
+#btLlxHelp.visible{
+    /*bottom: 20px;*/
+    top: calc(100% - 128px);
+    right: 0px;
+}
+
+#btLlxHelpConfig.visible{
+    /*bottom: 20px;*/
+    top: calc(100% - 128px);
+    right: 0px;
+}
+
 
 .buttonhidden{
     top: 0px !important;

@@ -1,42 +1,13 @@
 {
     "ca":[
         {"item": {
-            "title":"Introducció",
+            "title":"L'assemblea d'Aula",
             "filename":"assemblea.md"
         }},
-        {"item":{
-            "title": "Extended node",
-            "items":[
-                {"item": {
-                    "title":"Introducció en subcarpeta",
-                    "filename":"assemblea.md"
-                }},
-                {"item": {
-                    "title":"Video",
-                    "filename":"assembleavid.md"
-                }}
-                ]
-        }}
-
-    ],
-    "es":[
         {"item": {
-            "title":"Introducción",
-            "filename":"assemblea.md"
-        }},
-        {"item":{
-            "title": "Extended node 2",
-            "items":[
-                {"item": {
-                    "title":"Introducción en subcarpeta",
-                    "filename":"assemblea.md"
-                }},
-                {"item": {
-                    "title":"Video2",
+                    "title":"Un exemple pràctic",
                     "filename":"assembleavid.md"
-                }}
-                ]
-        }}
-
+            }}
+        
     ]
 }

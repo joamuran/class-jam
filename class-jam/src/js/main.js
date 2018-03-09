@@ -558,6 +558,11 @@ UI.prototype.bindEvents=function bindEvents(){
     $("#btOptions").on("click", function(){
         self.ShowConfigWindow();
         });
+    
+    $("#btLlxHelp, #btLlxHelpConfig").on("click", function(){
+        console.log("1111111111111");
+        self.ShowHelp();
+        });
         
     $("#btQuit, #btQuitConfig").on("click", function(){
         // Compare saved version with current
@@ -606,6 +611,20 @@ UI.prototype.bindEvents=function bindEvents(){
         });
     
 };
+
+UI.prototype.ShowHelp=function ShowHelp(){
+    const { exec } = require('child_process');
+    exec('lliurex-help class-jam', (error, stdout, stderr) => {
+        if (error) {
+          console.error(`exec error: ${error}`);
+          return;
+          }
+    console.log(`stdout: ${stdout}`);
+    console.log(`stderr: ${stderr}`);
+});
+
+    
+}
 
 UI.prototype.ShowConfigWindow=function ShowConfigWindow(){
     var self=this;
