@@ -1,0 +1,10 @@
+{
+  "component": "menu",
+  "version":"0.1",
+  "author":"Jose A. Múrcia <joamuran@gmail.com>",
+  "style": "menu/menu.css",
+  "script":"menu/menu.js",
+  "constructorCall":"new menuComponentClass()"
+}
+
+

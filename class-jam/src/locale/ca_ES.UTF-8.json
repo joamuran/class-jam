@@ -115,7 +115,7 @@
   "new.activity.name":"Nom de l'activitat",
   "click.to.select.img":"Feu click per triar una imatge",
   "click.for.add.activity.img":"Feu click per afegir una imatge",
-  "custom.agenda.image.exists":"Ja existeux una imatge amb aquet nom. Voleu esborrar-la i remplaçar-la?",
+  "custom.agenda.image.exists":"Ja existeix una imatge amb aquet nom. Voleu esborrar-la i remplaçar-la?",
   "ok":"D'acord",
   "what.will.we.do.today":"Què farem hui?",
   "cancel":"Cancel·la",
@@ -181,7 +181,44 @@
   "BtPlayAudio":"Reprodueix l'àudio",
   "Recording. Press mic to stop recording":"S'està enregistrant el so. Polseu el botó del micròfon per finalitzar l'enregistrament",
   "Press mic to discard and record another audio":"Polseu al micròfon per descartar els canvis i tornar a enregistrar l'audio",
-  "quit.without.record":"No s'ha enregistrat cap so. Desitgeu eixir igualment?"
+  "quit.without.record":"No s'ha enregistrat cap so. Desitgeu eixir igualment?",
   
-  
+	"custom.menu.image.exists":"Ja existeix una imatge amb aquet nom. Voleu esborrar-la i remplaçar-la?",
+	"what.will.we.eat.today":"Què dinem hui?",
+	"menu.today":"Menú del dia",
+	"No menus defined for today":"No hi ha menú per a hui",
+	"menu.component.title":"Menú del dia",
+	"Hide.or.show.menu":"Mostra o oculta el plat",
+	"Delete.menu":"Esborra el plat",
+	"Edit.menu":"Edita el plat",
+	"menu.component.options":"Configureu el menú",
+
+	"paella":"Paella",
+	"lentilles":"Lentilles",
+	"arros al forn":"Arròs al forn",
+	"bledes amb creïlles":"Bledes amb creïlles",
+	"pit de pollastre":"Pit de pollastre",
+	"pa":"Pà",
+	"fruita":"Fruita",
+   "lluç":"Lluç",
+   "iogurt":"Iogurt",
+   "mandonguilles":"Mandonguilles",
+   "bajoques amb creïlles":"Bajoques amb creïlles",
+   "llomello":"Llomello",
+   "cigrons":"Cigrons",
+   "truita de creïlles":"Truita de creïlles",
+   "titot":"Titot",
+   "amanida":"Amanida",
+   "espaguetis":"Espaguetis",
+   "salmó":"Salmó",
+   "calamars a la romana":"Calamars a la romana",
+   "embotits":"Embotit",
+   "sopa":"Sopa",
+   "canelons":"Canelons",
+   "arròs a la cubana":"Arròs a la cubana",
+   "cuixa de pollastre":"Cuixa de pollastre",
+   "encisam":"Encisam"
+	
+	
+ 
 }

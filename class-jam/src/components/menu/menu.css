@@ -1,0 +1,440 @@
+
+/*.iconMenu{
+    width: 100%;
+    height: 70%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: all 0.4s;
+    background-position: center;
+    overflow: hidden;
+}*/
+
+.titleMenuText{  /* icons */
+    /*font-size: 10vw;*/
+    height: 15%;
+    width: 100%;
+    
+}
+
+#menuComponent{
+    overflow-y: auto;
+    overflow-x: hidden;v
+}
+
+.iconMenuContent{
+    /*background: #ffeeaa;*/
+    margin: 1px;
+    /*height: 8%;*/
+    /*min-height: 64px;
+    max-height: 20% !important;*/
+    height: 50%;
+    /*width: 100%;*/
+    position: relative;
+    float: left;
+    
+    background-size: contain;
+    background-color: #ffffff;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 0.4s;
+    padding: 0px !important;
+}
+
+.iconMenuContent:hover{
+    transition: all ease 0.2s;
+    cursor: pointer;
+    /*box-shadow: inset 0 0 0 100px rgba(36, 70, 105, 0.74);*/
+    box-shadow: inset 0 0 0 100px rgba(255, 255, 255, 0.75);
+    /*background-size: 80%;*/
+}
+
+.iconMenuContent:hover .iconMenuItemText {
+        font-size: 1em !important;
+        text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
+        
+}
+
+.iconMenuItemText{
+    position:absolute;
+    bottom:0px;
+    transition: all ease 0.2s;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+
+
+    
+.menuSelectIcon{
+    position: relative;
+    /*width: 128px;*/
+    height: 128px;
+    float: left;
+    background-color: #ffffff;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 0.4s;
+    opacity: 0.8;
+}
+
+
+.menuSelectIcon:hover{
+     opacity: 1;
+     cursor: pointer;
+     background-position: center;
+     /*transform: scale(1.5);*/
+     z-index: 10;
+    filter: drop-shadow(3px 3px 3px #333333);
+     
+}
+
+
+.menuSelectInfo{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align:center;
+    transition: all 0.4s;
+    margin-left: -15px;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/*.menuSelectIcon:hover .seasonSelectInfo{
+      font-size: 2vw;
+      cursor: pointer;
+}*/
+
+/*.seasonSelected{
+    background-color: #42a5f5;
+    border-radius: 5px;
+    
+}*/
+
+/*
+.seasonSelected:after{
+    background-image: url("../../css/images/icons/check.png");
+    background-size: 40px 40px;
+    display: inline-block;
+    width: 40px; 
+    height: 40px;
+    content:"";
+    position: absolute;
+    top: 24px;
+    left: 30%;
+}
+
+.seasonConfigIcon{
+    float: left;
+    width: 48px;
+    height: 48px;
+    background-size: contain;
+    background-repeat: no-repeat;   
+}
+
+.seasonConfig{}
+
+.seasonConfigRow{height: 50px;}
+
+.seasonConfigRow:hover{
+    cursor: pointer;
+}
+.seasonConfigText{
+    float: left;
+    height: 50px;
+    vertical-align: middle;
+    line-height: 50px;
+    
+    }
+
+*/
+
+.menuConfigText{
+    /*float: left;
+    height: 50px;
+    vertical-align: middle;
+    line-height: 50px;*/
+    
+    
+    bottom: 0px;
+    position: absolute;
+    background-color: rgba(255,255,255,0.7);
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    transition: all ease 0.4s;
+    
+}
+
+#menuConfig{
+    height: 500px;
+    overflow-y: auto;
+}
+
+.menuConfigItem{
+    background-position: center;
+    float: left;
+    height: 120px;
+    width: 120px;
+    border: 1px solid #000000;
+    margin: 2px;
+    overflow: hidden;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    padding: 0px;
+    transition: all ease 0.4s;
+    position: relative;
+    
+}
+
+.menuConfigItem:hover{
+    background-size: 120%;
+    background-position: center;
+    transition: all ease 0.4s;
+}
+
+.menuText{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+}
+
+.menuConfigItem:hover .menuConfigText, .menuConfigItem.hover .menuConfigText {
+    height: 100%;
+    bottom: 0px;
+    position: absolute;
+    font-size: 1.5em;
+}
+
+
+#menuSelectLeft{
+    overflow:auto;
+}
+
+#menuSelectRight{
+    overflow:auto;
+    min-height:100px;
+    border: 1px #333333 dashed;
+    padding: 5px;
+    text-align:center;
+}
+
+
+#menuSelectRight .menuSelectIcon{
+    max-height: 100px;
+    
+}
+
+
+.deleteMenuComponent{
+    width: 24px;
+    height: 24px;
+    bottom: 3px;
+    right: 3px;
+    position: absolute;
+    background-size: cover;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 5px #888888;
+    
+    background-color: rgba(255,100,100,0.9);
+    border-radius: 50%;
+    background-image: url(/components/classmates/img/cross.png);
+    background-size: contain;
+}
+
+
+.editMenuComponent{
+    width: 24px;
+    height: 24px;
+    bottom: 32px;
+    right: 3px;
+    position: absolute;
+    background-size: cover;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 5px #888888;
+    
+    background-color: rgba(103,201,145,0.9);
+    border-radius: 50%;
+    background-image: url(/components/classmates/img/edit.png);
+    background-size: contain;
+}
+
+
+.deleteMenuComponent:hover, .editMenuComponent:hover{
+    cursor: pointer;
+}
+
+.editMenuComponent .tooltiptext{
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+.editMenuComponent:hover .tooltiptext {
+    visibility: visible;
+}
+
+.addNewMenuComponent{
+    border: none !important;
+}
+
+#NewMenuImage{
+    border: dashed 2px #aaaaaa;
+    border-radius: 50px;
+    width: 256px;
+    height: 256px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 50px 20px 50px 20px;
+    color: #aaaaaa;
+    text-align: center;
+    background-size: cover;
+    
+}
+
+#NewMenuImage:hover{
+    cursor: pointer;
+}
+
+/*.seasonConfigRow{
+    border: 1px solid #cccccc;
+    border-radius: 2px;
+    margin-bottom: 5px;
+}
+
+.seasonConfigRow:hover{
+    cursor: pointer;
+    background: #42a5f5;
+}
+
+.seasonConfigRow.seasonStatusActive:after{
+    background-image: url("../../css/images/icons/check.png");
+    background-size: 24px 24px;
+    background-position: center;
+    display: inline-block;
+    width: 24px; 
+    height: 24px;
+    content:"";
+    position: absolute;
+    top: 50%;
+    margin-top: -12px;
+    right: 10px;
+}
+
+
+*/
+
+
+
+
+/*Carrousel */
+
+
+.container {
+  margin: 0 auto;
+  width: 500px;
+  height: 400px;
+  position: relative;
+  top: 200px;
+  perspective: 1000px;
+}
+
+.carousel {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+
+.item {
+  display: block;
+  position: absolute;
+  /*background: #000;*/
+  width: 500px;
+  height: 400px;
+  line-height: 400px;
+  font-size: 5em;
+  text-align: center;
+  color: #FFF;
+  /*opacity: 0.95;*/
+  border-radius: 10px;
+}
+
+.next, .prev {
+  position: absolute;
+  top: 50%;
+  height: 84px;
+  width: 84px;
+  cursor: pointer;
+  margin-top: 42px;
+  
+  background-size: contain;
+  transition: all 0.1s, top 0.1s;
+  z-index: 99999;
+}
+.next{background-image: url(/components/agenda/img/next.png);}
+.prev{background-image: url(/components/agenda/img/prev.png);}
+
+.next:hover, .prev:hover {
+    height: 92px;
+    width: 92px;
+    margin-top: 38px;
+    
+}
+
+/*.next:active, .prev:active {
+  top: 104px;
+  box-shadow: 0 1px 0 #999;
+}*/
+
+.next { right: 4px; }
+.prev { left: 4px; }
+.next:hover { right: 0px; }
+.prev:hover { left: 0px; }
+    
+    
+    
+    
+    
+.iconMenuContentPlay{
+    
+    margin: 1px;
+    height: 80%;
+    width: 100%;
+    
+    /*min-height: 80%;
+    max-height: 80% !important;*/
+    /*width: 100%;*/*
+    position: relative;
+    
+    background-size: contain;
+    background-color: #ffffff;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 0.4s;
+}
+
+
+.iconMenuItemTextPlay{
+    /*position:absolute;*/
+    /*background-color: #ffff00;*/
+    color: #333333;
+    height: 20%;
+    width: 100%;
+    position: relative;
+    line-height: 200% !important;
+    
+    bottom:0px;
+    transition: all ease 0.2s;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+
