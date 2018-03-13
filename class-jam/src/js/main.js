@@ -560,7 +560,6 @@ UI.prototype.bindEvents=function bindEvents(){
         });
     
     $("#btLlxHelp, #btLlxHelpConfig").on("click", function(){
-        console.log("1111111111111");
         self.ShowHelp();
         });
         

@@ -21,7 +21,7 @@ function menuComponentClass(){
                             "amanida":{text:"", img:"amanida.png"},
                             "espaguetis":{text:"", img:"espaguetis.png"},
                             "salmó":{text:"", img:"salmó.png"},
-                            "calamars a la romana":{text:"", img:"calamars_a_la_romana.ong"},
+                            "calamars a la romana":{text:"", img:"calamars_a_la_romana.png"},
                             "embotits":{text:"", img:"embotits.png"},
                             "sopa":{text:"", img:"sopa.png"},
                             "canelons":{text:"", img:"cannelloni.png"},
@@ -86,14 +86,14 @@ menuComponentClass.prototype.drawComponent=function drawComponent(){
         
         // Getting text
         var textToWrite=self.config[item].text;
-        if (textToWrite=="") textToWrite=i18n.gettext(item);
+        if (textToWrite==="") textToWrite=i18n.gettext(item);
         
         // Getting Image
         var url_base="components/menu/img/";
         if (self.config[item].hasOwnProperty("custom") && self.config[item].custom=="true")
         url_base="file:///"+appGlobal.configDir+"/components/menu/";
         
-        var menuitemText=$(document.createElement("div")).addClass("iconMenuItemText textfluid").html(textToWrite).attr("fontzoom", "0.5");
+        var menuitemText=$(document.createElement("div")).addClass("iconMenuItemText textfluid").html(textToWrite).attr("fontzoom", "1.1");
         var menuitem=$(document.createElement("div")).addClass("col-md-2 iconMenuContent").css("height", componentHeight+"%").css("background-image","url("+url_base+self.config[item].img+")");
 
         $(menuitem).append(menuitemText);
