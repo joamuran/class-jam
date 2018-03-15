@@ -39,9 +39,11 @@ function menuComponentClass(){
         }/*,
         setCurrentInfo: function setCurrentInfo(data){
         self.info.weather=data;}*/
-    }
+    };
     
     this.playComponent=function(){};
+    
+    this.layout="horizontal";  // default value
 
     
 }
@@ -67,15 +69,35 @@ menuComponentClass.prototype.drawComponent=function drawComponent(){
     
     console.log(self);
     
-    var li=$(document.createElement("li")).attr("id","menuComponent").attr("data", JSON.stringify(self.info)).attr("config", JSON.stringify(self.config)).addClass("component");
+    var li=$(document.createElement("li")).attr("id","menuComponent").attr("data", JSON.stringify(self.info)).attr("config", JSON.stringify(self.config)).addClass("component").attr("componentLayout", self.layout);
     
-    var menutext=$(document.createElement("div")).addClass("titleMenunText textfluid").attr("fontzoom", "0.5").html(i18n.gettext("menu.today"));
+    var titlezoom;
+    var fontzoom;
+    var fontzoomEmpty;
+    var classforMenuItem;
+    
+    // Setting up layout
+    if (self.layout==="horizontal") { // Horizontal
+        titlezoom="0.5";
+        fontzoomEmpty="0.6"; 
+        fontzoom="1.1";
+        classforMenuItem="col-md-2 iconMenuContentHorizontal";        
+    } else {                    // Vertical
+        titlezoom="1";
+        fontzoomEmpty="0.5";
+        fontzoom="0.5";
+        classforMenuItem="iconMenuContentVertical"; 
+    }
+    
+    var menutext=$(document.createElement("div")).addClass("titleMenunText textfluid").attr("fontzoom", titlezoom).html(i18n.gettext("menu.today"));
     $(li).append(menutext);
 
     var componentHeight=Math.floor(100/(self.info.length+1));
     
     if (self.info.length===0){
-        var span=$(document.createElement("div")).addClass("iconMenuItemText textfluid").html(textToWrite).attr("fontzoom", "0.6");
+        
+        
+        var span=$(document.createElement("div")).addClass("iconMenuItemText textfluid").html(textToWrite).attr("fontzoom", fontzoom);
         $(span).html(i18n.gettext("No menus defined for today")).css("top", "40%");
         $(li).append(span);
         
@@ -86,6 +108,8 @@ menuComponentClass.prototype.drawComponent=function drawComponent(){
         
         // Getting text
         var textToWrite=self.config[item].text;
+        var fontzoom;
+        
         if (textToWrite==="") textToWrite=i18n.gettext(item);
         
         // Getting Image
@@ -93,8 +117,9 @@ menuComponentClass.prototype.drawComponent=function drawComponent(){
         if (self.config[item].hasOwnProperty("custom") && self.config[item].custom=="true")
         url_base="file:///"+appGlobal.configDir+"/components/menu/";
         
-        var menuitemText=$(document.createElement("div")).addClass("iconMenuItemText textfluid").html(textToWrite).attr("fontzoom", "1.1");
-        var menuitem=$(document.createElement("div")).addClass("col-md-2 iconMenuContent").css("height", componentHeight+"%").css("background-image","url("+url_base+self.config[item].img+")");
+        var menuitemText=$(document.createElement("div")).addClass("iconMenuItemText textfluid").html(textToWrite).attr("fontzoom", fontzoom);
+        
+        var menuitem=$(document.createElement("div")).addClass(classforMenuItem).css("height", componentHeight+"%").css("background-image","url("+url_base+self.config[item].img+")");
 
         $(menuitem).append(menuitemText);
         $(li).append(menuitem);

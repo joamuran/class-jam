@@ -57,6 +57,8 @@ function agendaComponentClass(){
     }
     
     this.playComponent=function(){};
+    
+    this.layout="vertical"; // Default value
 
     
 }
@@ -79,18 +81,36 @@ agendaComponentClass.prototype.setBaseConfig=function setBaseConfig(){
 
 agendaComponentClass.prototype.drawComponent=function drawComponent(){
     var self=this;
+        
+    var li=$(document.createElement("li")).attr("id","agendaComponent").attr("data", JSON.stringify(self.info)).attr("config", JSON.stringify(self.config)).addClass("component").attr("componentLayout", self.layout);
     
-    console.log(self);
+    var titlezoom;
+    var fontzoom;
+    var fontzoomEmpty;
+    var classforAgendaItem;
     
-    var li=$(document.createElement("li")).attr("id","agendaComponent").attr("data", JSON.stringify(self.info)).attr("config", JSON.stringify(self.config)).addClass("component");
+    // Setting up layout
+    if (self.layout==="horizontal") { // Horizontal
+        titlezoom="0.5";
+        fontzoomEmpty="0.6"; 
+        fontzoom="1.1";
+        classforAgendaItem="col-md-2 iconAgendaContentHorizontal"; 
+        
+    } else {                    // Vertical
+        titlezoom="1";
+        fontzoomEmpty="0.5";
+        fontzoom="0.5";
+        classforAgendaItem="iconAgendaContentVertical";
+    }
     
-    var agendatext=$(document.createElement("div")).addClass("titleAgendanText textfluid").html(i18n.gettext("agenda.today"));
+    var agendatext=$(document.createElement("div")).addClass("titleAgendanText textfluid").attr("fontzoom", titlezoom).html(i18n.gettext("agenda.today"));
     $(li).append(agendatext);
 
     var componentHeight=Math.floor(100/(self.info.length+1));
     
     if (self.info.length===0){
-        var span=$(document.createElement("div")).addClass("iconAgendaItemText textfluid").html(textToWrite).attr("fontzoom", "0.5");
+        
+        var span=$(document.createElement("div")).addClass("iconAgendaItemText textfluid").html(textToWrite).attr("fontzoom", fontzoomEmpty);
         $(span).html(i18n.gettext("No tasks defined for today")).css("top", "40%");
         $(li).append(span);
         
@@ -101,15 +121,17 @@ agendaComponentClass.prototype.drawComponent=function drawComponent(){
         
         // Getting text
         var textToWrite=self.config[item].text;
-        if (textToWrite=="") textToWrite=i18n.gettext(item);
+        
+        if (textToWrite==="") textToWrite=i18n.gettext(item);
         
         // Getting Image
         var url_base="components/agenda/img/";
         if (self.config[item].hasOwnProperty("custom") && self.config[item].custom=="true")
         url_base="file:///"+appGlobal.configDir+"/components/agenda/";
         
-        var agendaitemText=$(document.createElement("div")).addClass("iconAgendaItemText textfluid").html(textToWrite).attr("fontzoom", "0.5");
-        var agendaitem=$(document.createElement("div")).addClass("iconAgendaContent").css("height", componentHeight+"%").css("background-image","url("+url_base+self.config[item].img+")");
+        var agendaitemText=$(document.createElement("div")).addClass("iconAgendaItemText textfluid").html(textToWrite).attr("fontzoom", fontzoom);
+        
+        var agendaitem=$(document.createElement("div")).addClass(classforAgendaItem).css("height", componentHeight+"%").css("background-image","url("+url_base+self.config[item].img+")");
 
         $(agendaitem).append(agendaitemText);
         $(li).append(agendaitem);
@@ -442,6 +464,18 @@ agendaComponentClass.prototype.getConfigDialog=function getConfigDialog(){
  
     var ret={"message": i18n.gettext("agenda.component.options")};    
     
+    
+    var AgendaConfigForm=$(document.createElement("div")).attr("id", "agendaConfigForm");
+    /*
+    WIP HERE:
+    
+    Queda afegir aci l'apartat d'escollir la disposició en vertical o horitzontal
+    una vegada es trie, es guarda en l'element i redibuixem.
+    
+    Fet això, passar el mateix (compte que he inclòs un div contenidor) a la configuració del menú.
+    
+    */
+       
     var input=$(document.createElement("div")).attr("id", "agendaConfig");
     //for (i in self.agendaOptions){
     for (var agenda in self.config){
@@ -458,7 +492,10 @@ agendaComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     
     
     
-    ret.input=$(input).prop("outerHTML");    
+    $(AgendaConfigForm).append(input);
+    ret.input=$(AgendaConfigForm).prop("outerHTML");
+    
+    //ret.input=$(input).prop("outerHTML");    
     
     ret.bindEvents=function(){
         

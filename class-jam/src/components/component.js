@@ -7,15 +7,17 @@ function Component(){
     this.configDir="";
     this.name="Generic Component";
     this.icon="css/images/asmode.png";
+    this.layout="";
 }
 
-Component.prototype.init=function init(data, config, configDir, visibility, actions){
+Component.prototype.init=function init(data, config, configDir, visibility, actions, layout){
     var self=this;
     self.info=data;
     self.config=config;
     self.configDir=configDir;
     self.visible=visibility;
     self.actions=actions;
+    if (layout!=="") self.layout=layout; // else, gets default values
 };
 
 Component.prototype.resetComponent=function resetComponent(){
@@ -853,9 +855,6 @@ Component.prototype.createFormRadios=function createFormRadios(data){
     return ret;
     
 }
-
-
-
 
 
 Component.prototype.saveActions=function saveActions(saveItem, data){

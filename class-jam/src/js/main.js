@@ -91,6 +91,7 @@ function UI(){
                   componentdata: $w.attr('data'),
                   componentconfig: $w.attr('config'),
                   componentactions: $w.attr('actions'),
+                  componentLayout: $w.attr('componentLayout'),
                   componentvisibility: $w.attr('visible') || "true",
                   /* defaults */
                   col: wgd.col,
@@ -975,6 +976,10 @@ UI.prototype.loadComponents=function loadComponents(){
         var currentconfig={};
         if(item.componentconfig) {currentconfig=JSON.parse(item.componentconfig);}
         
+        // loading widget layout if exists (for menu and agenda)
+        var componentLayout="";
+        if(item.componentLayout) {componentLayout=item.componentLayout;};
+        
         // loading widget actions
         var currentcomponentactions={};
 
@@ -989,7 +994,7 @@ UI.prototype.loadComponents=function loadComponents(){
         //self.componentHelper[current](self); // Call function to create object in function of its type
         self.components[component]=eval(self.componentHelper[component]);
         
-        self.components[current].init(currentdata, currentconfig, self.configDir, currentvisibility,currentcomponentactions);
+        self.components[current].init(currentdata, currentconfig, self.configDir, currentvisibility,currentcomponentactions, componentLayout);
         var gridItem=self.components[current].drawComponent();
         
         // Setting visibility to item

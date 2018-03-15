@@ -21,10 +21,8 @@
     overflow-x: hidden;v
 }
 
-.iconAgendaContent{
-    /*background: #ffeeaa;*/
+.iconAgendaContentVertical{
     margin: 1px;
-    /*height: 8%;*/
     min-height: 64px;
     max-height: 20% !important;
     width: 100%;
@@ -37,7 +35,22 @@
     transition: all 0.4s;
 }
 
-.iconAgendaContent:hover{
+
+.iconAgendaContentHorizontal{
+        margin: 1px;
+    height: 50%;
+    position: relative;
+    float: left;
+    
+    background-size: contain;
+    background-color: #ffffff;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 0.4s;
+    padding: 0px !important;
+}
+
+.iconAgendaContentVertical:hover, .iconAgendaContentHorizontal:hover{
     transition: all ease 0.2s;
     cursor: pointer;
     /*box-shadow: inset 0 0 0 100px rgba(36, 70, 105, 0.74);*/
@@ -45,10 +58,14 @@
     /*background-size: 80%;*/
 }
 
-.iconAgendaContent:hover .iconAgendaItemText, .iconAgendaContent.hover .iconAgendaItemText {
+.iconAgendaContentVertical:hover .iconAgendaItemText, ..iconAgendaContentVertical.hover .iconAgendaItemText {
         font-size: 2em !important;
+        text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;        
+}
+
+.iconAgendaContentHorizontal:hover .iconAgendaItemText, .iconAgendaContentHorizontal.hover .iconAgendaItemText {
+        font-size: 1em !important;
         text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
-        
 }
 
 .iconAgendaItemText{
