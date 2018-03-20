@@ -15,6 +15,7 @@
   "Save Config":"Guardar la configuración",
   "Export":"Exportar la asamblea",
 	"Help":"Consulta la ayuda",
+	"component.select.layout":"Seleccionar la disposición de componente",
   
   "weather.component.title": "¿Qué tiempo hace?",
   "weather.component.options":"Configurar el tiempo",
@@ -110,6 +111,7 @@
   "agenda.component.options":"Configurar la agenda",
   "ask_delete_agenda_item":"¿Desea eliminar por completo esta actividad de la agenda?",
   "custom.agenda.image.exists":"Ya existe una imagen con este nombre. ¿Desea borrarla y reemplazarla por la nueva?",
+	"agenda.select.components":"Configurar los elementos de la agenda",
   "yes":"Sí",
   "no":"No",
   "Hide.or.show.activity":"Oculta o muestra la actividad",
@@ -194,6 +196,7 @@
 	"Delete.menu":"Borrar el plato",
 	"Edit.menu":"Editar el plato",
 	"menu.component.options":"Configurar el menú",
+	"menu.select.components":"Configurar los elementos del menú",
 
 	"paella":"Paella",
 	"lentilles":"Lentejas",
@@ -219,7 +222,10 @@
    "canelons":"Canolones",
    "arròs a la cubana":"Arroz a la cubana",
    "cuixa de pollastre":"Muslo de pollo",
-   "encisam":"Lechuga"
+   "encisam":"Lechuga",
+	 
+	 "horizontal":"Horizontal",
+	 "vertical":"Vertical"
   
   
 }

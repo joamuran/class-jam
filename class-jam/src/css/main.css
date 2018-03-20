@@ -773,3 +773,56 @@ input[type="file"].text_error{
 .thumbnail:hover .removeBgButton{
     display: inline;
 }
+
+/*Vertical and horizontal components layout*/
+
+#divVIcon, #divHIcon {
+    padding: 0px !important;
+    margin: 0px !important;
+    width: 33%;
+    float: left;
+    text-align: center;
+    max-height: 128px;
+    max-height: 128px;
+    position: relative;
+}
+
+.textLayoutSelector{
+    width: 66%;
+    float: left;
+    position: relative;
+}
+
+.LayoutSelector{
+    float: left;
+    padding: 15px;
+    position: relative;
+    
+    /*css("background", "#3288e6").css("float", "left").css("padding", "15px");*/
+}
+
+.LayoutSelector.selected{
+    background-color: #e63288;
+}
+
+.LayoutSelector:hover{
+    background-color: #3288e6;
+}
+
+/*#divVIcon{
+    background-image: url(images/icons/vlayout.png);
+}
+
+#divHIcon{
+    background-image: url(images/icons/hlayout.png);
+}
+
+
+#divVIcon, #divHIcon {
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-right: -15px; 
+    margin-left: -15px;  
+    padding-bottom: 15px;
+    background-position: 50% 50%;
+}*/

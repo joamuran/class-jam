@@ -466,6 +466,33 @@ agendaComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     
     
     var AgendaConfigForm=$(document.createElement("div")).attr("id", "agendaConfigForm");
+    
+    //var AgendaLayoutSelectorText=$(document.createElement("div")).html(i18n.gettext("component.select.layout")).addClass("col-md-12").css("border-bottom", "1px solid #3288e6").css("margin-bottom", "10px");
+    var AgendaLayoutSelectorText=$(document.createElement("div")).html(i18n.gettext("component.select.layout")).css("width", "100%").css("border-bottom", "1px solid #3288e6").css("margin-bottom", "10px");
+    $(AgendaConfigForm).append(AgendaLayoutSelectorText);
+    
+    var divHV=$(document.createElement("div")).css("width", "100%");
+    
+    var divH=$(document.createElement("div")).attr("id", "HotizontalLayout").addClass("col-md-4 col-md-offset-1 LayoutSelector");
+    //var divHText=$(document.createElement("div")).html(i18n.gettext("horizontal")).addClass("col-md-9");
+    //var divHIcon=$(document.createElement("img")).addClass("col-md-3").attr("id", "divHIcon").attr("src", "css/images/icons/hlayout.png");
+    var divHText=$(document.createElement("div")).html(i18n.gettext("horizontal")).addClass("textLayoutSelector");
+    var divHIcon=$(document.createElement("img")).attr("id", "divHIcon").attr("src", "css/images/icons/hlayout.png");
+    $(divH).append(divHText, divHIcon);
+    
+    var divV=$(document.createElement("div")).attr("id", "VerticalLayout").addClass("col-md-4 col-md-offset-2 LayoutSelector");
+    //var divVText=$(document.createElement("div")).html(i18n.gettext("vertical")).addClass("col-md-9");
+    //var divVIcon=$(document.createElement("img")).addClass("col-md-3").attr("id", "divVIcon").attr("src", "css/images/icons/vlayout.png");
+    var divVText=$(document.createElement("div")).html(i18n.gettext("vertical")).addClass("textLayoutSelector");
+    var divVIcon=$(document.createElement("img")).attr("id", "divVIcon").attr("src", "css/images/icons/vlayout.png");
+    $(divV).append(divVText, divVIcon);
+    
+    $(divHV).append(divH, divV);
+    $(AgendaConfigForm).append(divHV);
+    
+    var AgendaItemsSelectorText=$(document.createElement("div")).html(i18n.gettext("agenda.select.components")).addClass("col-md-12").css("border-bottom", "1px solid #3288e6").css("margin-bottom", "10px");
+    $(AgendaConfigForm).append(AgendaItemsSelectorText);
+    
     /*
     WIP HERE:
     
@@ -476,7 +503,7 @@ agendaComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     
     */
        
-    var input=$(document.createElement("div")).attr("id", "agendaConfig");
+    var input=$(document.createElement("div")).attr("id", "agendaConfig").addClass("col-md-12");
     //for (i in self.agendaOptions){
     for (var agenda in self.config){
         

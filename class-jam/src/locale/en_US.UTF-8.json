@@ -15,6 +15,7 @@
   "Save Config":"Save configuration",
   "Export":"Export Assembly",
 	"Help":"Read Help",
+	"component.select.layout":"Select component layout",
   
   "weather.component.title": "What's the weather like?",
   "weather.component.options":"Select weather options",
@@ -106,6 +107,7 @@
   "agenda.component.title":"What will we do today?",
   "agenda.component.options":"Configure activities",
   "ask_delete_agenda_item":"Do you want to delete activity for this agenda?",
+	"agenda.select.components":"Select items for agenda",
   "yes":"Yes",
   "no":"No",
   "Hide.or.show.activity":"Hide or show activity",
@@ -191,6 +193,7 @@
 	"Delete.menu":"Delete dish",
 	"Edit.menu":"Edit dish",
 	"menu.component.options":"Configure menu",
+	"menu.select.components":"Configure menu items",	
 
 	"paella":"Paella",
 	"lentilles":"Lentils",
@@ -216,7 +219,10 @@
    "canelons":"Cannelloni",
    "arròs a la cubana":"Cuba style rice",
    "cuixa de pollastre":"Chicken thigh",
-   "encisam":"Lettuce"
+   "encisam":"Lettuce",
+	 
+	 "horizontal":"Horizontal",
+	 "vertical":"Vertical"
 }
 
 

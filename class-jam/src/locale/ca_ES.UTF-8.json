@@ -15,6 +15,7 @@
   "Save Config":"Guarda la configuració",
   "Export":"Exporta l'assemblea",
 	"Help":"Consulteu l'ajuda",
+	"component.select.layout":"Trieu el tipus de disposicio",
   
   "weather.component.title": "Quin temps fa?",
   "weather.component.options":"Configureu l'oratge",
@@ -106,6 +107,7 @@
   "agenda.today":"Agenda del dia",
   "agenda.component.title":"Què fem hui?",
   "agenda.component.options":"Configureu l'agenda",
+	"agenda.select.components":"Configureu els elements de l'agenda",
   "ask_delete_agenda_item":"Desitgeu eliminar aquesta activitat completament per a l'agenda?",
   "yes":"Sí",
   "no":"No",
@@ -192,6 +194,7 @@
 	"Delete.menu":"Esborra el plat",
 	"Edit.menu":"Edita el plat",
 	"menu.component.options":"Configureu el menú",
+	"menu.select.components":"Configureu els elements del menú",
 
 	"paella":"Paella",
 	"lentilles":"Lentilles",
@@ -217,7 +220,10 @@
    "canelons":"Canelons",
    "arròs a la cubana":"Arròs a la cubana",
    "cuixa de pollastre":"Cuixa de pollastre",
-   "encisam":"Encisam"
+   "encisam":"Encisam",
+	 
+	 "horizontal":"Horitzontal",
+	 "vertical":"Vertical"
 	
 	
  
