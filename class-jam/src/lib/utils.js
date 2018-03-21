@@ -2,6 +2,19 @@
 function UtilsClass(){}
 
 UtilsClass.prototype.resizeFonts=function resizeFonts(){
+    
+    //console.log(window.innerWidth+ " "+window.innerHeight);
+    
+    // RESIZE UI 
+    // From: Original size 1280x967
+    //var WinZoom=(window.innerWidth/1280)*100;
+    var WinZoomY=(window.innerHeight/967)*100;
+    var WinZoomX=(window.innerWidth/1280)*100;
+    var WinZoom=WinZoomX;
+    if (WinZoomX>WinZoomY) WinZoom=WinZoomY;
+    $("html").css("zoom", WinZoom+"%");
+    
+    
     //$("body").css("font-font-family","indieFlower");
     //$("body").css("font-family","indieFlower");
     /*$("body, .vex, .vex-theme-flat-attack, .vex-content").css("font-font-family","indieFlower");*/

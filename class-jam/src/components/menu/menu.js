@@ -359,6 +359,20 @@ menuComponentClass.prototype.bindEventsForConfigMenu=function bindEventsForConfi
     $(".editMenuComponent").off("click");
     $(".deleteMenuComponent").off("click");
     
+    $("#HorizontalLayout").off("click");
+    $("#VerticalLayout").off("click");
+    
+    $("#HorizontalLayout").on("click", function(){
+        $("#HorizontalLayout").addClass("selected");
+        $("#VerticalLayout").removeClass("selected");
+        });
+    
+    $("#VerticalLayout").on("click", function(){
+        $("#HorizontalLayout").removeClass("selected");
+        $("#VerticalLayout").addClass("selected");
+        });
+    
+    
     $(".addNewMenuComponent").on("click", function(){
         // Create new dialog for adding item
         self.showDialogForEditMenu();
@@ -449,7 +463,40 @@ menuComponentClass.prototype.bindEventsForConfigMenu=function bindEventsForConfi
 menuComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     var self=this;
  
-    var ret={"message": i18n.gettext("menu.component.options")};    
+    var ret={"message": i18n.gettext("menu.component.options")};
+    
+    
+    var MenuConfigForm=$(document.createElement("div")).attr("id", "menuConfigForm");
+    
+    
+    var MenuLayoutSelectorText=$(document.createElement("div")).html(i18n.gettext("component.select.layout")).addClass("LayoutSelectorText");
+    $(MenuConfigForm).append(MenuLayoutSelectorText);
+    
+    var divHV=$(document.createElement("div")).css("width", "100%").css("display", "-webkit-box");
+    
+    var divH=$(document.createElement("div")).attr("id", "HorizontalLayout").addClass("col-md-4 col-md-offset-1 LayoutSelector");
+    
+    var divHText=$(document.createElement("div")).html(i18n.gettext("horizontal")).addClass("textLayoutSelector");
+    var divHIcon=$(document.createElement("img")).attr("id", "divHIcon").attr("src", "css/images/icons/hlayout.png");
+    $(divH).append(divHText, divHIcon);
+    
+    var divV=$(document.createElement("div")).attr("id", "VerticalLayout").addClass("col-md-4 col-md-offset-2 LayoutSelector");
+    
+    // Setting up current layout
+    if (self.layout=="horizontal") $(divH).addClass("selected");
+    else $(divV).addClass("selected");
+        
+    var divVText=$(document.createElement("div")).html(i18n.gettext("vertical")).addClass("textLayoutSelector");
+    var divVIcon=$(document.createElement("img")).attr("id", "divVIcon").attr("src", "css/images/icons/vlayout.png");
+    $(divV).append(divVText, divVIcon);
+    
+    $(divHV).append(divH, divV);
+    $(MenuConfigForm).append(divHV);
+    
+    var MenuItemsSelectorText=$(document.createElement("div")).html(i18n.gettext("menu.select.components")).addClass("LayoutSelectorText");
+    $(MenuConfigForm).append(MenuItemsSelectorText);
+    
+    // Select dishes
     
     var input=$(document.createElement("div")).attr("id", "menuConfig");
     //for (i in self.menuOptions){
@@ -465,18 +512,21 @@ menuComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     var addConfigBt=$(document.createElement("div")).addClass("menuConfigItem addNewMenuComponent").addClass("col-md-2").attr("menu_data", "add_new_item").css("background-image","url(/css/images/icons/addAlum.png)").attr("id","addNewComponentForMenu");
     $(input).append(addConfigBt);
     
-    
-    
-    ret.input=$(input).prop("outerHTML");    
+    $(MenuConfigForm).append(input);
+    ret.input=$(MenuConfigForm).prop("outerHTML");    
     
     ret.bindEvents=function(){
-        
+        // draw upper vex dialog
+        $(".vex-content").css("margin-top", "-100px");
         self.bindEventsForConfigMenu();
         
     };
     
     ret.processDialog=function(){
         console.log ($("#menuComponent").attr("config"));
+        
+        if ($("#HorizontalLayout").hasClass("selected")) self.layout="horizontal";
+        else self.layout="vertical";
         
         for (var menu in self.config){
             var is_active=$(".menuConfigItem[menu_data='"+menu+"']").find(".visibilityIcon").hasClass("visibleItem");
@@ -489,6 +539,8 @@ menuComponentClass.prototype.getConfigDialog=function getConfigDialog(){
         }
         
         $("#menuComponent").attr("config", JSON.stringify(self.config));
+        $("#menuComponent").attr("componentlayout", self.layout);
+        self.reDrawComponent();
         
     // <div class="menuConfigItem col-md-2" menu_data="assembly" data="assembly" style="background-image: url(&quot;components/menu/img/assembly.png&quot;);"><div class="hideparentDiv"></div><div class="menuConfigText"><div class="menuText">Assemblea</div></div><div class="visibilityIcon hidenItem"></div></div>
         

@@ -19,7 +19,7 @@
    version="1.1"
    inkscape:version="0.92.2 (unknown)"
    sodipodi:docname="icons3.svg"
-   inkscape:export-filename="/srv/vcs/github/class-jam/class-jam/src/css/images/icons/help.png"
+   inkscape:export-filename="/srv/vcs/github/class-jam/class-jam/src/css/images/icons/hlayout.png"
    inkscape:export-xdpi="130.05"
    inkscape:export-ydpi="130.05">
   <defs
@@ -927,8 +927,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.0247525"
-     inkscape:cx="14.201304"
-     inkscape:cy="-22.252242"
+     inkscape:cx="-4.8276809"
+     inkscape:cy="-26.155623"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -3928,29 +3928,36 @@
            id="tspan6928-9"
            sodipodi:role="line">?</tspan></text>
     </g>
-    <rect
-       style="opacity:1;fill:#fbc40f;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:5.55221224;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:4.69999981;stroke-opacity:1"
-       id="rect5182"
-       width="51.526112"
-       height="51.526112"
-       x="61.597023"
-       y="878.9469"
-       ry="0" />
-    <rect
-       style="opacity:1;fill:#fbc40f;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:5.55221224;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:4.69999981;stroke-opacity:1"
-       id="rect5182-6"
-       width="51.526112"
-       height="51.526112"
-       x="61.597023"
-       y="938.01648"
-       ry="0" />
-    <rect
-       style="opacity:1;fill:#fbc40f;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:5.55221224;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:4.69999981;stroke-opacity:1"
-       id="rect5182-7"
-       width="51.526112"
-       height="51.526112"
-       x="61.597023"
-       y="997.08612"
-       ry="0" />
+    <g
+       id="g5208"
+       transform="rotate(90,88.297579,964.71705)">
+      <rect
+         transform="rotate(-90)"
+         ry="0"
+         y="61.597027"
+         x="-930.47302"
+         height="51.526112"
+         width="51.526112"
+         id="rect5182"
+         style="opacity:1;fill:#fbc40f;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:5.55221224;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:4.69999981;stroke-opacity:1" />
+      <rect
+         transform="rotate(-90)"
+         ry="0"
+         y="61.597019"
+         x="-989.5426"
+         height="51.526112"
+         width="51.526112"
+         id="rect5182-6"
+         style="opacity:1;fill:#fbc40f;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:5.55221224;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:4.69999981;stroke-opacity:1" />
+      <rect
+         transform="rotate(-90)"
+         ry="0"
+         y="61.597027"
+         x="-1048.6122"
+         height="51.526112"
+         width="51.526112"
+         id="rect5182-7"
+         style="opacity:1;fill:#fbc40f;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:5.55221224;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:4.69999981;stroke-opacity:1" />
+    </g>
   </g>
 </svg>

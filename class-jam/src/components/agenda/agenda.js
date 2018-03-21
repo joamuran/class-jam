@@ -371,6 +371,19 @@ agendaComponentClass.prototype.bindEventsForConfigAgenda=function bindEventsForC
     $(".editAgendaComponent").off("click");
     $(".deleteAgendaComponent").off("click");
     
+    $("#HorizontalLayout").off("click");
+    $("#VerticalLayout").off("click");
+    
+    $("#HorizontalLayout").on("click", function(){
+        $("#HorizontalLayout").addClass("selected");
+        $("#VerticalLayout").removeClass("selected");
+        });
+    
+    $("#VerticalLayout").on("click", function(){
+        $("#HorizontalLayout").removeClass("selected");
+        $("#VerticalLayout").addClass("selected");
+        });
+    
     $(".addNewAgendaComponent").on("click", function(){
         // Create new dialog for adding item
         self.showDialogForEditActivity();
@@ -467,22 +480,24 @@ agendaComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     
     var AgendaConfigForm=$(document.createElement("div")).attr("id", "agendaConfigForm");
     
-    //var AgendaLayoutSelectorText=$(document.createElement("div")).html(i18n.gettext("component.select.layout")).addClass("col-md-12").css("border-bottom", "1px solid #3288e6").css("margin-bottom", "10px");
-    var AgendaLayoutSelectorText=$(document.createElement("div")).html(i18n.gettext("component.select.layout")).css("width", "100%").css("border-bottom", "1px solid #3288e6").css("margin-bottom", "10px");
+    
+    var AgendaLayoutSelectorText=$(document.createElement("div")).html(i18n.gettext("component.select.layout")).addClass("LayoutSelectorText");
     $(AgendaConfigForm).append(AgendaLayoutSelectorText);
     
-    var divHV=$(document.createElement("div")).css("width", "100%");
+    var divHV=$(document.createElement("div")).css("width", "100%").css("display", "-webkit-box");
     
-    var divH=$(document.createElement("div")).attr("id", "HotizontalLayout").addClass("col-md-4 col-md-offset-1 LayoutSelector");
-    //var divHText=$(document.createElement("div")).html(i18n.gettext("horizontal")).addClass("col-md-9");
-    //var divHIcon=$(document.createElement("img")).addClass("col-md-3").attr("id", "divHIcon").attr("src", "css/images/icons/hlayout.png");
+    var divH=$(document.createElement("div")).attr("id", "HorizontalLayout").addClass("col-md-4 col-md-offset-1 LayoutSelector");
+    
     var divHText=$(document.createElement("div")).html(i18n.gettext("horizontal")).addClass("textLayoutSelector");
     var divHIcon=$(document.createElement("img")).attr("id", "divHIcon").attr("src", "css/images/icons/hlayout.png");
     $(divH).append(divHText, divHIcon);
     
     var divV=$(document.createElement("div")).attr("id", "VerticalLayout").addClass("col-md-4 col-md-offset-2 LayoutSelector");
-    //var divVText=$(document.createElement("div")).html(i18n.gettext("vertical")).addClass("col-md-9");
-    //var divVIcon=$(document.createElement("img")).addClass("col-md-3").attr("id", "divVIcon").attr("src", "css/images/icons/vlayout.png");
+    
+    // Setting up current layout
+    if (self.layout=="horizontal") $(divH).addClass("selected");
+    else $(divV).addClass("selected");
+        
     var divVText=$(document.createElement("div")).html(i18n.gettext("vertical")).addClass("textLayoutSelector");
     var divVIcon=$(document.createElement("img")).attr("id", "divVIcon").attr("src", "css/images/icons/vlayout.png");
     $(divV).append(divVText, divVIcon);
@@ -490,18 +505,10 @@ agendaComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     $(divHV).append(divH, divV);
     $(AgendaConfigForm).append(divHV);
     
-    var AgendaItemsSelectorText=$(document.createElement("div")).html(i18n.gettext("agenda.select.components")).addClass("col-md-12").css("border-bottom", "1px solid #3288e6").css("margin-bottom", "10px");
+    var AgendaItemsSelectorText=$(document.createElement("div")).html(i18n.gettext("agenda.select.components")).addClass("LayoutSelectorText");
     $(AgendaConfigForm).append(AgendaItemsSelectorText);
     
-    /*
-    WIP HERE:
-    
-    Queda afegir aci l'apartat d'escollir la disposició en vertical o horitzontal
-    una vegada es trie, es guarda en l'element i redibuixem.
-    
-    Fet això, passar el mateix (compte que he inclòs un div contenidor) a la configuració del menú.
-    
-    */
+
        
     var input=$(document.createElement("div")).attr("id", "agendaConfig").addClass("col-md-12");
     //for (i in self.agendaOptions){
@@ -525,13 +532,17 @@ agendaComponentClass.prototype.getConfigDialog=function getConfigDialog(){
     //ret.input=$(input).prop("outerHTML");    
     
     ret.bindEvents=function(){
-        
+        // draw upper vex dialog
+        $(".vex-content").css("margin-top", "-100px");
         self.bindEventsForConfigAgenda();
         
     };
     
     ret.processDialog=function(){
         console.log ($("#agendaComponent").attr("config"));
+        
+        if ($("#HorizontalLayout").hasClass("selected")) self.layout="horizontal";
+        else self.layout="vertical";
         
         for (var agenda in self.config){
             var is_active=$(".agendaConfigItem[agenda_data='"+agenda+"']").find(".visibilityIcon").hasClass("visibleItem");
@@ -544,6 +555,8 @@ agendaComponentClass.prototype.getConfigDialog=function getConfigDialog(){
         }
         
         $("#agendaComponent").attr("config", JSON.stringify(self.config));
+        $("#agendaComponent").attr("componentlayout", self.layout);
+        self.reDrawComponent();
         
     // <div class="agendaConfigItem col-md-2" agenda_data="assembly" data="assembly" style="background-image: url(&quot;components/agenda/img/assembly.png&quot;);"><div class="hideparentDiv"></div><div class="agendaConfigText"><div class="agendaText">Assemblea</div></div><div class="visibilityIcon hidenItem"></div></div>
         

@@ -793,16 +793,25 @@ input[type="file"].text_error{
     position: relative;
 }
 
+.LayoutSelectorText{
+    width: 100%;
+    border-bottom: 1px solid #3288e6;
+    margin-bottom: 10px;
+    margin-top:10px;
+}
+
 .LayoutSelector{
     float: left;
     padding: 15px;
     position: relative;
+    border-radius: 5px;
     
     /*css("background", "#3288e6").css("float", "left").css("padding", "15px");*/
 }
 
 .LayoutSelector.selected{
-    background-color: #e63288;
+    background-color: #DCEDC8;
+    border: 1px solid #8BC34A;
 }
 
 .LayoutSelector:hover{
