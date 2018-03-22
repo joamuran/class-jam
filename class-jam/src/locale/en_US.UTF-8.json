@@ -184,6 +184,7 @@
   "Press mic to discard and record another audio":"Press mic to discard last recording and record it again",
   "quit.without.record":"No audio has been recorded. Do you want to exit anyway?",
   
+	"Menu":"Menu Selector",
 	"custom.menu.image.exists":"There is an image with the same name. Remove and replace it?",
 	"what.will.we.eat.today":"¿What will we eat today?",
 	"menu.today":"Today's menu",

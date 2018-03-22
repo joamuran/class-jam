@@ -185,6 +185,7 @@
   "Press mic to discard and record another audio":"Polseu al micròfon per descartar els canvis i tornar a enregistrar l'audio",
   "quit.without.record":"No s'ha enregistrat cap so. Desitgeu eixir igualment?",
   
+	"Menu":"Tria els menús",
 	"custom.menu.image.exists":"Ja existeix una imatge amb aquet nom. Voleu esborrar-la i remplaçar-la?",
 	"what.will.we.eat.today":"Què dinem hui?",
 	"menu.today":"Menú del dia",

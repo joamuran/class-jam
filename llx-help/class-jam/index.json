@@ -7,18 +7,16 @@
         {"item": {
                     "title":"2. Una passeig per la interfície.",
                     "items":[
-                        
                         {"item": {
                         "title":"2.1. Entrada a l'aplicació.",
                         "filename":"2.interficie.md"
-                         }},
-                         {"item": {
-                        "title":"2.2. La interfície principal",
-                        "filename":"2.interficie.md(#Un passeig per la interfície)"
                          }}
-                        
                     ]
-            }}
+            }},
+            {"item": {
+            "title":"Crèdits",
+            "filename":"credits.md"
+        }}
         
     ]
 }

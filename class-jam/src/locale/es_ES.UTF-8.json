@@ -187,6 +187,7 @@
   "Press mic to discard and record another audio":"Pulse en el micrónomo para grabar de nuevo el audio",
   "quit.without.record":"No se ha grabado ningún sonido. ¿Desea salir igualmente?",
 	
+	"Menu":"Selección de menús",
 	"custom.menu.image.exists":"Ya existe una imagen con este nombre. ¿Desea borrarla y reemplazarla?",
 	"what.will.we.eat.today":"¿Qué comemos hoy?",
 	"menu.today":"Menú del dia",

@@ -653,8 +653,8 @@ UI.prototype.ShowConfigWindow=function ShowConfigWindow(){
     for (index in self.filedata) {
         //alert(index);
         var componentItem=self.components[self.filedata[index].component].getComponentControlIcon(self.filedata[index].component);
-        console.log(componentItem);
-        console.log(typeof(componentItem));
+        //console.log(componentItem);
+        //console.log(typeof(componentItem));
     
         input=input+componentItem.prop("outerHTML");
     }
