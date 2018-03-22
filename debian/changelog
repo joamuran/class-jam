@@ -1,3 +1,10 @@
+class-jam (1.2.3) xenial; urgency=medium
+
+  * Added layout configuration for menu and agenda layout
+  * Modified help
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Thu, 22 Mar 2018 14:00:17 +0100
+
 class-jam (1.2.2) xenial; urgency=high
 
   * Updated version
