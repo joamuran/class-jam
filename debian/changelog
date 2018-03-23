@@ -1,3 +1,9 @@
+class-jam (1.2.4) xenial; urgency=high
+
+  * Changed lliurex-tts TTS instead of chrome.tts.speak
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Fri, 23 Mar 2018 12:54:38 +0100
+
 class-jam (1.2.3) xenial; urgency=medium
 
   * Added layout configuration for menu and agenda layout

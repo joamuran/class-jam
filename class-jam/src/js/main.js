@@ -1492,7 +1492,6 @@ UI.prototype.createNewAssembly=function createNewAssembly(){
     
 }
 
-
 UI.prototype.speakPhrase=function speakPhrase(phrase) {
     // Howto: https://developer.chrome.com/apps/tts
     
@@ -1505,7 +1504,23 @@ UI.prototype.speakPhrase=function speakPhrase(phrase) {
         //phrase='<?xml version="1.0"?><speak>' +phrase+'</speak>';
         //phrase='<speak>' +phrase+'</speak>';
         //chrome.tts.speak(phrase, {'enqueue': true, 'lang':navigator.language, 'voiceName':"catalan espeak"});
-        chrome.tts.speak(phrase, {'enqueue': true, 'lang':'es', 'voiceName':"catalan espeak"});
+        // --> last // chrome.tts.speak(phrase, {'enqueue': true, 'lang':'es', 'voiceName':"catalan espeak"});
+         const { exec } = require('child_process');
+         var langParam=i18n.language;
+         if (langParam=="ca_ES.UTF-8") langParam="-p ca";
+         else if (langParam=="es_ES.UTF-8") langParam="es";
+         else if (langParam=="en_US.UTF-8") langParam="en";
+         
+        exec('simple-google-tts '+langParam+' "'+phrase+'"', (error, stdout, stderr) => {
+            if (error) {
+              console.error(`exec error: ${error}`);
+              return;
+              }
+        console.log(`stdout: ${stdout}`);
+        console.log(`stderr: ${stderr}`);
+        });
+            
+            
                 
         /*chrome.tts.getVoices(
           function(voices) {
