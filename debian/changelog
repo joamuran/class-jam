@@ -1,3 +1,10 @@
+class-jam (1.2.5) UNRELEASED; urgency=medium
+
+  * Enhaced UI zoom
+  * Removed text selection
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Wed, 28 Mar 2018 13:49:18 +0200
+
 class-jam (1.2.4) xenial; urgency=high
 
   * Changed lliurex-tts TTS instead of chrome.tts.speak

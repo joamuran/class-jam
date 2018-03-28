@@ -18,6 +18,13 @@ body{
     /*font-family: "indieFlower";*/
     font-family: "ShortStack";
     font-weight: 600;
+    
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select:none;
+    cursor: default;
+    
     /*font-size: 1.3vw;*/
 }
 
