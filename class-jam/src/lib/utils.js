@@ -8,16 +8,34 @@ UtilsClass.prototype.resizeFonts=function resizeFonts(){
     // RESIZE UI 
     // From: Original size 1280x967
     //var WinZoom=(window.innerWidth/1280)*100;
-    var WinZoomY=(window.innerHeight/967)*100;
-    var WinZoomX=(window.innerWidth/1280)*100;
+    
+    
+    console.log($("#gridster").css("width")+" "+$("#gridster").css("height")+" * "+$("#dashBoard").css("zoom"));
+    
+    
+    // getting elements sizes and positions to scale entire workspace
+    
+    var X=0;
+    var Y=0;
+    var dbTop=$("#dashBoard").position().top;
+    $(".component").each(function(index, item) {
+        console.log($(item).position().left);
+        
+        var dimX=$(item).position().left+item.offsetWidth+30;
+        var dimY=$(item).position().top+item.offsetHeight+10+dbTop;
+        
+        if (dimX>X) X=dimX;
+        if (dimY>Y) Y=dimY;
+    });
+    // X and Y are max values for items.
+    
+    var WinZoomY=(window.innerHeight/Y)*100;
+    var WinZoomX=(window.innerWidth/X)*100;
     var WinZoom=WinZoomX;
     if (WinZoomX>WinZoomY) WinZoom=WinZoomY;
-    $("html").css("zoom", WinZoom+"%");
     
+    $("#dashBoard").css("zoom", WinZoom+"%");
     
-    //$("body").css("font-font-family","indieFlower");
-    //$("body").css("font-family","indieFlower");
-    /*$("body, .vex, .vex-theme-flat-attack, .vex-content").css("font-font-family","indieFlower");*/
     
     // Setting uppercase in Player mode if it's selected
     if (appGlobal.useUpperCase && appGlobal.mode==="player"){
