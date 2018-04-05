@@ -2,6 +2,8 @@ class-jam (1.2.5) UNRELEASED; urgency=medium
 
   * Enhaced UI zoom
   * Removed text selection
+  * removed col-md-2 on horizontal alignement for menu and agenda
+  * Added resizefonts in carrousel for menu and agenda
 
  -- Jose A. Murcia <joamuran@gmail.com>  Wed, 28 Mar 2018 13:49:18 +0200
 

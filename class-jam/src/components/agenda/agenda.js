@@ -94,7 +94,7 @@ agendaComponentClass.prototype.drawComponent=function drawComponent(){
         titlezoom="0.5";
         fontzoomEmpty="0.6"; 
         fontzoom="1.1";
-        classforAgendaItem="col-md-2 iconAgendaContentHorizontal"; 
+        classforAgendaItem="iconAgendaContentHorizontal"; 
         
     } else {                    // Vertical
         titlezoom="1";
@@ -851,6 +851,9 @@ agendaComponentClass.prototype.PlayComponent=function PlayComponent(compDiv){
                 "-o-transform": "rotateY("+currdeg+"deg)",
                 "transform": "rotateY("+currdeg+"deg)"
               });
+              
+              setTimeout( function() {Utils.resizeFonts();}, 500 );
+              
             }
             
             

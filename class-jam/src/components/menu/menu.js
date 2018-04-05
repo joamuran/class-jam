@@ -81,7 +81,7 @@ menuComponentClass.prototype.drawComponent=function drawComponent(){
         titlezoom="0.5";
         fontzoomEmpty="0.6"; 
         fontzoom="1.1";
-        classforMenuItem="col-md-2 iconMenuContentHorizontal";        
+        classforMenuItem="iconMenuContentHorizontal";
     } else {                    // Vertical
         titlezoom="1";
         fontzoomEmpty="0.5";
@@ -835,6 +835,8 @@ menuComponentClass.prototype.PlayComponent=function PlayComponent(compDiv){
                 "-o-transform": "rotateY("+currdeg+"deg)",
                 "transform": "rotateY("+currdeg+"deg)"
               });
+              setTimeout( function() {Utils.resizeFonts();}, 500 );
+
             }
             
             
