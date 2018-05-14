@@ -1,11 +1,12 @@
-class-jam (1.2.5) UNRELEASED; urgency=medium
+class-jam (1.2.5) xenial; urgency=high
 
   * Enhaced UI zoom
   * Removed text selection
   * removed col-md-2 on horizontal alignement for menu and agenda
   * Added resizefonts in carrousel for menu and agenda
+  * Added !important to customCSS.
 
- -- Jose A. Murcia <joamuran@gmail.com>  Wed, 28 Mar 2018 13:49:18 +0200
+ -- Jose A. Murcia <joamuran@gmail.com>  Mon, 14 May 2018 13:15:58 +0200
 
 class-jam (1.2.4) xenial; urgency=high
 

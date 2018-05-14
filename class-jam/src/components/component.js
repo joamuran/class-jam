@@ -226,14 +226,15 @@ Component.prototype.changeImage=function changeImage(itemclicked, componentname)
                     var item=new Object();
                     item.type="rule";
                     item.selectors=[selector];
-                    item.declarations=[{type:"declaration", property:"background-image", value:"url(img/"+filename+"?v="+(new Date).getTime()+")"}];
+                    item.declarations=[{type:"declaration", property:"background-image", value:"url(img/"+filename+"?v="+(new Date).getTime()+") !important"}];
                     ast.stylesheet.rules.push(item);
                     
                     // 2) for selector with hover
                     var item=new Object();
                     item.type="rule";
                     item.selectors=[selectorhover];
-                    item.declarations=[{type:"declaration", property:"background-image", value:"url(img/"+filename+"?v="+(new Date).getTime()+"), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5));"}];
+                    item.declarations=[{type:"declaration", property:"background-image", value:"url(img/"+filename+"?v="+(new Date).getTime()+"), linear-gradient( 0deg, white, white 20%, rgba(255,255,255,0.5)) !important"}];
+                    
                     ast.stylesheet.rules.push(item);
                     
                     //3) css object to string
