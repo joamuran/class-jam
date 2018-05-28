@@ -40,9 +40,9 @@ UtilsClass.prototype.resizeFonts=function resizeFonts(){
     // Setting uppercase in Player mode if it's selected
     if (appGlobal.useUpperCase && appGlobal.mode==="player"){
             $("body").css("text-transform","uppercase");
-            $("#header").css("text-transform","capitalize");
+            $("#header").css("text-transform","none");
     } else {
-        $("body").css("text-transform","capitalize");
+        $("body").css("text-transform","none");
     }
         
     // Resizes al fonts defined with fluid class according to its zoom component and its container
