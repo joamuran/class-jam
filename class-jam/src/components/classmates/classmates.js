@@ -67,7 +67,7 @@ classmatesComponentClass.prototype.drawComponent=function drawComponent(){
             
             //console.log(self.info[i]);
             
-            var aluname="Sense Nom";
+            var aluname="";
             var aluimg=appGlobal.metadata.icon;
             
             console.log(typeof(self.config[i]));
@@ -118,7 +118,7 @@ classmatesComponentClass.prototype.getASDialog=function getASDialog(){
     console.log(self.config);
     
        for (i in self.config){
-            var aluname="Sense Nom";
+            var aluname="";
             //var aluimg="components/classmates/img/alum.png";
             var aluimg=appGlobal.metadata.icon;
        

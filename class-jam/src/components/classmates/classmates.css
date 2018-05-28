@@ -125,6 +125,7 @@
     position: absolute;
     bottom: 0px;
     border-top: 1px solid #000000;
+    font-size: 1vw;
 }
 
 .classMatesContainer3cols{grid-template-columns: 30% 30% 30%;}
