@@ -94,7 +94,8 @@
   "ask_delete_background":"Destgeu eliminar aquesta imatge de fons?",
   "No_keep_bg":"No, mantín la imatge de fons",
   "yes_remove_bg":"Sí, elimina la imatge de fons",
-  
+
+  "Select Image":"Trieu la imatge",  
   "add.new.image":"Modifiqueu la imatge",
   "back.to.default.image": "Restaura la imatge per defecte",
   "ask_overwrite_assembly":"Ja existeix una assemble amb aquest nom, la voleu sobreescriure?",

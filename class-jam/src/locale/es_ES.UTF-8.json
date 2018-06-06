@@ -96,7 +96,7 @@
   "No_keep_bg":"No, mantén el fondo",
   "yes_remove_bg":"Sí, elimina el fondo",
   
-  
+  "Select Image":"Elige la imagen",  
   "add.new.image":"Modifica la imatgen",
   "back.to.default.image": "Restaura la imagen por defecto",
   "ask_overwrite_assembly":"Ya existe una asamblea con este nombre, desea sobreescribirla?",

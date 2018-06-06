@@ -596,7 +596,7 @@ agendaComponentClass.prototype.showDialogForEditActivity=function showDialogForE
     text+="<input id='uploadImgForActivity' name='uploadImgForActivity' type='file' style='display:none;'  accept='.jpg, .png, .gif'"+defaultValueForImg+"></input>";
             
     vex.dialog.open({
-        message:"Select Image",
+        message:i18n.gettext("Select Image"),
         input:text,
         showCloseButton: true,
         /*escapeButtonCloses: true,*/

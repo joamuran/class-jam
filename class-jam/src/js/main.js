@@ -721,7 +721,7 @@ UI.prototype.ShowConfigWindow=function ShowConfigWindow(){
                 console.log(text);
             
                 vex.dialog.open({
-                    message:"Select Image",
+                    message:i18n.gettext("Select Image"),
                     input:text,
                     showCloseButton: true,
                     /*escapeButtonCloses: true,*/

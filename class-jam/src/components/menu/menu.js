@@ -580,7 +580,7 @@ menuComponentClass.prototype.showDialogForEditMenu=function showDialogForEditMen
     text+="<input id='uploadImgForMenu' name='uploadImgForMenu' type='file' style='display:none;'  accept='.jpg, .png, .gif'"+defaultValueForImg+"></input>";
             
     vex.dialog.open({
-        message:"Select Image",
+        message:i18n.gettext("Select Image"),
         input:text,
         showCloseButton: true,
         /*escapeButtonCloses: true,*/
