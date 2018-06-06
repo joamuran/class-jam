@@ -196,6 +196,7 @@
 	"Edit.menu":"Edit dish",
 	"menu.component.options":"Configure menu",
 	"menu.select.components":"Configure menu items",	
+    "new.menu.name":"Write dish menu",
 
 	"paella":"Paella",
 	"lentilles":"Lentils",

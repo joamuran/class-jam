@@ -198,6 +198,7 @@
 	"Edit.menu":"Editar el plato",
 	"menu.component.options":"Configurar el menú",
 	"menu.select.components":"Configurar los elementos del menú",
+    "new.menu.name":"Escribir el nombre del plato",
 
 	"paella":"Paella",
 	"lentilles":"Lentejas",

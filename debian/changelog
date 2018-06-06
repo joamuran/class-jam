@@ -1,3 +1,9 @@
+class-jam (1.2.7) xenial; urgency=medium
+
+  * Fixed some i18n bugs
+
+ -- joamuran <joamuran@gmail.com>  Wed, 06 Jun 2018 18:50:31 +0200
+
 class-jam (1.2.6) xenial; urgency=high
 
   * Fixed text size responsivest in classmates
