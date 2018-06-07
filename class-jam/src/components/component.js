@@ -783,8 +783,8 @@ Component.prototype.createFormRadios=function createFormRadios(data){
             var hidden=$(document.createElement("input")).attr("type", "hidden").attr("name", data.radios[radio].id+"_helperlabel_hidden").val(data.radios[radio].helperlabel).attr("id", data.radios[radio].id+"_helperlabel_hidden");
             $(ret).append(hidden);
             
-            //var mimetypes=".mp4, .mpeg, .mpg, .avi, .ogv";
-            var mimetypes=".ogv, .matroska";
+            var mimetypes=".mp4, .mpeg, .mpg, .avi, .ogv";
+            // var mimetypes=".ogv, .matroska";
             if (data.radios[radio].id==="playOnShow" || data.radios[radio].id==="AudioOnPlay") mimetypes=".mp3, .wav, .ogg";
             var text=$(document.createElement("input")).attr("type", "file").addClass("col-md-9 AudioFileInput").attr("accept", mimetypes).attr("name",data.radios[radio].id+"_file").attr("radioTarget", data.radios[radio].id).attr("target", data.radios[radio].id+"_helperlabel_hidden").attr("id", data.radios[radio].id+"_file"); // Target -> hidden element to modify when changes
                         
