@@ -3,6 +3,13 @@
 # Show splash
 python /usr/share/class-jam/splash.py &
 
-# Loading app
-/usr/share/nwjs0.21/nw /usr/share/class-jam/src
-~                                                            
+# Loading app in function of nwjs installed
+
+
+if [ -x /usr/share/nwjs0.30/nw ]; then 
+	echo "Launching app with nwjs0.30.5"
+	/usr/share/nwjs0.30/nw /usr/share/class-jam/src
+elif [ -x /usr/share/nwjs0.21/nw ]; then 
+echo "Launching app with nwjs0.21"
+	/usr/share/nwjs0.21/nw /usr/share/class-jam/src
+fi
