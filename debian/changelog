@@ -1,6 +1,8 @@
-class-jam (1.2.7) xenial; urgency=medium
+class-jam (1.2.7) xenial; urgency=high
 
   * Fixed some i18n bugs
+  * Updated dependencies to nwjs0.30 or nwjs0.21
+  * Fixed launcher, to load app in function of nwjs version is installed
 
  -- joamuran <joamuran@gmail.com>  Wed, 06 Jun 2018 18:50:31 +0200
 
