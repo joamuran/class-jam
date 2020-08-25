@@ -2,7 +2,8 @@ var fs = require('fs');
 var path = require('path');
 
 function I18n(language){
-	if (language=="ca_ES.UTF-8@valencia") language="ca_ES.UTF-8";
+	if (language=="ca_ES.UTF-8@valencia" || language=="ca_ES.utf8@valencia") language="ca_ES.UTF-8";
+	// Not working pn plasma: if (language=="ca_ES.UTF-8@valencia") language="ca_ES.UTF-8";
 	// També cal comprovar si és a la llista d'idiomes suportats i si no, posar per defecte valencià
 	this.language = language;
 	this.fullpath = path.join('./locale/'+this.language+'.json');

@@ -11,11 +11,13 @@ function unbzip2Stream() {
     var broken = false;
     var done = false;
     var bitReader = null;
+    var streamCRC = null;
 
     function decompressBlock(push){
         if(!blockSize){
             blockSize = bz2.header(bitReader);
             //console.error("got header of", blockSize);
+            streamCRC = 0;
             return true;
         }else{
             var bufsize = 100000 * blockSize;
@@ -26,14 +28,14 @@ function unbzip2Stream() {
                 chunk.push(b);
             };
 
-            var done = bz2.decompress(bitReader, f, buf, bufsize);        
-            if (done) {
-                push(null);
-                //console.error('done');
+            streamCRC = bz2.decompress(bitReader, f, buf, bufsize, streamCRC);
+            if (streamCRC === null) {
+                // reset for next bzip2 header
+                blockSize = 0;
                 return false;
             }else{
                 //console.error('decompressed', chunk.length,'bytes');
-                push(new Buffer(chunk));
+                push(Buffer.from(chunk));
                 return true;
             }
         }
@@ -70,16 +72,20 @@ function unbzip2Stream() {
                     return bufferQueue.shift();
                 });
             }
-            while (hasBytes - bitReader.bytesRead + 1 >= ((25000 + 100000 * blockSize) || 4)){
+            while (!broken && hasBytes - bitReader.bytesRead + 1 >= ((25000 + 100000 * blockSize) || 4)){
                 //console.error('decompressing with', hasBytes - bitReader.bytesRead + 1, 'bytes in buffer');
-                if (!done) done = !decompressAndQueue(this);
-                if (done) break;
+                decompressAndQueue(this);
             }
         },
         function end(x) {
             //console.error(x,'last compressing with', hasBytes, 'bytes in buffer');
-            if (!done) {
-                while(decompressAndQueue(this));
+            while (!broken && bitReader && hasBytes > bitReader.bytesRead){
+                decompressAndQueue(this);
+            }
+            if (!broken) {
+                if (streamCRC !== null)
+                    this.emit('error', new Error("input stream ended prematurely"));
+                this.queue(null);
             }
         }
     );

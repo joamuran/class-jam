@@ -1,12 +1,13 @@
 # find-exec
 
 [![Build Status](https://travis-ci.org/shime/find-exec.svg)](https://travis-ci.org/shime/find-exec)
+[![Downloads](https://img.shields.io/npm/dt/find-exec.svg)](https://npmjs.org/package/find-exec)
 
 Takes a list of shell commands and returns the first available. Works synchronously to respect the order.
 
 Returns `null` if none of the listed commands were found.
 
-## examples
+## Examples
 
     $ which mplayer
     which: no mplayer
@@ -24,10 +25,10 @@ var command = require('find-exec')(["mplayer"])
 console.log(command) // null
 ```
 
-## installation
+## Installation
 
     npm install find-exec
 
-## license
+## License
 
 MIT
