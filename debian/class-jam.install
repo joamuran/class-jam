@@ -3,4 +3,4 @@ bin/* /usr/bin/
 desktops/* /usr/share/
 icons/* /usr/share/pixmaps/
 llx-help/* /usr/share/lliurex-help/documents/
-nwjs/* /usr/share/class-jam/
+nwjs/* /usr/share/class-jam/src/
