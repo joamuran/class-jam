@@ -1598,7 +1598,18 @@ UI.prototype.LaunchAssembly = function LaunchAssembly(id) {
 
         //$("#monthComponent").attr("data-row", 3)
         
-        for (i of self.filedata){
+	var isEmpty=false;
+	var countIn1=0;
+	for (i of self.filedata){
+	    if (i.col==1 && i.row==1) countIn1++;
+	    if (countIn1>2) {
+	        isEmpty=true;
+		break;
+	    }
+	}
+
+	if (!isEmpty) 
+	  for (i of self.filedata){
 
             console.log(i.component);
             console.log(i.row);
@@ -1611,7 +1622,7 @@ UI.prototype.LaunchAssembly = function LaunchAssembly(id) {
             $("#"+i.component).attr("data-sizex", i.size_x);
             $("#"+i.component).attr("data-sizey", i.size_y);
             
-        }
+          }
         
 
         $(".gridster li").removeClass("editable");
