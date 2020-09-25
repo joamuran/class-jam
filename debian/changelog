@@ -1,3 +1,11 @@
+class-jam (1.4) bionic; urgency=high
+
+  * Fixed bugs in export
+  * Fixed bug in layout from gridster
+  * Included nwjs into package
+
+ -- Jose A. Murcia <joamuran@gmail.com>  Fri, 25 Sep 2020 23:27:14 +0200
+
 class-jam (1.3) bionic; urgency=high
 
   * Fixed i18n bug for plasma dekstop
