@@ -2,7 +2,7 @@ Format: http://dep.debian.net/deps/dep5
 Upstream-Name: lliurex-team 
 Source: http://svn.lliurex.net/trusty/admin-center
 
-Files: src/
+Files: class-jam/*
 Copyright: 2016-2018 Jose A. Murcia <joamuran@gmail.com>
 License: GPL-3.0+
 
@@ -18,9 +18,17 @@ Files: src/components/componentIcons/*
 Copyright: Various artists (Webalys Freebies, Smashicons, monkik...) from www.flaticon.com 
 License: CC 3.0 BY
 
-Files: src/*/*.png
+Files: llx-help/*
+Copyright: 2016-2018 Jose A. Murcia <joamuran@gmail.com>
+License: GPL-3.0+
+
+Files: src/*/*.png0
 Copyright: Sergio Palao for ARASAAC
 License:  CC BY-NC-SA
+
+Files: *
+Copyright: 2016-2018 LliureX Team
+License: GPL-3.0+
 
 License: GPL-3.0+
  This program is free software: you can redistribute it and/or modify
