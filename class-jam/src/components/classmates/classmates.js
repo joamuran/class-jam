@@ -293,7 +293,7 @@ classmatesComponentClass.prototype.SelectImageForAlu=function SelectImageForAlu(
         var alu=$(this).attr("id").replace("img", "");
         var fileselector=$(document.createElement("input")).attr("id", "fileSelector").attr("type", "file").css("display", "none");
         $(classmatesConfig).append(fileselector);
-        $(fileselector).on("change", function(){
+        $(fileselector).on("change", async function(){
             
             try{
                 // Check mimetype for image
@@ -308,10 +308,11 @@ classmatesComponentClass.prototype.SelectImageForAlu=function SelectImageForAlu(
                 var classmatesdir=self.configDir+"/components/classmates/";
                 if (!fs.existsSync(classmatesdir)) {
                     fs.mkdirSync(classmatesdir); }
-    
-                //console.log(fileType(buffer));
-                    
-                if (fileType(buffer).mime.split("/")[0]=="image"){
+                
+                let type = await fileType.fromBuffer(buffer);
+                //console.log(type);
+                
+                if (type.mime.split("/")[0]=="image"){
                     var fs=require('fs');
                        
                     var filename=newImage.split("/").pop();

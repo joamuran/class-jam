@@ -842,3 +842,33 @@ input[type="file"].text_error{
     padding-bottom: 15px;
     background-position: 50% 50%;
 }*/
+
+
+/*  Exporting Spinner*/ 
+
+.lds-dual-ring {
+    
+    vertical-align: middle;
+    display: inline-block;
+    width: 180px;
+    height: 180px;
+  }
+  .lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 164px;
+    height: 164px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #2962ff;
+    border-color: #2962ff transparent #2962cc transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

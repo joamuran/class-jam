@@ -212,10 +212,19 @@ UI.prototype.PlayComponent = function PlayComponent(component) {
                         $("#youtubeplayer").remove();
                     });
 
-                if ($("#mediaplayer").css("display") !== "none")
+
+                document.querySelectorAll(".mediaplayer").forEach(function(item){
+                    console.log(item);
+                    //if ($(item).css("display")!=="none")
+                    $(item).fadeOut(function () {
+                        $(item).remove();
+                    });
+                })
+
+                /*if ($("#mediaplayer").css("display") !== "none")
                     $("#mediaplayer").fadeOut(function () {
                         $("#mediaplayer").remove();
-                    });
+                    });*/
 
                 $(playWindow).animate({
                     opacity: 0
@@ -303,6 +312,13 @@ UI.prototype.importAssemblyClick = function importAssemblyClick() {
 
 UI.prototype.exportAssembly = function exportAssembly(path) {
     try {
+        // Fons blanc per esperara a que s'acabe de guardar
+        var w=$(document.createElement("div")).addClass("playWindow").attr("id","savingWindow").css("opacity", 0.8).css("padding", "30% 50%");
+        var spinner=$(document.createElement("div")).addClass("lds-dual-ring");
+        $(w).append(spinner);   
+        $("body").append(w);
+        
+
         var self = this;
         //alert("Saving "+self.configDir+"to "+path);
 
@@ -327,6 +343,7 @@ UI.prototype.exportAssembly = function exportAssembly(path) {
                 output.on('close', function () {
                     console.log(archive.pointer() + ' total bytes');
                     console.log('archiver has been finalized and the output file descriptor has closed.');
+                    $("#savingWindow").fadeOut(300, function() { $(this).remove(); });
                 });
 
                 // This event is fired when the data source is drained no matter what was the data source.
@@ -360,7 +377,9 @@ UI.prototype.exportAssembly = function exportAssembly(path) {
                 //archive.glob(tmpdir+"/*"); //some glob pattern here
 
 
-                archive.finalize();
+                archive.finalize().then(function(){
+                    archive.end();
+                })
 
 
             });
@@ -979,7 +998,7 @@ UI.prototype.getComponentConfig = function getComponentConfig(component) {
     }
 };
 
-UI.prototype.loadComponents = function loadComponents() {
+UI.prototype.loadComponents = function loadComponents(callback) {
     var self = this;
 
     // Parse all components possible, and check if is configured.
@@ -1047,6 +1066,9 @@ UI.prototype.loadComponents = function loadComponents() {
     // Fit text to its container
     Utils.resizeFonts();
 
+
+    callback();
+
 }
 
 UI.prototype.createDirStructure = function createDirStructure() {
@@ -1056,7 +1078,7 @@ UI.prototype.createDirStructure = function createDirStructure() {
     // fs.mkdirSync(self.configDir+"/classmates"); // -> TO-DO; Move to new asemblea creatio process
 }
 
-UI.prototype.checkConfigDir = function checkConfigDir() {
+UI.prototype.checkConfigDir = function checkConfigDir(callback) {
     var fs = require("fs");
     var self = this;
 
@@ -1081,7 +1103,7 @@ UI.prototype.checkConfigDir = function checkConfigDir() {
 
 
 
-        self.loadComponents();
+        self.loadComponents(callback);
     } catch (e) {
         // Config dir does not exists, let's create it
         console.log(e);
@@ -1097,7 +1119,7 @@ UI.prototype.checkConfigDir = function checkConfigDir() {
                 self.metadata = fileContent.metadata;
                 self.filedata = fileContent.components;
 
-                self.loadComponents();
+                self.loadComponents(callback);
             });
         }
 
@@ -1582,9 +1604,7 @@ UI.prototype.LaunchAssembly = function LaunchAssembly(id) {
     self.configFile = self.configDir + "/config.json";
 
     // loading components
-    self.checkConfigDir();
-
-    setTimeout(function () {
+    self.checkConfigDir(function () {  // Funció de callback per a quan estiga tot carregat
         // setting events
         self.bindEvents();
         // Aplying font resize
@@ -1628,7 +1648,7 @@ UI.prototype.LaunchAssembly = function LaunchAssembly(id) {
         $(".gridster li").removeClass("editable");
         self.mode = "player";
 
-    }, 100);
+    });
 };
 
 
