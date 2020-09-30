@@ -17,5 +17,5 @@ Exec=class-jam
 Terminal=false
 StartupNotify=false
 Categories=LliureX-Infantil;GTK;Education
-Icon=class-jam
+Icon=/usr/share/pixmaps/class-jam.png
 TryExec=/usr/bin/class-jam
