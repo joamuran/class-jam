@@ -1,9 +1,4 @@
+# Adding large files (.so)
+$ git lfs track "nwjs/lib/libnw.so"
+Tracking "nwjs/lib/libnw.so"
 
-Crete phonegap app from blank template:
-phonegap create ClassroomAssembly --template blank
-
-
-Download plugins for cordova:
-
-phonegap plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-file.git
-(http://docs.phonegap.com/en/3.0.0/cordova_file_file.md.html)
